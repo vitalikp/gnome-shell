@@ -90,6 +90,7 @@ schema = configure_file(
   configuration: schemaconf,
   install_dir: schemadir
 )
+install_data('00_org.gnome.shell.gschema.override', install_dir: schemadir)
 
 if have_systemd
   unitconf = configuration_data()
