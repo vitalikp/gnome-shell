@@ -887,6 +887,9 @@ var ThumbnailsBox = new Lang.Class({
     },
 
     _destroyThumbnails() {
+        if (this._thumbnails.length == 0)
+            return;
+
         if (this._switchWorkspaceNotifyId > 0) {
             global.window_manager.disconnect(this._switchWorkspaceNotifyId);
             this._switchWorkspaceNotifyId = 0;
