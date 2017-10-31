@@ -5,7 +5,6 @@ const Gdk = imports.gi.Gdk;
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 const Gtk = imports.gi.Gtk;
-const Lang = imports.lang;
 const Mainloop = imports.mainloop;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
@@ -692,15 +691,12 @@ function queueDeferredWork(workId) {
     }
 }
 
-var RestartMessage = new Lang.Class({
-    Name: 'RestartMessage',
-    Extends: ModalDialog.ModalDialog,
-
-    _init(message) {
-        this.parent({ shellReactive: true,
-                      styleClass: 'restart-message headline',
-                      shouldFadeIn: false,
-                      destroyOnClose: true });
+var RestartMessage = class extends ModalDialog.ModalDialog {
+    constructor(message) {
+        super({ shellReactive: true,
+                styleClass: 'restart-message headline',
+                shouldFadeIn: false,
+                destroyOnClose: true });
 
         let label = new St.Label({ text: message });
 
@@ -710,7 +706,7 @@ var RestartMessage = new Lang.Class({
                                         y_align: St.Align.MIDDLE });
         this.buttonLayout.hide();
     }
-});
+};
 
 function showRestartMessage(message) {
     let restartMessage = new RestartMessage(message);

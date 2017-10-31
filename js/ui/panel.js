@@ -490,16 +490,14 @@ var ActivitiesButton = new Lang.Class({
     }
 });
 
-var PanelCorner = new Lang.Class({
-    Name: 'PanelCorner',
-
-    _init(side) {
+var PanelCorner = class {
+    constructor(side) {
         this._side = side;
 
         this.actor = new St.DrawingArea({ style_class: 'panel-corner' });
         this.actor.connect('style-changed', this._styleChanged.bind(this));
         this.actor.connect('repaint', this._repaint.bind(this));
-    },
+    }
 
     _findRightmostButton(container) {
         if (!container.get_children)
@@ -524,7 +522,7 @@ var PanelCorner = new Lang.Class({
             return this._findRightmostButton(children[index]);
 
         return children[index];
-    },
+    }
 
     _findLeftmostButton(container) {
         if (!container.get_children)
@@ -549,7 +547,7 @@ var PanelCorner = new Lang.Class({
             return this._findLeftmostButton(children[index]);
 
         return children[index];
-    },
+    }
 
     setStyleParent(box) {
         let side = this._side;
@@ -595,7 +593,7 @@ var PanelCorner = new Lang.Class({
             // the .panel-button default
             button.style = 'transition-duration: 0ms';
         }
-    },
+    }
 
     _repaint() {
         let node = this.actor.get_theme_node();
@@ -643,7 +641,7 @@ var PanelCorner = new Lang.Class({
         }
 
         cr.$dispose();
-    },
+    }
 
     _styleChanged() {
         let node = this.actor.get_theme_node();
@@ -654,7 +652,7 @@ var PanelCorner = new Lang.Class({
         this.actor.set_size(cornerRadius, borderWidth + cornerRadius);
         this.actor.set_anchor_point(0, borderWidth);
     }
-});
+};
 
 var AggregateLayout = new Lang.Class({
     Name: 'AggregateLayout',

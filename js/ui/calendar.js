@@ -4,7 +4,6 @@ const Clutter = imports.gi.Clutter;
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 const Gtk = imports.gi.Gtk;
-const Lang = imports.lang;
 const St = imports.gi.St;
 const Signals = imports.signals;
 const Shell = imports.gi.Shell;
@@ -89,44 +88,40 @@ function _getCalendarDayAbbreviation(dayNumber) {
 
 // Abstraction for an appointment/event in a calendar
 
-var CalendarEvent = new Lang.Class({
-    Name: 'CalendarEvent',
-
-    _init(id, date, end, summary, allDay) {
+var CalendarEvent = class CalendarEvent {
+    constructor(id, date, end, summary, allDay) {
         this.id = id;
         this.date = date;
         this.end = end;
         this.summary = summary;
         this.allDay = allDay;
     }
-});
+};
 
 // Interface for appointments/events - e.g. the contents of a calendar
 //
 
 // First, an implementation with no events
-var EmptyEventSource = new Lang.Class({
-    Name: 'EmptyEventSource',
-
-    _init() {
+var EmptyEventSource = class EmptyEventSource {
+    constructor() {
         this.isLoading = false;
-    },
+    }
 
     destroy() {
-    },
+    }
 
     requestRange(begin, end) {
-    },
+    }
 
     getEvents(begin, end) {
         let result = [];
         return result;
-    },
+    }
 
     hasEvents(day) {
         return false;
     }
-});
+};
 Signals.addSignalMethods(EmptyEventSource.prototype);
 
 function _datesEqual(a, b) {
@@ -147,10 +142,8 @@ function _dateIntervalsOverlap(a0, a1, b0, b1)
         return true;
 }
 
-var Calendar = new Lang.Class({
-    Name: 'Calendar',
-
-    _init() {
+var Calendar = class Calendar {
+    constructor() {
         this._weekStart = Shell.util_get_week_start();
         this._settings = new Gio.Settings({ schema_id: 'org.gnome.desktop.calendar' });
 
@@ -188,7 +181,7 @@ var Calendar = new Lang.Class({
                            this._onScroll.bind(this));
 
         this._buildHeader ();
-    },
+    }
 
     // @eventSource: is an object implementing the EventSource API, e.g. the
     // requestRange(), getEvents(), hasEvents() methods and the ::changed signal.
@@ -200,7 +193,7 @@ var Calendar = new Lang.Class({
         });
         this._rebuildCalendar();
         this._update();
-    },
+    }
 
     // Sets the calendar to show a specific date
     setDate(date) {
@@ -210,14 +203,14 @@ var Calendar = new Lang.Class({
         this._selectedDate = date;
         this._update();
         this.emit('selected-date-changed', new Date(this._selectedDate));
-    },
+    }
 
     updateTimeZone() {
         // The calendar need to be rebuilt after a time zone update because
         // the date might have changed.
         this._rebuildCalendar();
         this._update();
-    },
+    }
 
     _buildHeader() {
         let layout = this.actor.layout_manager;
@@ -274,7 +267,7 @@ var Calendar = new Lang.Class({
 
         // All the children after this are days, and get removed when we update the calendar
         this._firstDayIndex = this.actor.get_n_children();
-    },
+    }
 
     _onScroll(actor, event) {
         switch (event.get_scroll_direction()) {
@@ -288,7 +281,7 @@ var Calendar = new Lang.Class({
             break;
         }
         return Clutter.EVENT_PROPAGATE;
-    },
+    }
 
     _onPrevMonthButtonClicked() {
         let newDate = new Date(this._selectedDate);
@@ -312,7 +305,7 @@ var Calendar = new Lang.Class({
         this._backButton.grab_key_focus();
 
         this.setDate(newDate);
-    },
+    }
 
     _onNextMonthButtonClicked() {
         let newDate = new Date(this._selectedDate);
@@ -336,14 +329,14 @@ var Calendar = new Lang.Class({
         this._forwardButton.grab_key_focus();
 
         this.setDate(newDate);
-    },
+    }
 
     _onSettingsChange() {
         this._useWeekdate = this._settings.get_boolean(SHOW_WEEKDATE_KEY);
         this._buildHeader();
         this._rebuildCalendar();
         this._update();
-    },
+    }
 
     _rebuildCalendar() {
         let now = new Date();
@@ -461,7 +454,7 @@ var Calendar = new Lang.Class({
         // Signal to the event source that we are interested in events
         // only from this date range
         this._eventSource.requestRange(beginDate, iter);
-    },
+    }
 
     _update() {
         let now = new Date();
@@ -484,18 +477,17 @@ var Calendar = new Lang.Class({
                 button.remove_style_pseudo_class('selected');
         });
     }
-});
+};
 Signals.addSignalMethods(Calendar.prototype);
 
-var EventMessage = new Lang.Class({
-    Name: 'EventMessage',
-    Extends: MessageList.Message,
+var EventMessage = class EventMessage extends MessageList.Message {
+    constructor(event, date) {
+        super('', event.summary);
 
-    _init(event, date) {
         this._event = event;
         this._date = date;
 
-        this.parent(this._formatEventTime(), event.summary);
+        this.setTitle(this._formatEventTime());
 
         this._icon = new St.Icon({ icon_name: 'x-office-calendar-symbolic' });
         this.setIcon(this._icon);
@@ -504,7 +496,7 @@ var EventMessage = new Lang.Class({
             let iconVisible = this.actor.get_parent().has_style_pseudo_class('first-child');
             this._icon.opacity = (iconVisible ? 255 : 0);
         });
-    },
+    }
 
     _formatEventTime() {
         let periodBegin = _getBeginningOfDay(this._date);
@@ -538,17 +530,15 @@ var EventMessage = new Lang.Class({
         }
         return title;
     }
-});
+};
 
-var NotificationMessage = new Lang.Class({
-    Name: 'NotificationMessage',
-    Extends: MessageList.Message,
-
-    _init(notification) {
-        this.notification = notification;
-
-        this.parent(notification.title, notification.bannerBodyText);
+var NotificationMessage =
+class NotificationMessage extends MessageList.Message {
+    constructor(notification) {
+        super(notification.title, notification.bannerBodyText);
         this.setUseBodyMarkup(notification.bannerBodyMarkup);
+
+        this.notification = notification;
 
         this.setIcon(this._getIcon());
 
@@ -565,7 +555,7 @@ var NotificationMessage = new Lang.Class({
         });
         this._updatedId = notification.connect('updated',
                                                this._onUpdated.bind(this));
-    },
+    }
 
     _getIcon() {
         if (this.notification.gicon)
@@ -573,23 +563,23 @@ var NotificationMessage = new Lang.Class({
                                  icon_size: MESSAGE_ICON_SIZE });
         else
             return this.notification.source.createIcon(MESSAGE_ICON_SIZE);
-    },
+    }
 
     _onUpdated(n, clear) {
         this.setIcon(this._getIcon());
         this.setTitle(n.title);
         this.setBody(n.bannerBodyText);
         this.setUseBodyMarkup(n.bannerBodyMarkup);
-    },
+    }
 
     _onClicked() {
         this.notification.activate();
-    },
+    }
 
     _onDestroy() {
-        this.parent();
+        super._onDestroy();
         this._disconnectNotificationSignals();
-    },
+    }
 
     _disconnectNotificationSignals() {
         if (this._updatedId)
@@ -599,25 +589,22 @@ var NotificationMessage = new Lang.Class({
         if (this._destroyId)
             this.notification.disconnect(this._destroyId);
         this._destroyId = 0;
-    },
+    }
 
     canClose() {
         return true;
     }
-});
+};
 
-var EventsSection = new Lang.Class({
-    Name: 'EventsSection',
-    Extends: MessageList.MessageListSection,
+var EventsSection = class EventsSection extends MessageList.MessageListSection {
+    constructor() {
+        super();
 
-    _init() {
         this._desktopSettings = new Gio.Settings({ schema_id: 'org.gnome.desktop.interface' });
         this._desktopSettings.connect('changed', this._reloadEvents.bind(this));
         this._eventSource = new EmptyEventSource();
 
         this._messageById = new Map();
-
-        this.parent();
 
         this._title = new St.Button({ style_class: 'events-section-title',
                                       label: '',
@@ -631,16 +618,16 @@ var EventsSection = new Lang.Class({
         Shell.AppSystem.get_default().connect('installed-changed',
                                               this._appInstalledChanged.bind(this));
         this._appInstalledChanged();
-    },
+    }
 
     setEventSource(eventSource) {
         this._eventSource = eventSource;
         this._eventSource.connect('changed', this._reloadEvents.bind(this));
-    },
+    }
 
     get allowed() {
         return Main.sessionMode.showCalendarEvents;
-    },
+    }
 
     _updateTitle() {
         this._title.visible = !isToday(this._date);
@@ -659,7 +646,7 @@ var EventsSection = new Lang.Class({
             dayFormat = Shell.util_translate_time_string(NC_("calendar heading",
                                                              "%A, %B %-d, %Y"));
         this._title.label = this._date.toLocaleFormat(dayFormat);
-    },
+    }
 
     _reloadEvents() {
         if (this._eventSource.isLoading)
@@ -694,12 +681,12 @@ var EventsSection = new Lang.Class({
 
         this._reloading = false;
         this._sync();
-    },
+    }
 
     _appInstalledChanged() {
         this._calendarApp = undefined;
         this._title.reactive = (this._getCalendarApp() != null);
-    },
+    }
 
     _getCalendarApp() {
         if (this._calendarApp !== undefined)
@@ -714,7 +701,7 @@ var EventsSection = new Lang.Class({
             this._calendarApp = null;
         }
         return this._calendarApp;
-    },
+    }
 
     _onTitleClicked() {
         Main.overview.hide();
@@ -722,32 +709,30 @@ var EventsSection = new Lang.Class({
 
         let app = this._getCalendarApp();
         app.launch([], global.create_app_launch_context(0, -1));
-    },
+    }
 
     setDate(date) {
-        this.parent(date);
+        super.setDate(date);
         this._updateTitle();
         this._reloadEvents();
-    },
+    }
 
     _shouldShow() {
         return !this.empty || !isToday(this._date);
-    },
+    }
 
     _sync() {
         if (this._reloading)
             return;
 
-        this.parent();
+        super._sync();
     }
-});
+};
 
-var NotificationSection = new Lang.Class({
-    Name: 'NotificationSection',
-    Extends: MessageList.MessageListSection,
-
-    _init() {
-        this.parent();
+var NotificationSection =
+class NotificationSection extends MessageList.MessageListSection {
+    constructor() {
+        super();
 
         this._sources = new Map();
         this._nUrgent = 0;
@@ -758,12 +743,12 @@ var NotificationSection = new Lang.Class({
         });
 
         this.actor.connect('notify::mapped', this._onMapped.bind(this));
-    },
+    }
 
     get allowed() {
         return Main.sessionMode.hasNotifications &&
                !Main.sessionMode.isGreeter;
-    },
+    }
 
     _createTimeLabel(datetime) {
         let label = new St.Label({ style_class: 'event-time',
@@ -774,7 +759,7 @@ var NotificationSection = new Lang.Class({
                 label.text = Util.formatTimeSpan(datetime);
         });
         return label;
-    },
+    }
 
     _sourceAdded(tray, source) {
         let obj = {
@@ -789,7 +774,7 @@ var NotificationSection = new Lang.Class({
                                                  this._onNotificationAdded.bind(this));
 
         this._sources.set(source, obj);
-    },
+    }
 
     _onNotificationAdded(source, notification) {
         let message = new NotificationMessage(notification);
@@ -820,14 +805,14 @@ var NotificationSection = new Lang.Class({
 
         let index = isUrgent ? 0 : this._nUrgent;
         this.addMessageAtIndex(message, index, this.actor.mapped);
-    },
+    }
 
     _onSourceDestroy(source, obj) {
         source.disconnect(obj.destroyId);
         source.disconnect(obj.notificationAddedId);
 
         this._sources.delete(source);
-    },
+    }
 
     _onMapped() {
         if (!this.actor.mapped)
@@ -836,20 +821,18 @@ var NotificationSection = new Lang.Class({
         for (let message of this._messages.keys())
             if (message.notification.urgency != MessageTray.Urgency.CRITICAL)
                 message.notification.acknowledged = true;
-    },
+    }
 
     _shouldShow() {
         return !this.empty && isToday(this._date);
     }
-});
+};
 
 const EVENTS_ICON = 'x-office-calendar-symbolic';
 const NOTIFICATION_ICON = 'preferences-system-notifications-symbolic';
 
-var Placeholder = new Lang.Class({
-    Name: 'Placeholder',
-
-    _init() {
+var Placeholder = class Placeholder {
+    constructor() {
         this.actor = new St.BoxLayout({ style_class: 'message-list-placeholder',
                                         vertical: true });
 
@@ -862,14 +845,14 @@ var Placeholder = new Lang.Class({
         this.actor.add_actor(this._label);
 
         this._sync();
-    },
+    }
 
     setDate(date) {
         if (sameDay(this._date, date))
             return;
         this._date = date;
         this._sync();
-    },
+    }
 
     _sync() {
         let today = isToday(this._date);
@@ -886,12 +869,10 @@ var Placeholder = new Lang.Class({
             this._label.text = _("No Events");
         }
     }
-});
+};
 
-var CalendarMessageList = new Lang.Class({
-    Name: 'CalendarMessageList',
-
-    _init() {
+var CalendarMessageList = class CalendarMessageList {
+    constructor() {
         this.actor = new St.Widget({ style_class: 'message-list',
                                      layout_manager: new Clutter.BinLayout(),
                                      x_expand: true, y_expand: true });
@@ -937,7 +918,7 @@ var CalendarMessageList = new Lang.Class({
         this._addSection(this._eventsSection);
 
         Main.sessionMode.connect('updated', this._sync.bind(this));
-    },
+    }
 
     _addSection(section) {
         let obj = {
@@ -962,7 +943,7 @@ var CalendarMessageList = new Lang.Class({
         this._sections.set(section, obj);
         this._sectionList.add_actor(section.actor);
         this._sync();
-    },
+    }
 
     _removeSection(section) {
         let obj = this._sections.get(section);
@@ -975,11 +956,11 @@ var CalendarMessageList = new Lang.Class({
         this._sections.delete(section);
         this._sectionList.remove_actor(section.actor);
         this._sync();
-    },
+    }
 
     _onKeyFocusIn(section, actor) {
         Util.ensureActorVisibleInScrollView(this._scrollView, actor);
-    },
+    }
 
     _sync() {
         let sections = [...this._sections.keys()];
@@ -994,15 +975,15 @@ var CalendarMessageList = new Lang.Class({
 
         let canClear = sections.some(s => s.canClear && s.actor.visible);
         this._clearButton.reactive = canClear;
-    },
+    }
 
     setEventSource(eventSource) {
         this._eventsSection.setEventSource(eventSource);
-    },
+    }
 
     setDate(date) {
         for (let section of this._sections.keys())
             section.setDate(date);
         this._placeholder.setDate(date);
     }
-});
+};

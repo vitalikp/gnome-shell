@@ -28,10 +28,8 @@ function _isToday(date) {
            now.getDate() == date.getDate();
 }
 
-var TodayButton = new Lang.Class({
-    Name: 'TodayButton',
-
-    _init(calendar) {
+var TodayButton = class TodayButton {
+    constructor(calendar) {
         // Having the ability to go to the current date if the user is already
         // on the current date can be confusing. So don't make the button reactive
         // until the selected date changes.
@@ -60,7 +58,7 @@ var TodayButton = new Lang.Class({
             // current date.
             this.actor.reactive = !_isToday(date)
         });
-    },
+    }
 
     setDate(date) {
         this._dayLabel.set_text(date.toLocaleFormat('%A'));
@@ -80,12 +78,10 @@ var TodayButton = new Lang.Class({
         dateFormat = Shell.util_translate_time_string (N_("%A %B %e %Y"));
         this.actor.accessible_name = date.toLocaleFormat(dateFormat);
     }
-});
+};
 
-var WorldClocksSection = new Lang.Class({
-    Name: 'WorldClocksSection',
-
-    _init() {
+var WorldClocksSection = class WorldClocksSection {
+    constructor() {
         this._clock = new GnomeDesktop.WallClock();
         this._clockNotifyId = 0;
 
@@ -115,11 +111,11 @@ var WorldClocksSection = new Lang.Class({
         this._clockAppMon.watchSetting('world-clocks',
                                        this._clocksChanged.bind(this));
         this._sync();
-    },
+    }
 
     _sync() {
         this.actor.visible = this._clockAppMon.available;
-    },
+    }
 
     _clocksChanged(settings) {
         this._grid.destroy_all_children();
@@ -172,7 +168,7 @@ var WorldClocksSection = new Lang.Class({
                 this._clock.disconnect(this._clockNotifyId);
             this._clockNotifyId = 0;
         }
-    },
+    }
 
     _updateLabels() {
         for (let i = 0; i < this._locations.length; i++) {
@@ -182,12 +178,10 @@ var WorldClocksSection = new Lang.Class({
             l.actor.text = Util.formatTime(now, { timeOnly: true });
         }
     }
-});
+};
 
-var MessagesIndicator = new Lang.Class({
-    Name: 'MessagesIndicator',
-
-    _init() {
+var MessagesIndicator = class MessagesIndicator {
+    constructor() {
         this.actor = new St.Icon({ icon_name: 'message-indicator-symbolic',
                                    icon_size: 16,
                                    visible: false, y_expand: true,
@@ -201,18 +195,18 @@ var MessagesIndicator = new Lang.Class({
 
         let sources = Main.messageTray.getSources();
         sources.forEach(source => { this._onSourceAdded(null, source); });
-    },
+    }
 
     _onSourceAdded(tray, source) {
         source.connect('count-updated', this._updateCount.bind(this));
         this._sources.push(source);
         this._updateCount();
-    },
+    }
 
     _onSourceRemoved(tray, source) {
         this._sources.splice(this._sources.indexOf(source), 1);
         this._updateCount();
-    },
+    }
 
     _updateCount() {
         let count = 0;
@@ -221,7 +215,7 @@ var MessagesIndicator = new Lang.Class({
 
         this.actor.visible = (count > 0);
     }
-});
+};
 
 var IndicatorPad = new Lang.Class({
     Name: 'IndicatorPad',
@@ -433,5 +427,5 @@ var DateMenuButton = new Lang.Class({
         // but the corresponding app (clocks); however we can consider
         // that display-specific settings, so re-use "allowSettings" here ...
         this._displaysSection.visible = Main.sessionMode.allowSettings;
-    }
+    },
 });
