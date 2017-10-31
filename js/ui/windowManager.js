@@ -4,7 +4,6 @@ const Clutter = imports.gi.Clutter;
 const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
 const GObject = imports.gi.GObject;
-const Lang = imports.lang;
 const Mainloop = imports.mainloop;
 const Meta = imports.gi.Meta;
 const Pango = imports.gi.Pango;
@@ -518,45 +517,43 @@ var TouchpadWorkspaceSwitchAction = class {
 };
 Signals.addSignalMethods(TouchpadWorkspaceSwitchAction.prototype);
 
-var WorkspaceSwitchAction = new Lang.Class({
-    Name: 'WorkspaceSwitchAction',
-    Extends: Clutter.SwipeAction,
+var WorkspaceSwitchAction = GObject.registerClass({
     Signals: { 'activated': { param_types: [Meta.MotionDirection.$gtype] },
                'motion':    { param_types: [GObject.TYPE_DOUBLE, GObject.TYPE_DOUBLE] },
                'cancel':    { param_types: [] }},
-
+}, class WorkspaceSwitchAction extends Clutter.SwipeAction {
     _init() {
-        this.parent();
+        super._init();
         this.set_n_touch_points(4);
         this._swept = false;
 
         global.display.connect('grab-op-begin', () => {
             this.cancel();
         });
-    },
+    }
 
     vfunc_gesture_prepare(actor) {
         let allowedModes = Shell.ActionMode.NORMAL | Shell.ActionMode.OVERVIEW;
 
         this._swept = false;
 
-        if (!this.parent(actor))
+        if (!super.vfunc_gesture_prepare(actor))
             return false;
 
         return (allowedModes & Main.actionMode);
-    },
+    }
 
     vfunc_gesture_progress(actor) {
         let [x, y] = this.get_motion_coords(0);
         let [xPress, yPress] = this.get_press_coords(0);
         this.emit('motion', x - xPress, y - yPress);
         return true;
-    },
+    }
 
     vfunc_gesture_cancel(actor) {
         if (!this._swept)
             this.emit('cancel');
-    },
+    }
 
     vfunc_swipe(actor, direction) {
         let [x, y] = this.get_motion_coords(0);
@@ -583,19 +580,17 @@ var WorkspaceSwitchAction = new Lang.Class({
     }
 });
 
-var AppSwitchAction = new Lang.Class({
-    Name: 'AppSwitchAction',
-    Extends: Clutter.GestureAction,
+var AppSwitchAction = GObject.registerClass({
     Signals: { 'activated': {} },
-
+}, class AppSwitchAction extends Clutter.GestureAction {
     _init() {
-        this.parent();
+        super._init();
         this.set_n_touch_points(3);
 
         global.display.connect('grab-op-begin', () => {
             this.cancel();
         });
-    },
+    }
 
     vfunc_gesture_prepare(action, actor) {
         if (Main.actionMode != Shell.ActionMode.NORMAL) {
@@ -604,7 +599,7 @@ var AppSwitchAction = new Lang.Class({
         }
 
         return this.get_n_current_points() <= 4;
-    },
+    }
 
     vfunc_gesture_begin(action, actor) {
         // in milliseconds
@@ -628,7 +623,7 @@ var AppSwitchAction = new Lang.Class({
         }
 
         return this.get_n_current_points() <= 4;
-    },
+    }
 
     vfunc_gesture_progress(action, actor) {
         const MOTION_THRESHOLD = 30;
