@@ -406,15 +406,15 @@ var TilePreview = class {
 
         this._showing = true;
         this.actor.show();
-        Tweener.addTween(this.actor,
-                         { x: tileRect.x,
-                           y: tileRect.y,
-                           width: tileRect.width,
-                           height: tileRect.height,
-                           opacity: 255,
-                           time: WINDOW_ANIMATION_TIME / 1000,
-                           transition: 'easeOutQuad'
-                         });
+        this.actor.ease({
+            x: tileRect.x,
+            y: tileRect.y,
+            width: tileRect.width,
+            height: tileRect.height,
+            opacity: 255,
+            duration: WINDOW_ANIMATION_TIME,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
     }
 
     hide() {
@@ -422,12 +422,12 @@ var TilePreview = class {
             return;
 
         this._showing = false;
-        Tweener.addTween(this.actor,
-                         { opacity: 0,
-                           time: WINDOW_ANIMATION_TIME / 1000,
-                           transition: 'easeOutQuad',
-                           onComplete: this._reset.bind(this)
-                         });
+        this.actor.ease({
+            opacity: 0,
+            duration: WINDOW_ANIMATION_TIME,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+            onComplete: () => this._reset()
+        });
     }
 
     _reset() {
@@ -1110,15 +1110,13 @@ var WindowManager = class {
             return;
         let switchData = this._switchData;
         this._switchData = null;
-        Tweener.addTween(switchData.container,
-                         { x: 0,
-                           y: 0,
-                           time: WINDOW_ANIMATION_TIME / 1000,
-                           transition: 'easeOutQuad',
-                           onComplete: this._finishWorkspaceSwitch,
-                           onCompleteScope: this,
-                           onCompleteParams: [switchData],
-                         });
+        switchData.container.ease({
+            x: 0,
+            y: 0,
+            duration: WINDOW_ANIMATION_TIME,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+            onComplete: () => this._finishWorkspaceSwitch(switchData)
+        });
     }
 
     _actionSwitchWorkspace(action, direction) {
@@ -1257,17 +1255,17 @@ var WindowManager = class {
         this._minimizing.push(actor);
 
         if (actor.meta_window.is_monitor_sized()) {
-            Tweener.addTween(actor,
-                             { opacity: 0,
-                               time: MINIMIZE_WINDOW_ANIMATION_TIME / 1000,
-                               transition: 'easeOutQuad',
-                               onComplete: this._minimizeWindowDone,
-                               onCompleteScope: this,
-                               onCompleteParams: [shellwm, actor],
-                               onOverwrite: this._minimizeWindowOverwritten,
-                               onOverwriteScope: this,
-                               onOverwriteParams: [shellwm, actor]
-                             });
+            actor.ease({
+                opacity: 0,
+                duration: MINIMIZE_WINDOW_ANIMATION_TIME,
+                mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onStopped: isFinished => {
+                    if (isFinished)
+                        this._minimizeWindowDone(shellwm, actor);
+                    else
+                        this._minimizeWindowOverwritten(shellwm, actor);
+                }
+            });
         } else {
             let xDest, yDest, xScale, yScale;
             let [success, geom] = actor.meta_window.get_icon_geometry();
@@ -1290,26 +1288,26 @@ var WindowManager = class {
                 yScale = 0;
             }
 
-            Tweener.addTween(actor,
-                             { scale_x: xScale,
-                               scale_y: yScale,
-                               x: xDest,
-                               y: yDest,
-                               time: MINIMIZE_WINDOW_ANIMATION_TIME / 1000,
-                               transition: 'easeInExpo',
-                               onComplete: this._minimizeWindowDone,
-                               onCompleteScope: this,
-                               onCompleteParams: [shellwm, actor],
-                               onOverwrite: this._minimizeWindowOverwritten,
-                               onOverwriteScope: this,
-                               onOverwriteParams: [shellwm, actor]
-                             });
+            actor.ease({
+                scale_x: xScale,
+                scale_y: yScale,
+                x: xDest,
+                y: yDest,
+                duration: MINIMIZE_WINDOW_ANIMATION_TIME,
+                mode: Clutter.AnimationMode.EASE_IN_EXPO,
+                onStopped: isFinished => {
+                    if (isFinished)
+                        this._minimizeWindowDone(shellwm, actor);
+                    else
+                        this._minimizeWindowOverwritten(shellwm, actor);
+                }
+            });
         }
     }
 
     _minimizeWindowDone(shellwm, actor) {
         if (this._removeEffect(this._minimizing, actor)) {
-            Tweener.removeTweens(actor);
+            actor.remove_all_transitions();
             actor.set_scale(1.0, 1.0);
             actor.set_opacity(255);
             actor.set_pivot_point(0, 0);
@@ -1338,17 +1336,17 @@ var WindowManager = class {
         if (actor.meta_window.is_monitor_sized()) {
             actor.opacity = 0;
             actor.set_scale(1.0, 1.0);
-            Tweener.addTween(actor,
-                             { opacity: 255,
-                               time: MINIMIZE_WINDOW_ANIMATION_TIME / 1000,
-                               transition: 'easeOutQuad',
-                               onComplete: this._unminimizeWindowDone,
-                               onCompleteScope: this,
-                               onCompleteParams: [shellwm, actor],
-                               onOverwrite: this._unminimizeWindowOverwritten,
-                               onOverwriteScope: this,
-                               onOverwriteParams: [shellwm, actor]
-                             });
+            actor.ease({
+                opacity: 255,
+                duration: MINIMIZE_WINDOW_ANIMATION_TIME,
+                mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onStopped: isFinished => {
+                    if (isFinished)
+                        this._unminimizeWindowDone(shellwm, actor);
+                    else
+                        this._unminimizeWindowOverwritten(shellwm, actor);
+                }
+            });
         } else {
             let [success, geom] = actor.meta_window.get_icon_geometry();
             if (success) {
@@ -1372,26 +1370,26 @@ var WindowManager = class {
             let [xDest, yDest] = [rect.x, rect.y];
 
             actor.show();
-            Tweener.addTween(actor,
-                             { scale_x: 1.0,
-                               scale_y: 1.0,
-                               x: xDest,
-                               y: yDest,
-                               time: MINIMIZE_WINDOW_ANIMATION_TIME / 1000,
-                               transition: 'easeInExpo',
-                               onComplete: this._unminimizeWindowDone,
-                               onCompleteScope: this,
-                               onCompleteParams: [shellwm, actor],
-                               onOverwrite: this._unminimizeWindowOverwritten,
-                               onOverwriteScope: this,
-                               onOverwriteParams: [shellwm, actor]
-                             });
+            actor.ease({
+                scale_x: 1,
+                scale_y: 1,
+                x: xDest,
+                y: yDest,
+                duration: MINIMIZE_WINDOW_ANIMATION_TIME,
+                mode: Clutter.AnimationMode.EASE_IN_EXPO,
+                onStopped: isFinished => {
+                    if (isFinished)
+                        this._unminimizeWindowDone(shellwm, actor);
+                    else
+                        this._unminimizeWindowOverwritten(shellwm, actor);
+                }
+            });
         }
     }
 
     _unminimizeWindowDone(shellwm, actor) {
         if (this._removeEffect(this._unminimizing, actor)) {
-            Tweener.removeTweens(actor);
+            actor.remove_all_transitions();
             actor.set_scale(1.0, 1.0);
             actor.set_opacity(255);
             actor.set_pivot_point(0, 0);
@@ -1457,15 +1455,15 @@ var WindowManager = class {
         this._resizing.push(actor);
 
         // Now scale and fade out the clone
-        Tweener.addTween(actorClone,
-                         { x: targetRect.x,
-                           y: targetRect.y,
-                           scale_x: scaleX,
-                           scale_y: scaleY,
-                           opacity: 0,
-                           time: WINDOW_ANIMATION_TIME / 1000,
-                           transition: 'easeOutQuad'
-                         });
+        actorClone.ease({
+            x: targetRect.x,
+            y: targetRect.y,
+            scale_x: scaleX,
+            scale_y: scaleY,
+            opacity: 0,
+            duration: WINDOW_ANIMATION_TIME,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD
+        });
 
         actor.translation_x = -targetRect.x + sourceRect.x;
         actor.translation_y = -targetRect.y + sourceRect.y;
@@ -1475,20 +1473,20 @@ var WindowManager = class {
         actor.scale_y = 1 / scaleY;
 
         // Scale it to its actual new size
-        Tweener.addTween(actor,
-                         { scale_x: 1.0,
-                           scale_y: 1.0,
-                           translation_x: 0,
-                           translation_y: 0,
-                           time: WINDOW_ANIMATION_TIME / 1000,
-                           transition: 'easeOutQuad',
-                           onComplete: this._sizeChangeWindowDone,
-                           onCompleteScope: this,
-                           onCompleteParams: [shellwm, actor],
-                           onOverwrite: this._sizeChangeWindowOverwritten,
-                           onOverwriteScope: this,
-                           onOverwriteParams: [shellwm, actor]
-                         });
+        actor.ease({
+            scale_x: 1,
+            scale_y: 1,
+            translation_x: 0,
+            translation_y: 0,
+            duration: WINDOW_ANIMATION_TIME,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+            onStopped: isFinished => {
+                if (isFinished)
+                    this._sizeChangeWindowDone(shellwm, actor);
+                else
+                    this._sizeChangeWindowOverwritten(shellwm, actor);
+            }
+        });
 
         // Now unfreeze actor updates, to get it to the new size.
         // It's important that we don't wait until the animation is completed to
@@ -1508,7 +1506,7 @@ var WindowManager = class {
 
     _sizeChangeWindowDone(shellwm, actor) {
         if (this._removeEffect(this._resizing, actor)) {
-            Tweener.removeTweens(actor);
+            actor.remove_all_transitions();
             actor.scale_x = 1.0;
             actor.scale_y = 1.0;
             actor.translation_x = 0;
@@ -1626,19 +1624,19 @@ var WindowManager = class {
             actor.show();
             this._mapping.push(actor);
 
-            Tweener.addTween(actor,
-                             { opacity: 255,
-                               scale_x: 1,
-                               scale_y: 1,
-                               time: SHOW_WINDOW_ANIMATION_TIME / 1000,
-                               transition: 'easeOutExpo',
-                               onComplete: this._mapWindowDone,
-                               onCompleteScope: this,
-                               onCompleteParams: [shellwm, actor],
-                               onOverwrite: this._mapWindowOverwrite,
-                               onOverwriteScope: this,
-                               onOverwriteParams: [shellwm, actor]
-                             });
+            actor.ease({
+                opacity: 255,
+                scale_x: 1,
+                scale_y: 1,
+                duration: SHOW_WINDOW_ANIMATION_TIME,
+                mode: Clutter.AnimationMode.EASE_OUT_EXPO,
+                onStopped: isFinished => {
+                    if (isFinished)
+                        this._mapWindowDone(shellwm, actor);
+                    else
+                        this._mapWindowOverwrite(shellwm, actor);
+                }
+            });
             break;
         case Meta.WindowType.MODAL_DIALOG:
         case Meta.WindowType.DIALOG:
@@ -1648,19 +1646,19 @@ var WindowManager = class {
             actor.show();
             this._mapping.push(actor);
 
-            Tweener.addTween(actor,
-                             { opacity: 255,
-                               scale_x: 1,
-                               scale_y: 1,
-                               time: DIALOG_SHOW_WINDOW_ANIMATION_TIME / 1000,
-                               transition: 'easeOutQuad',
-                               onComplete: this._mapWindowDone,
-                               onCompleteScope: this,
-                               onCompleteParams: [shellwm, actor],
-                               onOverwrite: this._mapWindowOverwrite,
-                               onOverwriteScope: this,
-                               onOverwriteParams: [shellwm, actor]
-                             });
+            actor.ease({
+                opacity: 255,
+                scale_x: 1,
+                scale_y: 1,
+                duration: DIALOG_SHOW_WINDOW_ANIMATION_TIME,
+                mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onStopped: isFinished => {
+                    if (isFinished)
+                        this._mapWindowDone(shellwm, actor);
+                    else
+                        this._mapWindowOverwrite(shellwm, actor);
+                }
+            });
             break;
         default:
             shellwm.completed_map(actor);
@@ -1670,7 +1668,7 @@ var WindowManager = class {
 
     _mapWindowDone(shellwm, actor) {
         if (this._removeEffect(this._mapping, actor)) {
-            Tweener.removeTweens(actor);
+            actor.remove_all_transitions();
             actor.opacity = 255;
             actor.set_pivot_point(0, 0);
             actor.scale_y = 1;
@@ -1714,19 +1712,14 @@ var WindowManager = class {
             actor.set_pivot_point(0.5, 0.5);
             this._destroying.push(actor);
 
-            Tweener.addTween(actor,
-                             { opacity: 0,
-                               scale_x: 0.8,
-                               scale_y: 0.8,
-                               time: DESTROY_WINDOW_ANIMATION_TIME / 1000,
-                               transition: 'easeOutQuad',
-                               onComplete: this._destroyWindowDone,
-                               onCompleteScope: this,
-                               onCompleteParams: [shellwm, actor],
-                               onOverwrite: this._destroyWindowDone,
-                               onOverwriteScope: this,
-                               onOverwriteParams: [shellwm, actor]
-                             });
+            actor.ease({
+                opacity: 0,
+                scale_x: 0.8,
+                scale_y: 0.8,
+                duration: DESTROY_WINDOW_ANIMATION_TIME,
+                mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onStopped: () => this._destroyWindowDone(shellwm, actor)
+            });
             break;
         case Meta.WindowType.MODAL_DIALOG:
         case Meta.WindowType.DIALOG:
@@ -1736,22 +1729,17 @@ var WindowManager = class {
             if (window.is_attached_dialog()) {
                 let parent = window.get_transient_for();
                 actor._parentDestroyId = parent.connect('unmanaged', () => {
-                    Tweener.removeTweens(actor);
+                    actor.remove_all_transitions();
                     this._destroyWindowDone(shellwm, actor);
                 });
             }
 
-            Tweener.addTween(actor,
-                             { scale_y: 0,
-                               time: DIALOG_DESTROY_WINDOW_ANIMATION_TIME / 1000,
-                               transition: 'easeOutQuad',
-                               onComplete: this._destroyWindowDone,
-                               onCompleteScope: this,
-                               onCompleteParams: [shellwm, actor],
-                               onOverwrite: this._destroyWindowDone,
-                               onOverwriteScope: this,
-                               onOverwriteParams: [shellwm, actor]
-                             });
+            actor.ease({
+                scale_y: 0,
+                duration: DIALOG_DESTROY_WINDOW_ANIMATION_TIME,
+                mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onStopped: () => this._destroyWindowDone(shellwm, actor)
+            });
             break;
         default:
             shellwm.completed_destroy(actor);
@@ -1956,7 +1944,6 @@ var WindowManager = class {
                 global.workspace_manager.get_active_workspace())
                 w.window.hide();
         }
-        Tweener.removeTweens(switchData.container);
         switchData.container.destroy();
         switchData.movingWindowBin.destroy();
 
@@ -1989,15 +1976,13 @@ var WindowManager = class {
         xDest = -xDest;
         yDest = -yDest;
 
-        Tweener.addTween(this._switchData.container,
-                         { x: xDest,
-                           y: yDest,
-                           time: WINDOW_ANIMATION_TIME / 1000,
-                           transition: 'easeOutQuad',
-                           onComplete: this._switchWorkspaceDone,
-                           onCompleteScope: this,
-                           onCompleteParams: [shellwm]
-                         });
+        this._switchData.container.ease({
+            x: xDest,
+            y: yDest,
+            duration: WINDOW_ANIMATION_TIME,
+            mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+            onComplete: () => this._switchWorkspaceDone(shellwm)
+        });
     }
 
     _switchWorkspaceDone(shellwm) {
