@@ -12,7 +12,6 @@ const Signals = imports.signals;
 const St = imports.gi.St;
 const InputSourceManager = imports.ui.status.keyboard;
 
-const IBusManager = imports.misc.ibusManager;
 const BoxPointer = imports.ui.boxpointer;
 const Layout = imports.ui.layout;
 const Main = imports.ui.main;
@@ -501,15 +500,6 @@ var FocusTracker = new Lang.Class({
         Main.inputMethod.connect('cursor-location-changed', (o, rect) => {
             let newRect = { x: rect.get_x(), y: rect.get_y(), width: rect.get_width(), height: rect.get_height() };
             this._setCurrentRect(newRect);
-        });
-
-        this._ibusManager = IBusManager.getIBusManager();
-        this._ibusManager.connect('set-cursor-location', (manager, rect) => {
-            /* Valid for X11 clients only */
-            if (Main.inputMethod.currentFocus)
-                return;
-
-            this._setCurrentRect(rect);
         });
     },
 
@@ -1203,9 +1193,6 @@ var KeyboardController = new Lang.Class({
 
     commitString(string, fromKey) {
         if (string == null)
-            return false;
-        /* Let ibus methods fall through keyval emission */
-        if (fromKey && this._currentSource.type == InputSourceManager.INPUT_SOURCE_TYPE_IBUS)
             return false;
 
         Main.inputMethod.commit(string);

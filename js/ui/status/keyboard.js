@@ -3,7 +3,6 @@
 const Clutter = imports.gi.Clutter;
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
-const IBus = imports.gi.IBus;
 const Lang = imports.lang;
 const Meta = imports.gi.Meta;
 const Shell = imports.gi.Shell;
@@ -11,7 +10,6 @@ const Signals = imports.signals;
 const St = imports.gi.St;
 const Gettext = imports.gettext;
 
-const IBusManager = imports.misc.ibusManager;
 const KeyboardManager = imports.misc.keyboardManager;
 const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
@@ -20,7 +18,6 @@ const SwitcherPopup = imports.ui.switcherPopup;
 const Util = imports.misc.util;
 
 const INPUT_SOURCE_TYPE_XKB = 'xkb';
-const INPUT_SOURCE_TYPE_IBUS = 'ibus';
 
 var LayoutMenuItem = new Lang.Class({
     Name: 'LayoutMenuItem',
@@ -66,14 +63,7 @@ var InputSource = new Lang.Class({
     },
 
     _getXkbId() {
-        let engineDesc = IBusManager.getIBusManager().getEngineDesc(this.id);
-        if (!engineDesc)
-            return this.id;
-
-        if (engineDesc.variant && engineDesc.variant.length > 0)
-            return engineDesc.layout + '+' + engineDesc.variant;
-        else
-            return engineDesc.layout;
+        return this.id;
     }
 });
 Signals.addSignalMethods(InputSource.prototype);
@@ -311,17 +301,12 @@ var InputSourceManager = new Lang.Class({
         // All valid input sources currently in the gsettings
         // KEY_INPUT_SOURCES list indexed by their index there
         this._inputSources = {};
-        // All valid input sources currently in the gsettings
-        // KEY_INPUT_SOURCES list of type INPUT_SOURCE_TYPE_IBUS
-        // indexed by the IBus ID
-        this._ibusSources = {};
 
         this._currentSource = null;
 
         // All valid input sources currently in the gsettings
         // KEY_INPUT_SOURCES list ordered by most recently used
         this._mruSources = [];
-        this._mruSourcesBackup = null;
         this._keybindingAction =
             Main.wm.addKeybinding('switch-input-source',
                                   new Gio.Settings({ schema_id: "org.gnome.desktop.wm.keybindings" }),
@@ -344,13 +329,6 @@ var InputSourceManager = new Lang.Class({
         this._xkbInfo = KeyboardManager.getXkbInfo();
         this._keyboardManager = KeyboardManager.getKeyboardManager();
 
-        this._ibusReady = false;
-        this._ibusManager = IBusManager.getIBusManager();
-        this._ibusManager.connect('ready', this._ibusReadyCallback.bind(this));
-        this._ibusManager.connect('properties-registered', this._ibusPropertiesRegistered.bind(this));
-        this._ibusManager.connect('property-updated', this._ibusPropertyUpdated.bind(this));
-        this._ibusManager.connect('set-content-type', this._ibusSetContentType.bind(this));
-
         global.display.connect('modifiers-accelerator-activated', this._modifiersSwitcher.bind(this));
 
         this._sourcesPerWindow = false;
@@ -359,20 +337,10 @@ var InputSourceManager = new Lang.Class({
         this._overviewHiddenId = 0;
         this._settings.connect('per-window-changed', this._sourcesPerWindowChanged.bind(this));
         this._sourcesPerWindowChanged();
-        this._disableIBus = false;
     },
 
     reload() {
         this._keyboardManager.setKeyboardOptions(this._settings.keyboardOptions);
-        this._inputSourcesChanged();
-    },
-
-    _ibusReadyCallback(im, ready) {
-        if (this._ibusReady == ready)
-            return;
-
-        this._ibusReady = ready;
-        this._mruSources = [];
         this._inputSourcesChanged();
     },
 
@@ -422,25 +390,6 @@ var InputSourceManager = new Lang.Class({
         this._keyboardManager.reapply();
     },
 
-    _updateMruSettings() {
-        // If IBus is not ready we don't have a full picture of all
-        // the available sources, so don't update the setting
-        if (!this._ibusReady)
-            return;
-
-        // If IBus is temporarily disabled, don't update the setting
-        if (this._disableIBus)
-            return;
-
-        let sourcesList = [];
-        for (let i = 0; i < this._mruSources.length; ++i) {
-            let source = this._mruSources[i];
-            sourcesList.push([source.type, source.id]);
-        }
-
-        this._settings.mruSources = sourcesList;
-    },
-
     _currentInputSourceChanged(newSource) {
         let oldSource;
         [oldSource, this._currentSource] = [this._currentSource, newSource];
@@ -460,24 +409,9 @@ var InputSourceManager = new Lang.Class({
     activateInputSource(is, interactive) {
         KeyboardManager.holdKeyboard();
         this._keyboardManager.apply(is.xkbId);
+        KeyboardManager.releaseKeyboard();
 
-        // All the "xkb:..." IBus engines simply "echo" back symbols,
-        // despite their naming implying differently, so we always set
-        // one in order for XIM applications to work given that we set
-        // XMODIFIERS=@im=ibus in the first place so that they can
-        // work without restarting when/if the user adds an IBus input
-        // source.
-        let engine;
-        if (is.type == INPUT_SOURCE_TYPE_IBUS)
-            engine = is.id;
-        else
-            engine = 'xkb:us::eng';
-
-        this._ibusManager.setEngine(engine, KeyboardManager.releaseKeyboard);
         this._currentInputSourceChanged(is);
-
-        if (interactive)
-            this._updateMruSettings();
     },
 
     _updateMruSources() {
@@ -486,11 +420,6 @@ var InputSourceManager = new Lang.Class({
             sourcesList.push(this._inputSources[i]);
 
         this._keyboardManager.setUserLayouts(sourcesList.map(x => x.xkbId));
-
-        if (!this._disableIBus && this._mruSourcesBackup) {
-            this._mruSources = this._mruSourcesBackup;
-            this._mruSourcesBackup = null;
-        }
 
         // Initialize from settings when we have no MRU sources list
         if (this._mruSources.length == 0) {
@@ -531,7 +460,6 @@ var InputSourceManager = new Lang.Class({
 
         this._currentSource = null;
         this._inputSources = {};
-        this._ibusSources = {};
 
         let infosList = [];
         for (let i = 0; i < nSources; i++) {
@@ -544,20 +472,6 @@ var InputSourceManager = new Lang.Class({
             if (type == INPUT_SOURCE_TYPE_XKB) {
                 [exists, displayName, shortName, , ] =
                     this._xkbInfo.get_layout_info(id);
-            } else if (type == INPUT_SOURCE_TYPE_IBUS) {
-                if (this._disableIBus)
-                    continue;
-                let engineDesc = this._ibusManager.getEngineDesc(id);
-                if (engineDesc) {
-                    let language = IBus.get_language_name(engineDesc.get_language());
-                    let longName = engineDesc.get_longname();
-                    let textdomain = engineDesc.get_textdomain();
-                    if (textdomain != '')
-                        longName = Gettext.dgettext(textdomain, longName);
-                    exists = true;
-                    displayName = '%s (%s)'.format(language, longName);
-                    shortName = this._makeEngineShortName(engineDesc);
-                }
             }
 
             if (exists)
@@ -585,9 +499,6 @@ var InputSourceManager = new Lang.Class({
             inputSourcesByShortName[is.shortName].push(is);
 
             this._inputSources[is.index] = is;
-
-            if (is.type == INPUT_SOURCE_TYPE_IBUS)
-                this._ibusSources[is.id] = is;
         }
 
         for (let i in this._inputSources) {
@@ -604,10 +515,6 @@ var InputSourceManager = new Lang.Class({
 
         if (this._mruSources.length > 0)
             this._mruSources[0].activate(false);
-
-        // All ibus engines are preloaded here to reduce the launching time
-        // when users switch the input sources.
-        this._ibusManager.preloadEngines(Object.keys(this._ibusSources));
     },
 
     _makeEngineShortName(engineDesc) {
@@ -620,61 +527,6 @@ var InputSourceManager = new Lang.Class({
             return langCode.toLowerCase();
 
         return String.fromCharCode(0x2328); // keyboard glyph
-    },
-
-    _ibusPropertiesRegistered(im, engineName, props) {
-        let source = this._ibusSources[engineName];
-        if (!source)
-            return;
-
-        source.properties = props;
-
-        if (source == this._currentSource)
-            this.emit('current-source-changed', null);
-    },
-
-    _ibusPropertyUpdated(im, engineName, prop) {
-        let source = this._ibusSources[engineName];
-        if (!source)
-            return;
-
-        if (this._updateSubProperty(source.properties, prop) &&
-            source == this._currentSource)
-            this.emit('current-source-changed', null);
-    },
-
-    _updateSubProperty(props, prop) {
-        if (!props)
-            return false;
-
-        let p;
-        for (let i = 0; (p = props.get(i)) != null; ++i) {
-            if (p.get_key() == prop.get_key() && p.get_prop_type() == prop.get_prop_type()) {
-                p.update(prop);
-                return true;
-            } else if (p.get_prop_type() == IBus.PropType.MENU) {
-                if (this._updateSubProperty(p.get_sub_props(), prop))
-                    return true;
-            }
-        }
-        return false;
-    },
-
-    _ibusSetContentType(im, purpose, hints) {
-        if (purpose == IBus.InputPurpose.PASSWORD) {
-            if (Object.keys(this._inputSources).length == Object.keys(this._ibusSources).length)
-                return;
-
-            if (this._disableIBus)
-                return;
-            this._disableIBus = true;
-            this._mruSourcesBackup = this._mruSources.slice();
-        } else {
-            if (!this._disableIBus)
-                return;
-            this._disableIBus = false;
-        }
-        this.reload();
     },
 
     _getNewInputSource(current) {
@@ -794,12 +646,6 @@ var InputSourceIndicator = new Lang.Class({
 
         this.actor.add_child(this._hbox);
 
-        this._propSeparator = new PopupMenu.PopupSeparatorMenuItem();
-        this.menu.addMenuItem(this._propSeparator);
-        this._propSection = new PopupMenu.PopupMenuSection();
-        this.menu.addMenuItem(this._propSection);
-        this._propSection.actor.hide();
-
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this._showLayoutItem = this.menu.addAction(_("Show Keyboard Layout"), this._showLayout.bind(this));
 
@@ -860,13 +706,11 @@ var InputSourceIndicator = new Lang.Class({
             this._indicatorLabels[oldSource.index].hide();
         }
 
-        if (!newSource || (nVisibleSources < 2 && !newSource.properties)) {
+        if (!newSource || (nVisibleSources < 2)) {
             // This source index might be invalid if we weren't able
             // to build a menu item for it, so we hide ourselves since
             // we can't fix it here. *shrug*
 
-            // We also hide if we have only one visible source unless
-            // it's an IBus source with properties.
             this.menu.close();
             this.actor.hide();
             return;
@@ -874,125 +718,8 @@ var InputSourceIndicator = new Lang.Class({
 
         this.actor.show();
 
-        this._buildPropSection(newSource.properties);
-
         this._menuItems[newSource.index].setOrnament(PopupMenu.Ornament.DOT);
         this._indicatorLabels[newSource.index].show();
-    },
-
-    _buildPropSection(properties) {
-        this._propSeparator.actor.hide();
-        this._propSection.actor.hide();
-        this._propSection.removeAll();
-
-        this._buildPropSubMenu(this._propSection, properties);
-
-        if (!this._propSection.isEmpty()) {
-            this._propSection.actor.show();
-            this._propSeparator.actor.show();
-        }
-    },
-
-    _buildPropSubMenu(menu, props) {
-        if (!props)
-            return;
-
-        let ibusManager = IBusManager.getIBusManager();
-        let radioGroup = [];
-        let p;
-        for (let i = 0; (p = props.get(i)) != null; ++i) {
-            let prop = p;
-
-            if (!prop.get_visible())
-                continue;
-
-            if (prop.get_key() == 'InputMode') {
-                let text;
-                if (prop.get_symbol)
-                    text = prop.get_symbol().get_text();
-                else
-                    text = prop.get_label().get_text();
-
-                let currentSource = this._inputSourceManager.currentSource;
-                if (currentSource) {
-                    let indicatorLabel = this._indicatorLabels[currentSource.index];
-                    if (text && text.length > 0 && text.length < 3)
-                        indicatorLabel.set_text(text);
-                }
-            }
-
-            let item;
-            switch (prop.get_prop_type()) {
-            case IBus.PropType.MENU:
-                item = new PopupMenu.PopupSubMenuMenuItem(prop.get_label().get_text());
-                this._buildPropSubMenu(item.menu, prop.get_sub_props());
-                break;
-
-            case IBus.PropType.RADIO:
-                item = new PopupMenu.PopupMenuItem(prop.get_label().get_text());
-                item.prop = prop;
-                radioGroup.push(item);
-                item.radioGroup = radioGroup;
-                item.setOrnament(prop.get_state() == IBus.PropState.CHECKED ?
-                                 PopupMenu.Ornament.DOT : PopupMenu.Ornament.NONE);
-                item.connect('activate', () => {
-                    if (item.prop.get_state() == IBus.PropState.CHECKED)
-                        return;
-
-                    let group = item.radioGroup;
-                    for (let i = 0; i < group.length; ++i) {
-                        if (group[i] == item) {
-                            item.setOrnament(PopupMenu.Ornament.DOT);
-                            item.prop.set_state(IBus.PropState.CHECKED);
-                            ibusManager.activateProperty(item.prop.get_key(),
-                                                         IBus.PropState.CHECKED);
-                        } else {
-                            group[i].setOrnament(PopupMenu.Ornament.NONE);
-                            group[i].prop.set_state(IBus.PropState.UNCHECKED);
-                            ibusManager.activateProperty(group[i].prop.get_key(),
-                                                         IBus.PropState.UNCHECKED);
-                        }
-                    }
-                });
-                break;
-
-            case IBus.PropType.TOGGLE:
-                item = new PopupMenu.PopupSwitchMenuItem(prop.get_label().get_text(), prop.get_state() == IBus.PropState.CHECKED);
-                item.prop = prop;
-                item.connect('toggled', () => {
-                    if (item.state) {
-                        item.prop.set_state(IBus.PropState.CHECKED);
-                        ibusManager.activateProperty(item.prop.get_key(),
-                                                     IBus.PropState.CHECKED);
-                    } else {
-                        item.prop.set_state(IBus.PropState.UNCHECKED);
-                        ibusManager.activateProperty(item.prop.get_key(),
-                                                     IBus.PropState.UNCHECKED);
-                    }
-                });
-                break;
-
-            case IBus.PropType.NORMAL:
-                item = new PopupMenu.PopupMenuItem(prop.get_label().get_text());
-                item.prop = prop;
-                item.connect('activate', () => {
-                    ibusManager.activateProperty(item.prop.get_key(),
-                                                 item.prop.get_state());
-                });
-                break;
-
-            case IBus.PropType.SEPARATOR:
-                item = new PopupMenu.PopupSeparatorMenuItem();
-                break;
-
-            default:
-                log ('IBus property %s has invalid type %d'.format(prop.get_key(), type));
-                continue;
-            }
-
-            item.setSensitive(prop.get_sensitive());
-            menu.addMenuItem(item);
-        }
     },
 
     _showLayout() {
@@ -1004,12 +731,6 @@ var InputSourceIndicator = new Lang.Class({
 
         if (source.type == INPUT_SOURCE_TYPE_XKB) {
             [, , , xkbLayout, xkbVariant] = KeyboardManager.getXkbInfo().get_layout_info(source.id);
-        } else if (source.type == INPUT_SOURCE_TYPE_IBUS) {
-            let engineDesc = IBusManager.getIBusManager().getEngineDesc(source.id);
-            if (engineDesc) {
-                xkbLayout = engineDesc.get_layout();
-                xkbVariant = engineDesc.get_layout_variant();
-            }
         }
 
         if (!xkbLayout || xkbLayout.length == 0)
