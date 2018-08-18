@@ -774,7 +774,7 @@ var NetworkAgent = new Lang.Class({
             let prop = plugin.lookup_property('GNOME', 'supports-external-ui-mode');
             if (prop) {
                 prop = prop.trim().toLowerCase();
-                externalUIMode = ['true', 'yes', 'on', '1'].includes(prop);
+                externalUIMode = ['true', 'yes', 'on', '1'].indexOf(prop) != -1;
             }
 
             if (GLib.file_test(fileName, GLib.FileTest.IS_EXECUTABLE)) {

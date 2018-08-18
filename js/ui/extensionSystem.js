@@ -274,7 +274,7 @@ function onEnabledExtensionsChanged() {
     // Find and enable all the newly enabled extensions: UUIDs found in the
     // new setting, but not in the old one.
     newEnabledExtensions.filter(
-        uuid => !enabledExtensions.includes(uuid)
+        uuid => enabledExtensions.indexOf(uuid) == -1
     ).forEach(uuid => {
         enableExtension(uuid);
     });
@@ -282,7 +282,7 @@ function onEnabledExtensionsChanged() {
     // Find and disable all the newly disabled extensions: UUIDs found in the
     // old setting, but not in the new one.
     enabledExtensions.filter(
-        item => !newEnabledExtensions.includes(item)
+        item => newEnabledExtensions.indexOf(item) == -1
     ).forEach(uuid => {
         disableExtension(uuid);
     });

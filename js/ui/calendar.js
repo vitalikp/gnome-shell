@@ -883,7 +883,7 @@ var EventsSection = new Lang.Class({
 
         let ids = events.map(e => e.id);
         this._messageById.forEach((message, id) => {
-            if (ids.includes(id))
+            if (ids.indexOf(id) != -1)
                 return;
             this._messageById.delete(id);
             this.removeMessage(message);
