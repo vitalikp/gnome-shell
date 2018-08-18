@@ -280,7 +280,7 @@ var Indicator = new Lang.Class({
                                           'icon-name',
                                           bindFlags);
 
-        this._lockScreenAction = this._createActionButton('changes-prevent-symbolic', _("Lock"));
+        this._lockScreenAction = this._createActionButton('system-lock-screen', _("Lock"));
         this._lockScreenAction.connect('clicked', () => {
             this.menu.itemActivated(BoxPointer.PopupAnimation.NONE);
             this._systemActions.activateLockScreen();
