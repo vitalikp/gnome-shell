@@ -36,25 +36,6 @@ var UNDIM_TIME = 0.250;
 
 var ONE_SECOND = 1000; // in ms
 
-const GSD_WACOM_BUS_NAME = 'org.gnome.SettingsDaemon.Wacom';
-const GSD_WACOM_OBJECT_PATH = '/org/gnome/SettingsDaemon/Wacom';
-
-const GsdWacomIface = '<node name="/org/gnome/SettingsDaemon/Wacom"> \
-<interface name="org.gnome.SettingsDaemon.Wacom"> \
-  <method name="SetGroupModeLED"> \
-    <arg name="device_path" direction="in" type="s"/> \
-    <arg name="group" direction="in" type="u"/> \
-    <arg name="mode" direction="in" type="u"/> \
-  </method> \
-  <method name="SetOLEDLabels"> \
-    <arg name="device_path" direction="in" type="s"/> \
-    <arg name="labels" direction="in" type="as"/> \
-  </method> \
-  </interface> \
-</node>';
-
-const GsdWacomProxy = Gio.DBusProxy.makeProxyWrapper(GsdWacomIface);
-
 var DisplayChangeDialog = new Lang.Class({
     Name: 'DisplayChangeDialog',
     Extends: ModalDialog.ModalDialog,
@@ -930,15 +911,6 @@ var WindowManager = new Lang.Class({
             Main.osdWindowManager.show(monitorIndex, icon, label, null);
         });
 
-        this._gsdWacomProxy = new GsdWacomProxy(Gio.DBus.session, GSD_WACOM_BUS_NAME,
-                                                GSD_WACOM_OBJECT_PATH,
-                                                (proxy, error) => {
-                                                    if (error) {
-                                                        log(error.message);
-                                                        return;
-                                                    }
-                                                });
-
         global.display.connect('pad-mode-switch', (display, pad, group, mode) => {
             let labels = [];
 
@@ -946,11 +918,6 @@ var WindowManager = new Lang.Class({
             for (let i = 0; i < 50; i++) {
                 let str = display.get_pad_action_label(pad, Meta.PadActionType.BUTTON, i);
                 labels.push(str ? str: '');
-            }
-
-            if (this._gsdWacomProxy) {
-                this._gsdWacomProxy.SetOLEDLabelsRemote(pad.get_device_node(), labels);
-                this._gsdWacomProxy.SetGroupModeLEDRemote(pad.get_device_node(), group, mode);
             }
         });
 
