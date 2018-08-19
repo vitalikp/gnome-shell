@@ -1,6 +1,5 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
-data/50-gnome-shell-system.xml
 data/gnome-shell-extension-prefs.desktop.in.in
 data/org.gnome.Shell.desktop.in.in
 data/org.gnome.shell.gschema.xml.in
