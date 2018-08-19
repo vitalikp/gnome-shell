@@ -349,7 +349,7 @@ var Message = new Lang.Class({
 
         let closeIcon = new St.Icon({ icon_name: 'window-close-symbolic',
                                       icon_size: 16 });
-        this._closeButton = new St.Button({ child: closeIcon, opacity: 0 });
+        this._closeButton = new St.Button({ child: closeIcon, visible: false });
         titleBox.add_actor(this._closeButton);
 
         this._bodyStack = new St.Widget({ x_expand: true });
@@ -500,9 +500,9 @@ var Message = new Lang.Class({
     },
 
     _sync() {
-        let visible = this.actor.hover && this.canClose();
-        this._closeButton.opacity = visible ? 255 : 0;
-        this._closeButton.reactive = visible;
+        let hovered = this.actor.hover;
+        this._closeButton.visible = hovered && this.canClose();
+        this._secondaryBin.visible = !hovered;
     },
 
     _onClicked() {
