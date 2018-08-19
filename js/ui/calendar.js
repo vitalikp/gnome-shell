@@ -843,6 +843,9 @@ var NotificationSection = new Lang.Class({
     }
 });
 
+const EVENTS_ICON = 'x-office-calendar-symbolic';
+const NOTIFICATION_ICON = 'preferences-system-notifications-symbolic';
+
 var Placeholder = new Lang.Class({
     Name: 'Placeholder',
 
@@ -851,11 +854,6 @@ var Placeholder = new Lang.Class({
                                         vertical: true });
 
         this._date = new Date();
-
-        let todayFile = Gio.File.new_for_uri('resource:///org/gnome/shell/theme/no-notifications.svg');
-        let otherFile = Gio.File.new_for_uri('resource:///org/gnome/shell/theme/no-events.svg');
-        this._todayIcon = new Gio.FileIcon({ file: todayFile });
-        this._otherIcon = new Gio.FileIcon({ file: otherFile });
 
         this._icon = new St.Icon();
         this.actor.add_actor(this._icon);
@@ -875,16 +873,16 @@ var Placeholder = new Lang.Class({
 
     _sync() {
         let today = isToday(this._date);
-        if (today && this._icon.gicon == this._todayIcon)
+        if (today && this._icon.icon_name == NOTIFICATION_ICON)
             return;
-        if (!today && this._icon.gicon == this._otherIcon)
+        if (!today && this._icon.icon_name == EVENTS_ICON)
             return;
 
         if (today) {
-            this._icon.gicon = this._todayIcon;
+            this._icon.icon_name = NOTIFICATION_ICON;
             this._label.text = _("No Notifications");
         } else {
-            this._icon.gicon = this._otherIcon;
+            this._icon.icon_name = EVENTS_ICON;
             this._label.text = _("No Events");
         }
     }
