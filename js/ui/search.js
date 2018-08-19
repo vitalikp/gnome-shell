@@ -16,7 +16,6 @@ const DND = imports.ui.dnd;
 const IconGrid = imports.ui.iconGrid;
 const Main = imports.ui.main;
 const Overview = imports.ui.overview;
-const RemoteSearch = imports.ui.remoteSearch;
 const Util = imports.misc.util;
 
 const SEARCH_PROVIDERS_SCHEMA = 'org.gnome.desktop.search-providers';
@@ -440,28 +439,10 @@ var SearchResults = new Lang.Class({
 
         this._highlightRegex = null;
 
-        this._searchSettings = new Gio.Settings({ schema_id: SEARCH_PROVIDERS_SCHEMA });
-        this._searchSettings.connect('changed::disabled', this._reloadRemoteProviders.bind(this));
-        this._searchSettings.connect('changed::enabled', this._reloadRemoteProviders.bind(this));
-        this._searchSettings.connect('changed::disable-external', this._reloadRemoteProviders.bind(this));
-        this._searchSettings.connect('changed::sort-order', this._reloadRemoteProviders.bind(this));
-
         this._searchTimeoutId = 0;
         this._cancellable = new Gio.Cancellable();
 
         this._registerProvider(new AppDisplay.AppSearchProvider());
-        this._reloadRemoteProviders();
-    },
-
-    _reloadRemoteProviders() {
-        let remoteProviders = this._providers.filter(p => p.isRemoteProvider);
-        remoteProviders.forEach(provider => {
-            this._unregisterProvider(provider);
-        });
-
-        RemoteSearch.loadRemoteSearchProviders(this._searchSettings, providers => {
-            providers.forEach(this._registerProvider.bind(this));
-        });
     },
 
     _registerProvider(provider) {
