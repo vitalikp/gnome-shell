@@ -14,12 +14,10 @@ const OVirt = imports.gdm.oVirt;
 const Main = imports.ui.main;
 const Params = imports.misc.params;
 const ShellEntry = imports.ui.shellEntry;
-const SmartcardManager = imports.misc.smartcardManager;
 const Tweener = imports.ui.tweener;
 
 var PASSWORD_SERVICE_NAME = 'gdm-password';
 var FINGERPRINT_SERVICE_NAME = 'gdm-fingerprint';
-var SMARTCARD_SERVICE_NAME = 'gdm-smartcard';
 var OVIRT_SERVICE_NAME = 'gdm-ovirtcred';
 var FADE_ANIMATION_TIME = 0.16;
 var CLONE_FADE_ANIMATION_TIME = 0.25;
@@ -27,7 +25,6 @@ var CLONE_FADE_ANIMATION_TIME = 0.25;
 var LOGIN_SCREEN_SCHEMA = 'org.gnome.login-screen';
 var PASSWORD_AUTHENTICATION_KEY = 'enable-password-authentication';
 var FINGERPRINT_AUTHENTICATION_KEY = 'enable-fingerprint-authentication';
-var SMARTCARD_AUTHENTICATION_KEY = 'enable-smartcard-authentication';
 var BANNER_MESSAGE_KEY = 'banner-message-enable';
 var BANNER_MESSAGE_TEXT_KEY = 'banner-message-text';
 var ALLOWED_FAILURES_KEY = 'allowed-failures';
@@ -137,19 +134,6 @@ var ShellUserVerifier = new Lang.Class({
         this._updateDefaultService();
 
         this._fprintManager = Fprint.FprintManager();
-        this._smartcardManager = SmartcardManager.getSmartcardManager();
-
-        // We check for smartcards right away, since an inserted smartcard
-        // at startup should result in immediately initiating authentication.
-        // This is different than fingerprint readers, where we only check them
-        // after a user has been picked.
-        this.smartcardDetected = false;
-        this._checkForSmartcard();
-
-        this._smartcardInsertedId = this._smartcardManager.connect('smartcard-inserted',
-                                                                   this._checkForSmartcard.bind(this));
-        this._smartcardRemovedId = this._smartcardManager.connect('smartcard-removed',
-                                                                  this._checkForSmartcard.bind(this));
 
         this._messageQueue = [];
         this._messageQueueTimeoutId = 0;
@@ -217,10 +201,6 @@ var ShellUserVerifier = new Lang.Class({
 
         this._settings.run_dispose();
         this._settings = null;
-
-        this._smartcardManager.disconnect(this._smartcardInsertedId);
-        this._smartcardManager.disconnect(this._smartcardRemovedId);
-        this._smartcardManager = null;
 
         this._oVirtCredentialsManager.disconnect(this._oVirtUserAuthenticatedId);
         this._oVirtCredentialsManager = null;
@@ -316,28 +296,6 @@ var ShellUserVerifier = new Lang.Class({
         this.emit('ovirt-user-authenticated');
     },
 
-    _checkForSmartcard() {
-        let smartcardDetected;
-
-        if (!this._settings.get_boolean(SMARTCARD_AUTHENTICATION_KEY))
-            smartcardDetected = false;
-        else if (this._reauthOnly)
-            smartcardDetected = this._smartcardManager.hasInsertedLoginToken();
-        else
-            smartcardDetected = this._smartcardManager.hasInsertedTokens();
-
-        if (smartcardDetected != this.smartcardDetected) {
-            this.smartcardDetected = smartcardDetected;
-
-            if (this.smartcardDetected)
-                this._preemptingService = SMARTCARD_SERVICE_NAME;
-            else if (this._preemptingService == SMARTCARD_SERVICE_NAME)
-                this._preemptingService = null;
-
-            this.emit('smartcard-status-changed');
-        }
-    },
-
     _reportInitError(where, error) {
         logError(error, where);
         this._hold.release();
@@ -414,8 +372,6 @@ var ShellUserVerifier = new Lang.Class({
     _updateDefaultService() {
         if (this._settings.get_boolean(PASSWORD_AUTHENTICATION_KEY))
             this._defaultService = PASSWORD_SERVICE_NAME;
-        else if (this._settings.get_boolean(SMARTCARD_AUTHENTICATION_KEY))
-            this._defaultService = SMARTCARD_SERVICE_NAME;
         else if (this._haveFingerprintReader)
             this._defaultService = FINGERPRINT_SERVICE_NAME;
 

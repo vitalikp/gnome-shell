@@ -60,9 +60,7 @@ var AuthPrompt = new Lang.Class({
         this._userVerifier.connect('verification-failed', this._onVerificationFailed.bind(this));
         this._userVerifier.connect('verification-complete', this._onVerificationComplete.bind(this));
         this._userVerifier.connect('reset', this._onReset.bind(this));
-        this._userVerifier.connect('smartcard-status-changed', this._onSmartcardStatusChanged.bind(this));
         this._userVerifier.connect('ovirt-user-authenticated', this._onOVirtUserAuthenticated.bind(this));
-        this.smartcardDetected = this._userVerifier.smartcardDetected;
 
         this.connect('next', () => {
                 this.updateSensitivity(false);
@@ -214,25 +212,6 @@ var AuthPrompt = new Lang.Class({
     },
 
     _onOVirtUserAuthenticated() {
-        if (this.verificationStatus != AuthPromptStatus.VERIFICATION_SUCCEEDED)
-            this.reset();
-    },
-
-    _onSmartcardStatusChanged() {
-        this.smartcardDetected = this._userVerifier.smartcardDetected;
-
-        // Most of the time we want to reset if the user inserts or removes
-        // a smartcard. Smartcard insertion "preempts" what the user was
-        // doing, and smartcard removal aborts the preemption.
-        // The exceptions are: 1) Don't reset on smartcard insertion if we're already verifying
-        //                        with a smartcard
-        //                     2) Don't reset if we've already succeeded at verification and
-        //                        the user is getting logged in.
-        if (this._userVerifier.serviceIsDefault(GdmUtil.SMARTCARD_SERVICE_NAME) &&
-            this.verificationStatus == AuthPromptStatus.VERIFYING &&
-            this.smartcardDetected)
-            return;
-
         if (this.verificationStatus != AuthPromptStatus.VERIFICATION_SUCCEEDED)
             this.reset();
     },
@@ -458,10 +437,9 @@ var AuthPrompt = new Lang.Class({
             // The user is constant at the unlock screen, so it will immediately
             // respond to the request with the username
             beginRequestType = BeginRequestType.PROVIDE_USERNAME;
-        } else if (this._userVerifier.serviceIsForeground(GdmUtil.OVIRT_SERVICE_NAME) ||
-                   this._userVerifier.serviceIsForeground(GdmUtil.SMARTCARD_SERVICE_NAME)) {
+        } else if (this._userVerifier.serviceIsForeground(GdmUtil.OVIRT_SERVICE_NAME)) {
             // We don't need to know the username if the user preempted the login screen
-            // with a smartcard or with preauthenticated oVirt credentials
+            // with preauthenticated oVirt credentials
             beginRequestType = BeginRequestType.DONT_PROVIDE_USERNAME;
         } else {
             // In all other cases, we should get the username up front.
