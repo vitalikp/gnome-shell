@@ -773,7 +773,6 @@ StScrollBar {
 
 .datemenu-today-button,
 .world-clocks-button,
-.weather-button,
 .events-section-title {
   border-radius: 4px;
   padding: .4em; }
@@ -787,15 +786,12 @@ StScrollBar {
 .datemenu-today-button:hover, .datemenu-today-button:focus,
 .world-clocks-button:hover,
 .world-clocks-button:focus,
-.weather-button:hover,
-.weather-button:focus,
 .events-section-title:hover,
 .events-section-title:focus {
   background-color: #454c4c; }
 
 .datemenu-today-button:active,
 .world-clocks-button:active,
-.weather-button:active,
 .events-section-title:active {
   color: white;
   background-color: #215d9c; }
@@ -804,16 +800,12 @@ StScrollBar {
   font-size: 1.5em; }
 
 .world-clocks-header,
-.weather-header,
 .events-section-title {
   color: #8e8e80;
   font-weight: bold; }
 
 .world-clocks-grid {
   spacing-rows: 0.4em; }
-
-.weather-box {
-  spacing: 0.4em; }
 
 .calendar-month-label {
   color: #e2e2df;

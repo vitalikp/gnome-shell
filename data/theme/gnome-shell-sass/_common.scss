@@ -878,7 +878,6 @@ StScrollBar {
 
     .datemenu-today-button,
     .world-clocks-button,
-    .weather-button,
     .events-section-title {
       border-radius: 4px;
       padding: .4em;
@@ -894,7 +893,6 @@ StScrollBar {
 
     .datemenu-today-button,
     .world-clocks-button,
-    .weather-button,
     .events-section-title {
       &:hover,&:focus { background-color: lighten($bg_color,5%); }
       &:active {
@@ -912,7 +910,6 @@ StScrollBar {
     }
 
     .world-clocks-header,
-    .weather-header,
     .events-section-title {
       color: darken($fg_color,40%);
       font-weight: bold;
@@ -920,10 +917,6 @@ StScrollBar {
 
     .world-clocks-grid {
       spacing-rows: 0.4em;
-    }
-
-    .weather-box {
-      spacing: 0.4em;
     }
 
     .calendar-month-label {

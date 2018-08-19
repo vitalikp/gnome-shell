@@ -5,10 +5,8 @@ const Gio = imports.gi.Gio;
 const GnomeDesktop = imports.gi.GnomeDesktop;
 const GObject = imports.gi.GObject;
 const Gtk = imports.gi.Gtk;
-const GWeather = imports.gi.GWeather;
 const Lang = imports.lang;
 const Mainloop = imports.mainloop;
-const Pango = imports.gi.Pango;
 const Cairo = imports.cairo;
 const Clutter = imports.gi.Clutter;
 const Shell = imports.gi.Shell;
@@ -21,7 +19,6 @@ const Main = imports.ui.main;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Calendar = imports.ui.calendar;
-const Weather = imports.misc.weather;
 const System = imports.system;
 
 function _isToday(date) {
@@ -126,16 +123,6 @@ var WorldClocksSection = new Lang.Class({
         this._grid.destroy_all_children();
         this._locations = [];
 
-        let world = GWeather.Location.get_world();
-        let clocks = settings.get_value('world-clocks').deep_unpack();
-        for (let i = 0; i < clocks.length; i++) {
-            if (!clocks[i].location)
-                continue;
-            let l = world.deserialize(clocks[i].location);
-            if (l)
-                this._locations.push({ location: l });
-        }
-
         this._locations.sort((a, b) => {
             return a.location.get_timezone().get_offset() -
                    b.location.get_timezone().get_offset();
@@ -153,10 +140,8 @@ var WorldClocksSection = new Lang.Class({
         for (let i = 0; i < this._locations.length; i++) {
             let l = this._locations[i].location;
 
-            let name = l.get_level() == GWeather.LocationLevel.NAMED_TIMEZONE ? l.get_name()
-                                                                              : l.get_city_name();
             let label = new St.Label({ style_class: 'world-clocks-city',
-                                       text: name,
+                                       text: l.get_city_name(),
                                        x_align: Clutter.ActorAlign.START,
                                        x_expand: true });
 
@@ -194,147 +179,6 @@ var WorldClocksSection = new Lang.Class({
             let now = GLib.DateTime.new_now(tz);
             l.actor.text = Util.formatTime(now, { timeOnly: true });
         }
-    }
-});
-
-var WeatherSection = new Lang.Class({
-    Name: 'WeatherSection',
-
-    _init() {
-        this._weatherClient = new Weather.WeatherClient();
-
-        this.actor = new St.Button({ style_class: 'weather-button',
-                                     x_fill: true,
-                                     can_focus: true });
-        this.actor.connect('clicked', () => {
-            this._weatherClient.activateApp();
-
-            Main.overview.hide();
-            Main.panel.closeCalendar();
-        });
-        this.actor.connect('notify::mapped', () => {
-            if (this.actor.mapped)
-                this._weatherClient.update();
-        });
-
-        let box = new St.BoxLayout({ style_class: 'weather-box',
-                                      vertical: true });
-
-        this.actor.child = box;
-
-        box.add_child(new St.Label({ style_class: 'weather-header',
-                                     x_align: Clutter.ActorAlign.START,
-                                     text: _("Weather") }));
-
-        this._conditionsLabel = new St.Label({ style_class: 'weather-conditions',
-                                               x_align: Clutter.ActorAlign.START });
-        this._conditionsLabel.clutter_text.ellipsize = Pango.EllipsizeMode.NONE;
-        this._conditionsLabel.clutter_text.line_wrap = true;
-        box.add_child(this._conditionsLabel);
-
-        this._weatherClient.connect('changed', this._sync.bind(this));
-        this._sync();
-    },
-
-    _getSummary(info, capitalize=false) {
-        let options = capitalize ? GWeather.FormatOptions.SENTENCE_CAPITALIZATION
-                                 : GWeather.FormatOptions.NO_CAPITALIZATION;
-
-        let [ok, phenomenon, qualifier] = info.get_value_conditions();
-        if (ok)
-            return new GWeather.Conditions({ significant: true,
-                                             phenomenon,
-                                             qualifier }).to_string_full(options);
-
-        let [, sky] = info.get_value_sky();
-        return GWeather.Sky.to_string_full(sky, options);
-    },
-
-    _sameSummary(info1, info2) {
-        let [ok1, phenom1, qualifier1] = info1.get_value_conditions();
-        let [ok2, phenom2, qualifier2] = info2.get_value_conditions();
-        if (ok1 || ok2)
-            return ok1 == ok2 && phenom1 == phenom2 && qualifier1 == qualifier2;
-
-        let [, sky1] = info1.get_value_sky();
-        let [, sky2] = info2.get_value_sky();
-        return sky1 == sky2;
-    },
-
-    _getSummaryText() {
-        let info = this._weatherClient.info;
-        let forecasts = info.get_forecast_list();
-        if (forecasts.length == 0) // No forecasts, just current conditions
-            return '%s.'.format(this._getSummary(info, true));
-
-        let current = info;
-        let infos = [info];
-        for (let i = 0; i < forecasts.length; i++) {
-            let [ok, timestamp] = forecasts[i].get_value_update();
-            if (!_isToday(new Date(timestamp * 1000)))
-                continue; // Ignore forecasts from other days
-
-            if (this._sameSummary(current, forecasts[i]))
-                continue; // Ignore consecutive runs of equal summaries
-
-            current = forecasts[i];
-            if (infos.push(current) == 3)
-                break; // Use a maximum of three summaries
-        }
-
-        let fmt;
-        switch(infos.length) {
-            /* Translators: %s is a weather condition like "Clear sky"; see
-               libgweather for the possible condition strings. If at all
-               possible, the sentence should match the grammatical case etc. of
-               the inserted conditions. */
-            case 1: fmt = _("%s all day."); break;
-
-            /* Translators: %s is a weather condition like "Clear sky"; see
-               libgweather for the possible condition strings. If at all
-               possible, the sentence should match the grammatical case etc. of
-               the inserted conditions. */
-            case 2: fmt = _("%s, then %s later."); break;
-
-            /* Translators: %s is a weather condition like "Clear sky"; see
-               libgweather for the possible condition strings. If at all
-               possible, the sentence should match the grammatical case etc. of
-               the inserted conditions. */
-            case 3: fmt = _("%s, then %s, followed by %s later."); break;
-        }
-        let summaries = infos.map((info, i) => {
-            let capitalize = i == 0 && fmt.startsWith('%s');
-            return this._getSummary(info, capitalize);
-        });
-        return String.prototype.format.apply(fmt, summaries);
-    },
-
-    _getLabelText() {
-        if (!this._weatherClient.hasLocation)
-            return _("Select a location…");
-
-        if (this._weatherClient.loading)
-            return _("Loading…");
-
-        let info = this._weatherClient.info;
-        if (info.is_valid())
-            return this._getSummaryText() + ' ' +
-                   /* Translators: %s is a temperature with unit, e.g. "23℃" */
-                   _("Feels like %s.").format(info.get_apparent());
-
-        if (info.network_error())
-            return _("Go online for weather information");
-
-        return _("Weather information is currently unavailable");
-    },
-
-    _sync() {
-        this.actor.visible = this._weatherClient.available;
-
-        if (!this.actor.visible)
-            return;
-
-        this._conditionsLabel.text = this._getLabelText();
     }
 });
 
@@ -540,9 +384,6 @@ var DateMenuButton = new Lang.Class({
         this._clocksItem = new WorldClocksSection();
         displaysBox.add(this._clocksItem.actor, { x_fill: true });
 
-        this._weatherItem = new WeatherSection();
-        displaysBox.add(this._weatherItem.actor, { x_fill: true });
-
         // Done with hbox for calendar and event list
 
         this._clock = new GnomeDesktop.WallClock();
@@ -587,7 +428,7 @@ var DateMenuButton = new Lang.Class({
         this._setEventSource(eventSource);
 
         // Displays are not actually expected to launch Settings when activated
-        // but the corresponding app (clocks, weather); however we can consider
+        // but the corresponding app (clocks); however we can consider
         // that display-specific settings, so re-use "allowSettings" here ...
         this._displaysSection.visible = Main.sessionMode.allowSettings;
     }
