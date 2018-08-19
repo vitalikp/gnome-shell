@@ -35,33 +35,32 @@ msgstr "GNOME Shell"
 
 #: data/org.gnome.Shell.desktop.in.in:5
 msgid "Window management and application launching"
-msgstr "Керування вікнами та запуск програм"
+msgstr "Керування вікнами та запуск додатків"
 
 #: data/org.gnome.shell.gschema.xml.in:6
 msgid "Enable internal tools useful for developers and testers from Alt-F2"
 msgstr ""
-"Увімкнути внутрішні засоби, які будуть корисними для розробників і "
-"випробування при натисненні Alt-F2"
+"Увімкнути внутрішні інструменти з Alt-F2, корисні для розробників і тестерів"
 
 #: data/org.gnome.shell.gschema.xml.in:9
 msgid ""
 "Allows access to internal debugging and monitoring tools using the Alt-F2 "
 "dialog."
 msgstr ""
-"Надає доступ до внутрішніх засобів зневаджування та спостереження через Alt-"
-"F2."
+"Дозволяє отримати доступ до внутрішніх інструментів налагодження та моніторингу "
+"використовуючи діалог Alt-F2."
 
 #: data/org.gnome.shell.gschema.xml.in:16
 msgid "Enable Volume MVC"
-msgstr ""
+msgstr "Увікнути «Volume MVC»"
 
 #: data/org.gnome.shell.gschema.xml.in:17
 msgid "Enable Volume MVC."
-msgstr ""
+msgstr "Увікнути «Volume MVC»."
 
 #: data/org.gnome.shell.gschema.xml.in:21
 msgid "UUIDs of extensions to enable"
-msgstr "Увімкнути розширення UUID"
+msgstr "Список UUID розширень, щоб увімкнути"
 
 #: data/org.gnome.shell.gschema.xml.in:22
 msgid ""
@@ -70,11 +69,11 @@ msgid ""
 "list. You can also manipulate this list with the EnableExtension and "
 "DisableExtension D-Bus methods on org.gnome.Shell."
 msgstr ""
-"Розширення GNOME Shell мають властивості «UUID»; цей ключ перелічує "
-"розширення, які потрібно завантажувати. Вимкнення розширень ігноруватиме ці "
-"налаштування для розширень, які з'являються в обох переліках. Також можете "
-"орудувати цим переліком через способи EnableExtension і DisableExtension "
-"DBus DisableExtension DBus на org.gnome.Shell."
+"Розширення GNOME Shell мають властивість UUID; цей ключ перелічує розширення, "
+"які повинні бути завантажені. Будь-яке розширення, яке хоче бути завантаженим "
+"повинне бути у цьому списку. Ви також можете керувати цим списком "
+"за допомогою методів D-Bus EnableExtension та DisableExtension на сервісі "
+"org.gnome.Shell."
 
 #: data/org.gnome.shell.gschema.xml.in:31
 msgid "Disable user extensions"
@@ -85,8 +84,8 @@ msgid ""
 "Disable all extensions the user has enabled without affecting the “enabled-"
 "extension” setting."
 msgstr ""
-"Вимкнути всі розширення, які користувач увімкнув сам, без використання "
-"параметра «enabled-extension»."
+"Вимкнути всі розширення увімкненні користувачем не зачіпаючи налаштування "
+"«enabled-extension»."
 
 #: data/org.gnome.shell.gschema.xml.in:39
 msgid "Disables the validation of extension version compatibility"
@@ -98,38 +97,39 @@ msgid ""
 "running version. Enabling this option will disable this check and try to "
 "load all extensions regardless of the versions they claim to support."
 msgstr ""
-"GNOME Shell завантажуватиме тільки розширення, які вимагають поточну версію. "
-"Увімкнення цього параметра вимкне цю перевірку і спробує завантажувати всі "
-"розширення, навіть попри те, що версії можуть бути несумісні."
+"GNOME Shell буде завантажувати тільки розширення, що заявляють про "
+"підтримку поточної версії, що працює. Увімкнення цієї опції вимкне цю "
+"перевірку та спробує завантажити всі розширення незважаючи на заявлену "
+"підтримку версій."
 
 #: data/org.gnome.shell.gschema.xml.in:48
 msgid "List of desktop file IDs for favorite applications"
-msgstr "Перелічити ідентифікатори файла стільниці для улюблених програм"
+msgstr "Список ідентифікаторів файла стільниці для улюблених додатків"
 
 #: data/org.gnome.shell.gschema.xml.in:49
 msgid ""
 "The applications corresponding to these identifiers will be displayed in the "
 "favorites area."
 msgstr ""
-"Програми, які відповідають цьому ідентифікатору, буде показано в ділянці "
-"улюбленого."
+"Додатки, що відповідають цим ідентифікаторам, будуть показані в області "
+"улюблених додатків."
 
 #: data/org.gnome.shell.gschema.xml.in:56
 msgid "App Picker View"
-msgstr "Огляд вибору програми"
+msgstr "Огляд «Додатки»"
 
 #: data/org.gnome.shell.gschema.xml.in:57
 msgid "Index of the currently selected view in the application picker."
-msgstr "Індекс поточного розміщення вибору в огляді списку програм."
+msgstr "Індекс поточного вибраного огляду додатків."
 
 #: data/org.gnome.shell.gschema.xml.in:63
 msgid "History for command (Alt-F2) dialog"
-msgstr "Історія для команд (Alt-F2)"
+msgstr "Історія для діалогового вікна команд (Alt-F2)"
 
 #. Translators: looking glass is a debugger and inspector tool, see https://wiki.gnome.org/Projects/GnomeShell/LookingGlass
 #: data/org.gnome.shell.gschema.xml.in:68
 msgid "History for the looking glass dialog"
-msgstr "Історія для пошуку дзеркальних діалогів"
+msgstr "Історія для діалогового вікна looking glass"
 
 #: data/org.gnome.shell.gschema.xml.in:72
 msgid "Always show the “Log out” menu item in the user menu."
@@ -140,8 +140,8 @@ msgid ""
 "This key overrides the automatic hiding of the “Log out” menu item in single-"
 "user, single-session situations."
 msgstr ""
-"Цей ключ перевизначає автоматичне приховування пункту меню «Вийти» за умови, "
-"що користувач або сеанс тільки один."
+"Цей ключ перевизначає автоматичне приховування пункту меню «Вийти» в ситуаціях, "
+"коли користувач або сеанс тільки один."
 
 #: data/org.gnome.shell.gschema.xml.in:80
 msgid ""
@@ -157,15 +157,16 @@ msgid ""
 "“Remember Password” checkbox will be present. This key sets the default "
 "state of the checkbox."
 msgstr ""
-"Середовище вимагатиме пароль, коли змонтовано зашифрований пристрій або "
-"віддалену файлову систему. Якщо пароль можна зберегти для подальшого вжитку, "
-"то з'явиться параметр «Запам'ятати пароль». Цей ключ вказує типовий стан "
-"цього параметра."
+"Оболонка запитує пароль, коли шифрований пристрій або віддалену файлову "
+"систему змонтовано. Якщо пароль може бути збережений для майбутнього "
+"використання, прапорець «Запам'ятати Пароль» буде присутнім. Цей ключ "
+"встановлює типовий стан прапорцю."
 
 #: data/org.gnome.shell.gschema.xml.in:90
 msgid ""
 "Whether the default Bluetooth adapter had set up devices associated to it"
-msgstr "Чи типовий адаптер Bluetooth зв'язаний з якимось пристроєм"
+msgstr ""
+"Чи типовий адаптер Bluetooth має встановлений пристрій, що з ним пов'язаний"
 
 #: data/org.gnome.shell.gschema.xml.in:91
 msgid ""
@@ -174,26 +175,27 @@ msgid ""
 "adapter. This will be reset if the default adapter is ever seen not to have "
 "devices associated to it."
 msgstr ""
-"Оболонка покаже меню Bluetooth лише у випадку, коли адаптер Bluetooth "
-"увімкнено або пристрій зв'язано з типовим адаптером. Якщо типовий адаптер "
-"ніколи не був зв'язаний з жодним пристроєм, то його буде скинуто."
+"Оболонка буде тільки показувати пункт меню Bluetooth якщо адаптер Bluetooth "
+"увімкнено, або якщо там встановлені пристрої позв'язані з типовим адаптером. "
+"Це буде скинуто, якщо типовий адаптер ніколи не бачив пристрої, позв'язані "
+"з ним."
 
 #: data/org.gnome.shell.gschema.xml.in:106
 msgid "Keybinding to open the application menu"
-msgstr "Комбінація клавіш, щоб відкрити меню програм"
+msgstr "Комбінація клавіш, щоб відкрити меню додатку"
 
 #: data/org.gnome.shell.gschema.xml.in:107
 msgid "Keybinding to open the application menu."
-msgstr "Комбінація клавіш, щоб відкрити меню програм."
+msgstr "Комбінація клавіш, щоб відкрити меню додатку."
 
 #: data/org.gnome.shell.gschema.xml.in:113
 msgid "Keybinding to open the “Show Applications” view"
-msgstr "Комбінація клавіш, щоб «Показати програми»"
+msgstr "Комбінація клавіш, щоб відкрити вид «Показати Додатки»"
 
 #: data/org.gnome.shell.gschema.xml.in:114
 msgid ""
 "Keybinding to open the “Show Applications” view of the Activities Overview."
-msgstr "Комбінація клавіш, щоб «Показати програми» в огляді діяльності."
+msgstr "Комбінація клавіш, щоб відкрити вид «Показати додатки» Огляду Діяльності."
 
 #: data/org.gnome.shell.gschema.xml.in:121
 msgid "Keybinding to open the overview"
@@ -201,30 +203,30 @@ msgstr "Комбінація клавіш, щоб відкрити огляд"
 
 #: data/org.gnome.shell.gschema.xml.in:122
 msgid "Keybinding to open the Activities Overview."
-msgstr "Комбінація клавіш, щоб відкрити огляд діяльності."
+msgstr "Комбінація клавіш, щоб відкрити огляд «Діяльність»."
 
 #: data/org.gnome.shell.gschema.xml.in:128
 msgid "Keybinding to toggle the visibility of the notification list"
-msgstr "Комбінація клавіш, щоб змінювати видимість переліку сповіщень"
+msgstr "Комбінація клавіш для перемикання видимості списку сповіщень"
 
 #: data/org.gnome.shell.gschema.xml.in:129
 msgid "Keybinding to toggle the visibility of the notification list."
-msgstr "Комбінація клавіш, щоб змінювати видимість переліку сповіщень."
+msgstr "Комбінація клавіш для перемикання видимості списку сповіщень."
 
 #: data/org.gnome.shell.gschema.xml.in:135
 msgid "Keybinding to focus the active notification"
-msgstr "Комбінація клавіш, щоб перейти до активних сповіщень"
+msgstr "Комбінація клавіш, щоб перейти до активного сповіщення"
 
 #: data/org.gnome.shell.gschema.xml.in:136
 msgid "Keybinding to focus the active notification."
-msgstr "Комбінація клавіш, щоб перейти до активних сповіщень."
+msgstr "Комбінація клавіш, щоб перейти до активного сповіщення."
 
 #: data/org.gnome.shell.gschema.xml.in:142
 msgid ""
 "Keybinding that pauses and resumes all running tweens, for debugging purposes"
 msgstr ""
-"Комбінація клавіш, що призупиняє й відновлює всіх запущених посередників, зі "
-"зневаджувальною метою"
+"Комбінація клавіш, що призупиняє та відновлює всі запущені анімації, з метою "
+"налагодження"
 
 #: data/org.gnome.shell.gschema.xml.in:151
 msgid "Which keyboard to use"
@@ -232,7 +234,7 @@ msgstr "Яку клавіатуру використовувати"
 
 #: data/org.gnome.shell.gschema.xml.in:152
 msgid "The type of keyboard to use."
-msgstr "Тип клавіатури."
+msgstr "Тип клавіатури, що використовується."
 
 #: data/org.gnome.shell.gschema.xml.in:163
 #: data/org.gnome.shell.gschema.xml.in:190
@@ -244,12 +246,12 @@ msgid ""
 "If true, only applications that have windows on the current workspace are "
 "shown in the switcher. Otherwise, all applications are included."
 msgstr ""
-"Якщо це вказано, то тільки програми з поточного робочого простору будуть "
-"показані в перемикачі. Інакше — програми з усіх просторів."
+"Якщо вказано, тільки додатки, що мають вікна на поточному робочому просторі "
+"буде показано на перемикачі додатків. Інакше, всі додатки будуть включені."
 
 #: data/org.gnome.shell.gschema.xml.in:181
 msgid "The application icon mode."
-msgstr "Режим піктограм для програм."
+msgstr "Режим значка додатку ."
 
 #: data/org.gnome.shell.gschema.xml.in:182
 msgid ""
@@ -257,17 +259,17 @@ msgid ""
 "are “thumbnail-only” (shows a thumbnail of the window), “app-icon-"
 "only” (shows only the application icon) or “both”."
 msgstr ""
-"Налаштовує яким чином вікна показуються в перемикачі. Допустимі значення: "
+"Налаштовує як вікна показані у перемикачі. Допустимі можливості "
 "«thumbnail-only» (показує мініатюру вікна), «app-icon-only» (показує тільки "
-"піктограми програм) або «both» (обидва)."
+"значок додатку) або «both» (обидва)."
 
 #: data/org.gnome.shell.gschema.xml.in:191
 msgid ""
 "If true, only windows from the current workspace are shown in the switcher. "
 "Otherwise, all windows are included."
 msgstr ""
-"Якщо це вказано, то тільки вікна з поточного робочого простору будуть "
-"показані в перемикачі. Інакше — вікна з усіх просторів."
+"Якщо вказано, то тільки вікна з поточного робочого простору показані "
+"у перемикачі. Інакше, всі вікна будуть включені."
 
 #: data/org.gnome.shell.gschema.xml.in:202
 msgid "Attach modal dialog to the parent window"
@@ -280,20 +282,19 @@ msgstr "Приєднати модальне вікно до батьківськ
 #: data/org.gnome.shell.gschema.xml.in:236
 msgid ""
 "This key overrides the key in org.gnome.mutter when running GNOME Shell."
-msgstr ""
-"Цей ключ перевизначає ключ у org.gnome.mutter, коли запущено GNOME Shell."
+msgstr "Цей ключ перевизначає ключ у org.gnome.mutter коли запущено GNOME Shell."
 
 #: data/org.gnome.shell.gschema.xml.in:211
 msgid "Enable edge tiling when dropping windows on screen edges"
-msgstr "Увімкнути розбиття країв, коли кладуться вікна на краї екрана"
+msgstr "Увімкнути приєднання країв, коли вікна кладуться на край екрану"
 
 #: data/org.gnome.shell.gschema.xml.in:219
 msgid "Workspaces are managed dynamically"
-msgstr "Робочі простори організовуються динамічно"
+msgstr "Робочі простори керуються динамічно"
 
 #: data/org.gnome.shell.gschema.xml.in:227
 msgid "Workspaces only on primary monitor"
-msgstr "Робочий простір лише на основному моніторі"
+msgstr "Робочий простір тільки на основному моніторі"
 
 #: data/org.gnome.shell.gschema.xml.in:235
 msgid "Delay focus changes in mouse mode until the pointer stops moving"
@@ -343,7 +344,7 @@ msgstr "Виберіть сеанс"
 #. manually entering the username.
 #: js/gdm/loginDialog.js:458
 msgid "Not listed?"
-msgstr "Немає в переліку?"
+msgstr "Немає в списку?"
 
 #. Translators: this message is shown below the username entry field
 #. to clue the user in on how to login to the local network realm
@@ -366,7 +367,7 @@ msgstr "Вікно входу"
 
 #: js/gdm/util.js:303
 msgid "Authentication error"
-msgstr "Помилка розпізнавання"
+msgstr "Помилка аутентифікації"
 
 #. We don't show fingerprint messages directly since it's
 #. not the main auth service. Instead we use the messages
@@ -379,20 +380,17 @@ msgstr "(або проведіть пальцем)"
 
 #. Translators: The name of the power-off action in search
 #: js/misc/systemActions.js:99
-#, fuzzy
 msgctxt "search-result"
 msgid "Power Off"
 msgstr "Вимкнути"
 
 #. Translators: A list of keywords that match the power-off action, separated by semicolons
 #: js/misc/systemActions.js:102
-#, fuzzy
 msgid "power off;shutdown;reboot;restart"
 msgstr "вимкнути"
 
 #. Translators: The name of the lock screen action in search
 #: js/misc/systemActions.js:106
-#, fuzzy
 msgctxt "search-result"
 msgid "Lock Screen"
 msgstr "Заблокувати екран"
@@ -404,7 +402,6 @@ msgstr "заблокувати екран"
 
 #. Translators: The name of the logout action in search
 #: js/misc/systemActions.js:113
-#, fuzzy
 msgctxt "search-result"
 msgid "Log Out"
 msgstr "Вийти"
@@ -423,11 +420,10 @@ msgstr "Призупинити"
 #. Translators: A list of keywords that match the suspend action, separated by semicolons
 #: js/misc/systemActions.js:123
 msgid "suspend;sleep"
-msgstr "Призупинити;сон"
+msgstr "призупинити;сон"
 
 #. Translators: The name of the switch user action in search
 #: js/misc/systemActions.js:127
-#, fuzzy
 msgctxt "search-result"
 msgid "Switch User"
 msgstr "Змінити користувача"
@@ -439,14 +435,12 @@ msgstr "змінити користувача"
 
 #. Translators: The name of the lock orientation action in search
 #: js/misc/systemActions.js:134
-#, fuzzy
 msgctxt "search-result"
 msgid "Lock Orientation"
 msgstr "Заблокувати орієнтацію"
 
 #. Translators: A list of keywords that match the lock orientation action, separated by semicolons
 #: js/misc/systemActions.js:137
-#, fuzzy
 msgid "lock orientation;screen;rotation"
 msgstr "заблокувати орієнтацію"
 
@@ -463,27 +457,27 @@ msgstr "Неможливо розібрати команду:"
 #: js/misc/util.js:163
 #, javascript-format
 msgid "Execution of “%s” failed:"
-msgstr "Не вдалось виконати «%s»:"
+msgstr "Виконання «%s» не вдалося:"
 
 #: js/misc/util.js:180
 msgid "Just now"
-msgstr "Просто зараз"
+msgstr "Щойно"
 
 #: js/misc/util.js:182
 #, javascript-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] "%d хвилина тому"
-msgstr[1] "%d хвилини тому"
-msgstr[2] "%d хвилин тому"
+msgstr[0] "%d хв. назад"
+msgstr[1] "%d хв. назад"
+msgstr[2] "%d хв. назад"
 
 #: js/misc/util.js:185
 #, javascript-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] "%d година тому"
-msgstr[1] "%d години тому"
-msgstr[2] "%d годин тому"
+msgstr[0] "%d година назад"
+msgstr[1] "%d години назад"
+msgstr[2] "%d годин назад"
 
 #: js/misc/util.js:188
 msgid "Yesterday"
@@ -493,33 +487,33 @@ msgstr "Учора"
 #, javascript-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] "%d день тому"
-msgstr[1] "%d дні тому"
-msgstr[2] "%d днів тому"
+msgstr[0] "%d день назад"
+msgstr[1] "%d дні назад"
+msgstr[2] "%d днів назад"
 
 #: js/misc/util.js:193
 #, javascript-format
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
-msgstr[0] "%d тиждень тому"
-msgstr[1] "%d тижні тому"
-msgstr[2] "%d тижнів тому"
+msgstr[0] "%d тиждень назад"
+msgstr[1] "%d тижні назад"
+msgstr[2] "%d тижнів назад"
 
 #: js/misc/util.js:196
 #, javascript-format
 msgid "%d month ago"
 msgid_plural "%d months ago"
-msgstr[0] "%d місяць тому"
-msgstr[1] "%d місяці тому"
-msgstr[2] "%d місяців тому"
+msgstr[0] "%d місяць назад"
+msgstr[1] "%d місяці назад"
+msgstr[2] "%d місяців назад"
 
 #: js/misc/util.js:198
 #, javascript-format
 msgid "%d year ago"
 msgid_plural "%d years ago"
-msgstr[0] "%d рік тому"
-msgstr[1] "%d роки тому"
-msgstr[2] "%d років тому"
+msgstr[0] "%d рік назад"
+msgstr[1] "%d роки назад"
+msgstr[2] "%d років назад"
 
 #. Translators: Time in 24h format
 #: js/misc/util.js:228
@@ -531,7 +525,7 @@ msgstr "%H:%M"
 #: js/misc/util.js:234
 #, no-c-format
 msgid "Yesterday, %H∶%M"
-msgstr "Учора, %H∶%M"
+msgstr "Вчора, %H∶%M"
 
 #. Translators: this is the week day name followed by a time
 #. string in 24h format. i.e. "Monday, 14:30"
@@ -566,7 +560,7 @@ msgstr "%l∶%M %p"
 #: js/misc/util.js:263
 #, no-c-format
 msgid "Yesterday, %l∶%M %p"
-msgstr "Учора, %l∶%M %p"
+msgstr "Вчора, %l∶%M %p"
 
 #. Translators: this is the week day name followed by a time
 #. string in 12h format. i.e. "Monday, 2:30 pm"
@@ -608,7 +602,7 @@ msgstr ""
 #. let modal = options['modal'] || true;
 #: js/ui/accessDialog.js:63
 msgid "Deny Access"
-msgstr "Заборонити доступ"
+msgstr "Відмовити в доступі"
 
 #: js/ui/accessDialog.js:64
 msgid "Grant Access"
@@ -616,7 +610,7 @@ msgstr "Надати доступ"
 
 #: js/ui/appDisplay.js:793
 msgid "Frequently used applications will appear here"
-msgstr "Часто використовувані програми будуть з'являтись тут"
+msgstr "Часто використовувані додатки будуть з'являтись тут"
 
 #: js/ui/appDisplay.js:914
 msgid "Frequent"
@@ -632,11 +626,11 @@ msgstr "Нове вікно"
 
 #: js/ui/appDisplay.js:1900
 msgid "Launch using Dedicated Graphics Card"
-msgstr "Запустити через відповідну графічну плату"
+msgstr "Запустити використовуючи Дискретну Відеокарту"
 
 #: js/ui/appDisplay.js:1927 js/ui/dash.js:285
 msgid "Remove from Favorites"
-msgstr "Вилучити з улюбленого"
+msgstr "Видалити з улюбленого"
 
 #: js/ui/appDisplay.js:1933
 msgid "Add to Favorites"
@@ -654,7 +648,7 @@ msgstr "%s додано до улюбленого."
 #: js/ui/appFavorites.js:173
 #, javascript-format
 msgid "%s has been removed from your favorites."
-msgstr "%s вилучено з улюбленого."
+msgstr "%s видалено з улюбленого."
 
 #: js/ui/audioDeviceSelection.js:59
 msgid "Select Audio Device"
@@ -748,7 +742,7 @@ msgstr "С"
 #.
 #: js/ui/calendar.js:169
 msgid "%OB"
-msgstr ""
+msgstr "%OB"
 
 #. *
 #. * Translators: The header displaying the month name and the year
@@ -761,7 +755,7 @@ msgstr ""
 #.
 #: js/ui/calendar.js:179
 msgid "%OB %Y"
-msgstr ""
+msgstr "%OB %Y"
 
 #: js/ui/calendar.js:236
 msgid "Previous month"
@@ -822,15 +816,16 @@ msgid ""
 "You may choose to wait a short while for it to continue or force the "
 "application to quit entirely."
 msgstr ""
-"Можете трошки зачекати відновлення активності або примусово закрити програму."
+"Ви можете вибрати зачекати недовго для продовження або примусити додаток "
+"повністю вийти."
 
 #: js/ui/closeDialog.js:61
 msgid "Force Quit"
-msgstr "Примусово закрити"
+msgstr "Вийти примусово"
 
 #: js/ui/closeDialog.js:64
 msgid "Wait"
-msgstr "Зачекати"
+msgstr "Чекати"
 
 #: js/ui/components/automountManager.js:90
 msgid "External drive connected"
@@ -884,14 +879,15 @@ msgstr "Служба:"
 
 #: js/ui/components/networkAgent.js:292 js/ui/components/networkAgent.js:659
 msgid "Authentication required by wireless network"
-msgstr "Потрібна аутентифікація для радіомережі"
+msgstr "Потрібна аутентифікація для бездротової мережі"
 
 #: js/ui/components/networkAgent.js:293 js/ui/components/networkAgent.js:660
 #, javascript-format
 msgid ""
 "Passwords or encryption keys are required to access the wireless network "
 "“%s”."
-msgstr "Потрібно паролі або зашифровані ключі для доступу до радіомережі «%s»."
+msgstr ""
+"Потрібні паролі або зашифровані ключі для доступу до бездротової мережі «%s»."
 
 #: js/ui/components/networkAgent.js:297 js/ui/components/networkAgent.js:663
 msgid "Wired 802.1X authentication"
@@ -899,7 +895,7 @@ msgstr "Дротова аутентифікація 802.1X"
 
 #: js/ui/components/networkAgent.js:299
 msgid "Network name: "
-msgstr "Назва мережні: "
+msgstr "Назва мережі: "
 
 #: js/ui/components/networkAgent.js:304 js/ui/components/networkAgent.js:667
 msgid "DSL authentication"
@@ -933,7 +929,7 @@ msgstr "Керування мережею"
 
 #: js/ui/components/polkitAgent.js:48
 msgid "Authentication Required"
-msgstr "Потрібна автентифікація"
+msgstr "Потрібна аутентифікація"
 
 #: js/ui/components/polkitAgent.js:76
 msgid "Administrator"
@@ -964,7 +960,7 @@ msgstr "Вікна"
 
 #: js/ui/dash.js:246 js/ui/dash.js:287
 msgid "Show Applications"
-msgstr "Показати програми"
+msgstr "Показати додатки"
 
 #. Translators: this is the name of the dock/favorites area on
 #. the left of the overview
@@ -999,12 +995,12 @@ msgstr "Світові годинники"
 #, javascript-format
 msgctxt "title"
 msgid "Log Out %s"
-msgstr "Завершити сеанс %s"
+msgstr "Вихід %s"
 
 #: js/ui/endSessionDialog.js:65
 msgctxt "title"
 msgid "Log Out"
-msgstr "Завершити сеанс"
+msgstr "Вийти"
 
 #: js/ui/endSessionDialog.js:67
 #, javascript-format
@@ -1129,7 +1125,7 @@ msgstr "Працює від заряду батареї: під'єднайте �
 
 #: js/ui/endSessionDialog.js:378
 msgid "Some applications are busy or have unsaved work."
-msgstr "Деякі програми зайняті або мають незбережені дані."
+msgstr "Деякі додатки зайняті або мають незбережені дані."
 
 #: js/ui/endSessionDialog.js:385
 msgid "Other users are logged in."
@@ -1160,17 +1156,17 @@ msgstr "Звантажити і встановити «%s» з extensions.gnome.
 #: js/ui/inhibitShortcutsDialog.js:59
 #, javascript-format
 msgid "%s wants to inhibit shortcuts"
-msgstr "%s бажає наслідувати скорочення"
+msgstr "%s бажає ігнорувати скорочення"
 
 #: js/ui/inhibitShortcutsDialog.js:60
 msgid "Application wants to inhibit shortcuts"
-msgstr "Програма бажає наслідувати скорочення"
+msgstr "Додаток бажає ігнорувати скорочення"
 
 #. Translators: %s is a keyboard shortcut like "Super+x"
 #: js/ui/inhibitShortcutsDialog.js:69
 #, javascript-format
 msgid "You can restore shortcuts by pressing %s."
-msgstr "Можна відновити скорочення, натиснувши %s."
+msgstr "Ви можете відновити скорочення, натиснувши %s."
 
 #: js/ui/inhibitShortcutsDialog.js:74
 msgid "Deny"
@@ -1181,36 +1177,39 @@ msgid "Allow"
 msgstr "Дозволити"
 
 #: js/ui/kbdA11yDialog.js:33
-#, fuzzy
 msgid "Slow Keys Turned On"
-msgstr "Повільні клавіші"
+msgstr "Повільні клавіші увімкнено"
 
 #: js/ui/kbdA11yDialog.js:34
 #, fuzzy
 msgid "Slow Keys Turned Off"
-msgstr "Повільні клавіші"
+msgstr "Повільні клавіші вимкнено"
 
 #: js/ui/kbdA11yDialog.js:35
 msgid ""
 "You just held down the Shift key for 8 seconds. This is the shortcut for the "
 "Slow Keys feature, which affects the way your keyboard works."
 msgstr ""
+"Ви утримували клавішу Shift протягом 8-ми секунд. Це скорочення для можливості «Повільні "
+"клавіші», що впливає на роботу вашої клавіатури."
 
 #: js/ui/kbdA11yDialog.js:42
 #, fuzzy
 msgid "Sticky Keys Turned On"
-msgstr "Липкі клавіші"
+msgstr "Клавіші залипання увімкнено"
 
 #: js/ui/kbdA11yDialog.js:43
 #, fuzzy
 msgid "Sticky Keys Turned Off"
-msgstr "Липкі клавіші"
+msgstr "Клавіші залипання вимкнено"
 
 #: js/ui/kbdA11yDialog.js:45
 msgid ""
 "You just pressed the Shift key 5 times in a row. This is the shortcut for "
 "the Sticky Keys feature, which affects the way your keyboard works."
 msgstr ""
+"Ви натиснули клавішу Shift 5 разів поспіль. Це скорочення для можливості «Клавіші "
+"залипання», що впливає на роботу вашої клавіатури."
 
 #: js/ui/kbdA11yDialog.js:47
 msgid ""
@@ -1218,10 +1217,13 @@ msgid ""
 "row. This turns off the Sticky Keys feature, which affects the way your "
 "keyboard works."
 msgstr ""
+"Ви натиснули дві клавіші одночасно, або натиснули клавішу Shift 5 разів "
+"поспіль. Це вимикає можливість «Клавіші залипання», що впливає на роботу "
+"вашої клавіатури."
 
 #: js/ui/kbdA11yDialog.js:59
 msgid "Leave On"
-msgstr ""
+msgstr "Залишити увімкненим"
 
 #: js/ui/kbdA11yDialog.js:59 js/ui/status/bluetooth.js:143
 #: js/ui/status/network.js:1281
@@ -1238,11 +1240,11 @@ msgstr "Вимкнути"
 
 #: js/ui/kbdA11yDialog.js:67
 msgid "Leave Off"
-msgstr ""
+msgstr "Залишити вимкненим"
 
 #: js/ui/keyboard.js:197
 msgid "Region & Language Settings"
-msgstr "Параметри регіону та мови"
+msgstr "Налаштування «Регіон та мова»"
 
 #: js/ui/lookingGlass.js:644
 msgid "No extensions installed"
@@ -1407,7 +1409,7 @@ msgstr "Неможливо заблокувати"
 
 #: js/ui/screenShield.js:829 js/ui/screenShield.js:1302
 msgid "Lock was blocked by an application"
-msgstr "Блокування заборонено програмою"
+msgstr "Блокування заборонено додатком"
 
 #: js/ui/search.js:653
 msgid "Searching…"
@@ -1471,7 +1473,7 @@ msgstr "Візуальні тривоги"
 
 #: js/ui/status/accessibility.js:75
 msgid "Sticky Keys"
-msgstr "Липкі клавіші"
+msgstr "Клавіші залипання"
 
 #: js/ui/status/accessibility.js:78
 msgid "Slow Keys"
@@ -1570,14 +1572,14 @@ msgstr "%s під'єднується"
 #: js/ui/status/network.js:462
 #, javascript-format
 msgid "%s Requires Authentication"
-msgstr "%s вимагає засвідчення"
+msgstr "%s вимагає аутентифікації"
 
 #. Translators: this is for devices that require some kind of firmware or kernel
 #. module, which is missing; %s is a network identifier
 #: js/ui/status/network.js:470
 #, javascript-format
 msgid "Firmware Missing For %s"
-msgstr "Бракує мікропрограми для %s"
+msgstr "Відсутня прошивка для %s"
 
 #. Translators: this is for a network device that cannot be activated (for example it
 #. is disabled by rfkill, or it has no coverage; %s is a network identifier
@@ -1590,7 +1592,7 @@ msgstr "%s недоступний"
 #: js/ui/status/network.js:477
 #, javascript-format
 msgid "%s Connection Failed"
-msgstr "%s під'єднано невдало"
+msgstr "%s підключення невдалося"
 
 #: js/ui/status/network.js:493
 msgid "Wired Settings"
@@ -1598,7 +1600,7 @@ msgstr "Параметри мережі"
 
 #: js/ui/status/network.js:535
 msgid "Mobile Broadband Settings"
-msgstr "параметри мобільної радіомережі"
+msgstr "Параметри широкополосної мобільної мережі"
 
 #. Translators: %s is a network identifier
 #: js/ui/status/network.js:578 js/ui/status/network.js:1307
@@ -1679,7 +1681,7 @@ msgstr "%s не під'єднано"
 
 #: js/ui/status/network.js:1413
 msgid "connecting…"
-msgstr "З'єднання…"
+msgstr "з'єднання…"
 
 #. Translators: this is for network connections that require some kind of key or password
 #: js/ui/status/network.js:1416
@@ -1854,7 +1856,7 @@ msgstr "Розблокувати вікно"
 
 #: js/ui/viewSelector.js:190
 msgid "Applications"
-msgstr "Програми"
+msgstr "Додатки"
 
 #: js/ui/viewSelector.js:194
 msgid "Search"
@@ -1867,7 +1869,7 @@ msgstr "«%s» готовий"
 
 #: js/ui/windowManager.js:52
 msgid "Do you want to keep these display settings?"
-msgstr "Зберегти ці параметри екрана?"
+msgstr "Ви бажаєте зберегти ці параметри екрана?"
 
 #. Translators: this and the following message should be limited in lenght,
 #. to avoid ellipsizing the labels.
@@ -1973,7 +1975,7 @@ msgstr "Використовувати вказаний режим, прикла
 
 #: src/main.c:450
 msgid "List possible modes"
-msgstr "Перелік можливих режимів"
+msgstr "Список можливих режимів"
 
 #: src/shell-app.c:270
 msgctxt "program"
@@ -1995,7 +1997,7 @@ msgstr "Пароль не може бути порожнім"
 
 #: src/shell-polkit-authentication-agent.c:353
 msgid "Authentication dialog was dismissed by the user"
-msgstr "Вікно авторизації відхилено користувачем"
+msgstr "Діалогове вікно аутентифікації відхилено користувачем"
 
 #~ msgid "System"
 #~ msgstr "Система"
