@@ -229,7 +229,6 @@ if have_networkmanager
 endif
 
 libshell_gir_includes += [
-  libgvc_gir[0],
   libshell_menu_gir[0],
   libst_gir[0]
 ]

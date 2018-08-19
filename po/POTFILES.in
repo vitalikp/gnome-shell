@@ -71,5 +71,3 @@ src/shell-global.c
 src/shell-keyring-prompt.c
 src/shell-polkit-authentication-agent.c
 src/shell-util.c
-# Please do not remove this file from POTFILES.in. Run "git submodule init && git submodule update" to get it.
-subprojects/gvc/gvc-mixer-control.c

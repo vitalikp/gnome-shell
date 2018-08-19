@@ -160,19 +160,6 @@ config_h = configure_file(
 
 conf_inc = include_directories('.')
 
-libgvc = subproject('gvc',
-  default_options: [
-    'package_name=' + meson.project_name(),
-    'package_version=' + meson.project_version(),
-    'pkgdatadir=' + pkgdatadir,
-    'pkglibdir=' + pkglibdir,
-    'static=false',
-    'introspection=true',
-    'alsa=false'
-  ]
-)
-libgvc_gir = libgvc.get_variable('libgvc_gir')
-
 subdir('js')
 subdir('src')
 subdir('po')
