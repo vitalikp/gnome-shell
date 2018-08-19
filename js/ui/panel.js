@@ -711,7 +711,6 @@ var AggregateMenu = new Lang.Class({
 
         this._power = new imports.ui.status.power.Indicator();
         this._rfkill = new imports.ui.status.rfkill.Indicator();
-        this._volume = new imports.ui.status.volume.Indicator();
         this._brightness = new imports.ui.status.brightness.Indicator();
         this._system = new imports.ui.status.system.Indicator();
         this._screencast = new imports.ui.status.screencast.Indicator();
@@ -726,11 +725,9 @@ var AggregateMenu = new Lang.Class({
             this._indicators.add_child(this._bluetooth.indicators);
         }
         this._indicators.add_child(this._rfkill.indicators);
-        this._indicators.add_child(this._volume.indicators);
         this._indicators.add_child(this._power.indicators);
         this._indicators.add_child(PopupMenu.arrowIcon(St.Side.BOTTOM));
 
-        this.menu.addMenuItem(this._volume.menu);
         this.menu.addMenuItem(this._brightness.menu);
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         if (this._network) {

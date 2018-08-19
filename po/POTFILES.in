@@ -58,7 +58,6 @@ js/ui/status/nightLight.js
 js/ui/status/power.js
 js/ui/status/rfkill.js
 js/ui/status/system.js
-js/ui/status/volume.js
 js/ui/switchMonitor.js
 js/ui/unlockDialog.js
 js/ui/viewSelector.js
