@@ -395,7 +395,7 @@ var DateMenuButton = new Lang.Class({
     },
 
     _getEventSource() {
-        return new Calendar.DBusEventSource();
+        return new Calendar.EmptyEventSource();
     },
 
     _setEventSource(eventSource) {

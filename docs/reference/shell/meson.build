@@ -11,7 +11,6 @@ if not enable_recorder
 endif
 
 exclude_directories = [
-  'calendar-server',
   'hotplug-sniffer',
   'st',
   'tray'

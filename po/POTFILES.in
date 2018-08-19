@@ -66,7 +66,6 @@ js/ui/viewSelector.js
 js/ui/windowAttentionHandler.js
 js/ui/windowManager.js
 js/ui/windowMenu.js
-src/calendar-server/evolution-calendar.desktop.in
 src/main.c
 src/shell-app.c
 src/shell-app-system.c

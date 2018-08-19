@@ -110,8 +110,6 @@ var EmptyEventSource = new Lang.Class({
 
     _init() {
         this.isLoading = false;
-        this.isDummy = true;
-        this.hasCalendars = false;
     },
 
     destroy() {
@@ -134,29 +132,6 @@ var EmptyEventSource = new Lang.Class({
 });
 Signals.addSignalMethods(EmptyEventSource.prototype);
 
-const CalendarServerIface = '<node> \
-<interface name="org.gnome.Shell.CalendarServer"> \
-<method name="GetEvents"> \
-    <arg type="x" direction="in" /> \
-    <arg type="x" direction="in" /> \
-    <arg type="b" direction="in" /> \
-    <arg type="a(sssbxxa{sv})" direction="out" /> \
-</method> \
-<property name="HasCalendars" type="b" access="read" /> \
-<signal name="Changed" /> \
-</interface> \
-</node>';
-
-const CalendarServerInfo  = Gio.DBusInterfaceInfo.new_for_xml(CalendarServerIface);
-
-function CalendarServer() {
-    return new Gio.DBusProxy({ g_connection: Gio.DBus.session,
-                               g_interface_name: CalendarServerInfo.name,
-                               g_interface_info: CalendarServerInfo,
-                               g_name: 'org.gnome.Shell.CalendarServer',
-                               g_object_path: '/org/gnome/Shell/CalendarServer' });
-}
-
 function _datesEqual(a, b) {
     if (a < b)
         return false;
@@ -174,191 +149,6 @@ function _dateIntervalsOverlap(a0, a1, b0, b1)
     else
         return true;
 }
-
-// an implementation that reads data from a session bus service
-var DBusEventSource = new Lang.Class({
-    Name: 'DBusEventSource',
-
-    _init() {
-        this._resetCache();
-        this.isLoading = false;
-        this.isDummy = false;
-
-        this._ignoredEvents = new Map();
-
-        let savedState = global.get_persistent_state('as', 'ignored_events');
-        if (savedState)
-            savedState.deep_unpack().forEach(eventId => {
-                this._ignoredEvents.set(eventId, true);
-            });
-
-        this._initialized = false;
-        this._dbusProxy = new CalendarServer();
-        this._dbusProxy.init_async(GLib.PRIORITY_DEFAULT, null, (object, result) => {
-            let loaded = false;
-
-            try {
-                this._dbusProxy.init_finish(result);
-                loaded = true;
-            } catch(e) {
-                if (e.matches(Gio.DBusError, Gio.DBusError.TIMED_OUT)) {
-                    // Ignore timeouts and install signals as normal, because with high
-                    // probability the service will appear later on, and we will get a
-                    // NameOwnerChanged which will finish loading
-                    //
-                    // (But still _initialized to false, because the proxy does not know
-                    // about the HasCalendars property and would cause an exception trying
-                    // to read it)
-                } else {
-                    log('Error loading calendars: ' + e.message);
-                    return;
-                }
-            }
-
-            this._dbusProxy.connectSignal('Changed', this._onChanged.bind(this));
-
-            this._dbusProxy.connect('notify::g-name-owner', () => {
-                if (this._dbusProxy.g_name_owner)
-                    this._onNameAppeared();
-                else
-                    this._onNameVanished();
-            });
-
-            this._dbusProxy.connect('g-properties-changed', () => {
-                this.emit('notify::has-calendars');
-            });
-
-            this._initialized = loaded;
-            if (loaded) {
-                this.emit('notify::has-calendars');
-                this._onNameAppeared();
-            }
-        });
-    },
-
-    destroy() {
-        this._dbusProxy.run_dispose();
-    },
-
-    get hasCalendars() {
-        if (this._initialized)
-            return this._dbusProxy.HasCalendars;
-        else
-            return false;
-    },
-
-    _resetCache() {
-        this._events = [];
-        this._lastRequestBegin = null;
-        this._lastRequestEnd = null;
-    },
-
-    _onNameAppeared(owner) {
-        this._initialized = true;
-        this._resetCache();
-        this._loadEvents(true);
-    },
-
-    _onNameVanished(oldOwner) {
-        this._resetCache();
-        this.emit('changed');
-    },
-
-    _onChanged() {
-        this._loadEvents(false);
-    },
-
-    _onEventsReceived(results, error) {
-        let newEvents = [];
-        let appointments = results ? results[0] : null;
-        if (appointments != null) {
-            for (let n = 0; n < appointments.length; n++) {
-                let a = appointments[n];
-                let date = new Date(a[4] * 1000);
-                let end = new Date(a[5] * 1000);
-                let id = a[0];
-                let summary = a[1];
-                let allDay = a[3];
-                let event = new CalendarEvent(id, date, end, summary, allDay);
-                newEvents.push(event);
-            }
-            newEvents.sort((ev1, ev2) => ev1.date.getTime() - ev2.date.getTime());
-        }
-
-        this._events = newEvents;
-        this.isLoading = false;
-        this.emit('changed');
-    },
-
-    _loadEvents(forceReload) {
-        // Ignore while loading
-        if (!this._initialized)
-            return;
-
-        if (this._curRequestBegin && this._curRequestEnd){
-            this._dbusProxy.GetEventsRemote(this._curRequestBegin.getTime() / 1000,
-                                            this._curRequestEnd.getTime() / 1000,
-                                            forceReload,
-                                            this._onEventsReceived.bind(this),
-                                            Gio.DBusCallFlags.NONE);
-        }
-    },
-
-    ignoreEvent(event) {
-        if (this._ignoredEvents.get(event.id))
-            return;
-
-        this._ignoredEvents.set(event.id, true);
-        let savedState = new GLib.Variant('as', [...this._ignoredEvents.keys()]);
-        global.set_persistent_state('ignored_events', savedState);
-        this.emit('changed');
-    },
-
-    requestRange(begin, end) {
-        if (!(_datesEqual(begin, this._lastRequestBegin) && _datesEqual(end, this._lastRequestEnd))) {
-            this.isLoading = true;
-            this._lastRequestBegin = begin;
-            this._lastRequestEnd = end;
-            this._curRequestBegin = begin;
-            this._curRequestEnd = end;
-            this._loadEvents(false);
-        }
-    },
-
-    getEvents(begin, end) {
-        let result = [];
-        for(let n = 0; n < this._events.length; n++) {
-            let event = this._events[n];
-
-            if (this._ignoredEvents.has(event.id))
-                continue;
-
-            if (_dateIntervalsOverlap (event.date, event.end, begin, end)) {
-                result.push(event);
-            }
-        }
-        result.sort((event1, event2) => {
-            // sort events by end time on ending day
-            let d1 = event1.date < begin && event1.end <= end ? event1.end : event1.date;
-            let d2 = event2.date < begin && event2.end <= end ? event2.end : event2.date;
-            return d1.getTime() - d2.getTime();
-        });
-        return result;
-    },
-
-    hasEvents(day) {
-        let dayBegin = _getBeginningOfDay(day);
-        let dayEnd = _getEndOfDay(day);
-
-        let events = this.getEvents(dayBegin, dayEnd);
-
-        if (events.length == 0)
-            return false;
-
-        return true;
-    }
-});
-Signals.addSignalMethods(DBusEventSource.prototype);
 
 var Calendar = new Lang.Class({
     Name: 'Calendar',
@@ -609,9 +399,6 @@ var Calendar = new Lang.Class({
             let button = new St.Button({ label: iter.toLocaleFormat(C_("date day number format", "%d")),
                                          can_focus: true });
             let rtl = button.get_text_direction() == Clutter.TextDirection.RTL;
-
-            if (this._eventSource.isDummy)
-                button.reactive = false;
 
             button._date = new Date(iter);
             button.connect('clicked', () => {
@@ -934,8 +721,6 @@ var EventsSection = new Lang.Class({
         Main.panel.closeCalendar();
 
         let app = this._getCalendarApp();
-        if (app.get_id() == 'evolution.desktop')
-            app = Gio.DesktopAppInfo.new('evolution-calendar.desktop');
         app.launch([], global.create_app_launch_context(0, -1));
     },
 
