@@ -337,13 +337,12 @@ var Message = new Lang.Class({
         let titleBox = new St.BoxLayout();
         contentBox.add_actor(titleBox);
 
-        this.titleLabel = new St.Label({ style_class: 'message-title' });
+        this.titleLabel = new St.Label({ style_class: 'message-title',
+                                         x_expand: true });
         this.setTitle(title);
         titleBox.add_actor(this.titleLabel);
 
-        this._secondaryBin = new St.Bin({ style_class: 'message-secondary-bin',
-                                          x_expand: true, y_expand: true,
-                                          x_fill: true, y_fill: true });
+        this._secondaryBin = new St.Bin({ style_class: 'message-secondary-bin' });
         titleBox.add_actor(this._secondaryBin);
 
         let closeIcon = new St.Icon({ icon_name: 'window-close-symbolic',
