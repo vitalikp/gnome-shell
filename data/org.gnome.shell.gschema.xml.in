@@ -11,6 +11,11 @@
         using the Alt-F2 dialog.
       </description>
     </key>
+    <key name="volume-mvc-enable" type="b">
+      <default>false</default>
+      <summary>Enable Volume MVC</summary>
+      <description>Enable Volume MVC.</description>
+    </key>
     <key name="enabled-extensions" type="as">
       <default>[]</default>
       <summary>UUIDs of extensions to enable</summary>

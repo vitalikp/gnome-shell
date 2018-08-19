@@ -25,6 +25,8 @@ const RemoteMenu = imports.ui.remoteMenu;
 const Main = imports.ui.main;
 const Tweener = imports.ui.tweener;
 
+const VOLUME_MVC_ENABLE = 'volume-mvc-enable';
+
 var PANEL_ICON_SIZE = 16;
 var APP_MENU_ICON_MARGIN = 0;
 
