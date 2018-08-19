@@ -24,6 +24,6 @@ option('networkmanager',
 
 option('systemd',
   type: 'boolean',
-  value: true,
+  value: false,
   description: 'Enable systemd integration'
 )
