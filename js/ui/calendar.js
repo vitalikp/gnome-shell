@@ -767,7 +767,7 @@ var NotificationSection = new Lang.Class({
 
     _createTimeLabel(datetime) {
         let label = new St.Label({ style_class: 'event-time',
-                                   x_align: Clutter.ActorAlign.START,
+                                   x_align: Clutter.ActorAlign.END,
                                    y_align: Clutter.ActorAlign.END });
         label.connect('notify::mapped', () => {
             if (label.mapped)
