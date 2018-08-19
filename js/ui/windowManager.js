@@ -19,7 +19,6 @@ const Main = imports.ui.main;
 const ModalDialog = imports.ui.modalDialog;
 const Tweener = imports.ui.tweener;
 const WindowMenu = imports.ui.windowMenu;
-const PadOsd = imports.ui.padOsd;
 const EdgeDragAction = imports.ui.edgeDragAction;
 const CloseDialog = imports.ui.closeDialog;
 const SwitchMonitor = imports.ui.switchMonitor;
@@ -926,7 +925,6 @@ var WindowManager = new Lang.Class({
                            this._toggleCalendar.bind(this));
 
         global.display.connect('show-resize-popup', this._showResizePopup.bind(this));
-        global.display.connect('show-pad-osd', this._showPadOsd.bind(this));
         global.display.connect('show-osd', (display, monitorIndex, iconName, label) => {
             let icon = Gio.Icon.new_for_string(iconName);
             Main.osdWindowManager.show(monitorIndex, icon, label, null);
@@ -991,13 +989,6 @@ var WindowManager = new Lang.Class({
             Main.keyboard.show(Main.layoutManager.bottomIndex);
         });
         global.stage.add_action(gesture);
-    },
-
-    _showPadOsd(display, device, settings, imagePath, editionMode, monitorIndex) {
-        this._currentPadOsd = new PadOsd.PadOsd(device, settings, imagePath, editionMode, monitorIndex);
-        this._currentPadOsd.connect('closed', () => { this._currentPadOsd = null });
-
-        return this._currentPadOsd.actor;
     },
 
     _actionSwitchWorkspace(action, direction) {
