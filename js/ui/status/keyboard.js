@@ -290,11 +290,14 @@ var InputSourceManager = new Lang.Class({
         this._overviewHiddenId = 0;
         this._settings.connect('per-window-changed', this._sourcesPerWindowChanged.bind(this));
         this._sourcesPerWindowChanged();
+        this._reloading = false;
     },
 
     reload() {
+        this._reloading = true;
         this._keyboardManager.setKeyboardOptions(this._settings.keyboardOptions);
         this._inputSourcesChanged();
+        this._reloading = false;
     },
 
     _modifiersSwitcher() {
@@ -360,9 +363,18 @@ var InputSourceManager = new Lang.Class({
     },
 
     activateInputSource(is, interactive) {
-        KeyboardManager.holdKeyboard();
+        // The focus changes during holdKeyboard/releaseKeyboard may trick
+        // the client into hiding UI containing the currently focused entry.
+        // So holdKeyboard/releaseKeyboard are not called when
+        // 'set-content-type' signal is received.
+        // E.g. Focusing on a password entry in a popup in Xorg Firefox
+        // will emit 'set-content-type' signal.
+        // https://gitlab.gnome.org/GNOME/gnome-shell/issues/391
+        if (!this._reloading)
+            KeyboardManager.holdKeyboard();
         this._keyboardManager.apply(is.xkbId);
-        KeyboardManager.releaseKeyboard();
+        if (!this._reloading)
+            KeyboardManager.releaseKeyboard();
 
         this._currentInputSourceChanged(is);
     },
