@@ -19,6 +19,7 @@ const EndSessionDialog = imports.ui.endSessionDialog;
 const Environment = imports.ui.environment;
 const ExtensionSystem = imports.ui.extensionSystem;
 const ExtensionDownloader = imports.ui.extensionDownloader;
+const Introspect = imports.misc.introspect;
 const Keyboard = imports.ui.keyboard;
 const MessageTray = imports.ui.messageTray;
 const ModalDialog = imports.ui.modalDialog;
@@ -78,6 +79,7 @@ var xdndHandler = null;
 var keyboard = null;
 var layoutManager = null;
 var kbdA11yDialog = null;
+var introspectService = null;
 let _startDate;
 let _defaultCssStylesheet = null;
 let _cssStylesheet = null;
@@ -178,6 +180,8 @@ function _initializeUI() {
     notificationDaemon = new NotificationDaemon.NotificationDaemon();
     windowAttentionHandler = new WindowAttentionHandler.WindowAttentionHandler();
     componentManager = new Components.ComponentManager();
+
+    introspectService = new Introspect.IntrospectService();
 
     layoutManager.init();
     overview.init();
