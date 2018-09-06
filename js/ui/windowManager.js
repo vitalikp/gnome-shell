@@ -24,6 +24,8 @@ const EdgeDragAction = imports.ui.edgeDragAction;
 const CloseDialog = imports.ui.closeDialog;
 const SwitchMonitor = imports.ui.switchMonitor;
 
+const { loadInterfaceXML } = imports.misc.fileUtils;
+
 var SHELL_KEYBINDINGS_SCHEMA = 'org.gnome.shell.keybindings';
 var MINIMIZE_WINDOW_ANIMATION_TIME = 0.2;
 var SHOW_WINDOW_ANIMATION_TIME = 0.15;

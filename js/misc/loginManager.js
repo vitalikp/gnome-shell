@@ -7,46 +7,10 @@ const Mainloop = imports.mainloop;
 const Shell = imports.gi.Shell;
 const Signals = imports.signals;
 
-const SystemdLoginManagerIface = `
-<node>
-<interface name="org.freedesktop.login1.Manager">
-<method name="Suspend">
-    <arg type="b" direction="in"/>
-</method>
-<method name="CanSuspend">
-    <arg type="s" direction="out"/>
-</method>
-<method name="Inhibit">
-    <arg type="s" direction="in"/>
-    <arg type="s" direction="in"/>
-    <arg type="s" direction="in"/>
-    <arg type="s" direction="in"/>
-    <arg type="h" direction="out"/>
-</method>
-<method name="GetSession">
-    <arg type="s" direction="in"/>
-    <arg type="o" direction="out"/>
-</method>
-<method name="ListSessions">
-    <arg name="sessions" type="a(susso)" direction="out"/>
-</method>
-<signal name="PrepareForSleep">
-    <arg type="b" direction="out"/>
-</signal>
-</interface>
-</node>`;
+const { loadInterfaceXML } = imports.misc.fileUtils;
 
-const SystemdLoginSessionIface = `
-<node>
-<interface name="org.freedesktop.login1.Session">
-<signal name="Lock" />
-<signal name="Unlock" />
-<property name="Active" type="b" access="read" />
-<method name="SetLockedHint">
-    <arg type="b" direction="in"/>
-</method>
-</interface>
-</node>`;
+const SystemdLoginManagerIface = loadInterfaceXML('org.freedesktop.login1.Manager');
+const SystemdLoginSessionIface = loadInterfaceXML('org.freedesktop.login1.Session');
 
 const SystemdLoginManager = Gio.DBusProxy.makeProxyWrapper(SystemdLoginManagerIface);
 const SystemdLoginSession = Gio.DBusProxy.makeProxyWrapper(SystemdLoginSessionIface);
