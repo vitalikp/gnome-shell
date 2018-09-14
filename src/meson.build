@@ -44,7 +44,6 @@ gnome_shell_deps = [
   atk_bridge_dep,
   gjs_dep,
   gdk_x11_dep,
-  soup_dep,
   clutter_dep,
   cogl_pango_dep,
   startup_dep,
@@ -223,8 +222,7 @@ libshell_dep = declare_dependency(link_with: libshell)
 libshell_gir_includes = [
   'Clutter-@0@'.format(mutter_api_version),
   'ClutterX11-@0@'.format(mutter_api_version),
-  'Meta-@0@'.format(mutter_api_version),
-  'Soup-2.4'
+  'Meta-@0@'.format(mutter_api_version)
 ]
 
 if have_networkmanager
