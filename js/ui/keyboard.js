@@ -580,6 +580,16 @@ var Keyboard = new Lang.Class({
             this._animFocusedWindow = null;
             this._oskFocusWindow = null;
         });
+        this._focusTracker.connect('focus-changed', (tracker, focused) => {
+            // Valid only for X11
+            if (Meta.is_wayland_compositor())
+                return;
+
+            if (focused)
+                this.show(Main.layoutManager.focusIndex);
+            else
+                this.hide();
+        });
 
         Meta.get_backend().connect('last-device-changed', 
             (backend, deviceId) => {
