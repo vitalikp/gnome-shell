@@ -468,7 +468,6 @@ var WindowOverlay = new Lang.Class({
         this._maxTitleWidth = -1;
 
         this._updateCaptionId = metaWindow.connect('notify::title', w => {
-            this.title.text = w.title;
             this.title.text = this._getCaption();
             this.relayout(false);
         });
