@@ -202,6 +202,11 @@ var NotificationsBox = class {
         return [title, null];
     }
 
+    _shouldShowDetails(source) {
+        return source.policy.detailsInLockScreen ||
+               source.narrowestPrivacyScope == MessageTray.PrivacyScope.SYSTEM;
+    }
+
     _showSource(source, obj, box) {
         if (obj.detailed) {
             [obj.titleLabel, obj.countLabel] = this._makeNotificationDetailedSource(source, box);
@@ -215,7 +220,7 @@ var NotificationsBox = class {
     _sourceAdded(tray, source, initial) {
         let obj = {
             visible: source.policy.showInLockScreen,
-            detailed: source.policy.detailsInLockScreen,
+            detailed: this._shouldShowDetails(source),
             sourceDestroyId: 0,
             sourceCountChangedId: 0,
             sourceTitleChangedId: 0,
@@ -279,7 +284,14 @@ var NotificationsBox = class {
     }
 
     _countChanged(source, obj) {
-        if (obj.detailed) {
+        // A change in the number of notifications may change whether we show
+        // details.
+        let newDetailed = this._shouldShowDetails(source);
+        let oldDetailed = obj.detailed;
+
+        obj.detailed = newDetailed;
+
+        if (obj.detailed || oldDetailed != newDetailed) {
             // A new notification was pushed, or a previous notification was destroyed.
             // Give up, and build the list again.
 
@@ -311,10 +323,11 @@ var NotificationsBox = class {
     }
 
     _detailedChanged(source, obj) {
-        if (obj.detailed == source.policy.detailsInLockScreen)
+        let newDetailed = this._shouldShowDetails(source);
+        if (obj.detailed == newDetailed)
             return;
 
-        obj.detailed = source.policy.detailsInLockScreen;
+        obj.detailed = newDetailed;
 
         obj.sourceBox.destroy_all_children();
         obj.titleLabel = obj.countLabel = null;
