@@ -1665,7 +1665,6 @@ StScrollBar {
 
 .login-dialog-user-list {
   spacing: 12px;
-  padding: .2em;
   width: 23em; }
   .login-dialog-user-list:expanded .login-dialog-user-list-item:selected {
     background-color: #215d9c;
@@ -1675,15 +1674,15 @@ StScrollBar {
 
 .login-dialog-user-list-item {
   border-radius: 5px;
-  padding: .2em;
+  padding: 6px;
   color: #a6a69b; }
-  .login-dialog-user-list-item:ltr {
+  .login-dialog-user-list-item:ltr .user-widget {
     padding-right: 1em; }
-  .login-dialog-user-list-item:rtl {
+  .login-dialog-user-list-item:rtl .user-widget {
     padding-left: 1em; }
   .login-dialog-user-list-item .login-dialog-timed-login-indicator {
     height: 2px;
-    margin: 2px 0 0 0;
+    margin-top: 6px;
     background-color: #eeeeec; }
   .login-dialog-user-list-item:focus .login-dialog-timed-login-indicator {
     background-color: #ffffff; }
