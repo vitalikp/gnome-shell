@@ -22,10 +22,6 @@
     <file>key-shift-latched-uppercase.svg</file>
     <file alias="icons/message-indicator-symbolic.svg">message-indicator-symbolic.svg</file>
     <file>noise-texture.png</file>
-    <file>page-indicator-active.svg</file>
-    <file>page-indicator-inactive.svg</file>
-    <file>page-indicator-checked.svg</file>
-    <file>page-indicator-hover.svg</file>
     <file>process-working.svg</file>
     <file>toggle-off-us.svg</file>
     <file>toggle-off-intl.svg</file>
