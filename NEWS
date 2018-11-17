@@ -1,16 +1,20 @@
 3.30.0-dev
 ======
 * Support icons in app-menu [Florian; #760985]
-* Misc. bug fixes [Marco, Florian, Lubomir; !63]
+* Misc. bug fixes [Marco, Florian, Lubomir, Xiaoguang+, Ole; !63,
+ #787871, #294]
 
 Contributors:
-  Piotr Drąg, Takao Fujiwara, Christian Kellner, Florian Müllner,
-  Mario Sanchez Prada, Lubomir Rintel, Didier Roche, Marco Trevisan (Treviño),
-  verdre
+  Carlos Garnacho, Christian Kellner, Daniel van Vugt, Didier Roche,
+  Florian Müllner, Lubomir Rintel, Marco Trevisan (Treviño),
+  Mario Sanchez Prada, Milan Crha, Ole Jørgen Brønner, Piotr Drąg, Ray Strode,
+  Silvère Latchurié, Takao Fujiwara, verdre, Xiaoguang Wang, Yussuf Khalil
 
 Translators:
-  gogo [hr], Matej Urbančič [sl], Daniel Șerbănescu [ro],
-  Fabio Tomat [fur], Marek Cernocky [cs], Daniel Mustieles [es]
+  Anders Jonsson [sv], Daniel Mustieles [es], Daniel Șerbănescu [ro],
+  Fabio Tomat [fur], gogo [hr], Kukuh Syafaat [id], Marcos Lans [gl],
+  Marek Cernocky [cs], Matej Urbančič [sl], Mingcong Bai [zh_CN],
+  Rafael Fontenelle [pt_BR]
 
 3.28.3
 ======
