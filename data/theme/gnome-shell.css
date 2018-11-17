@@ -649,7 +649,8 @@ StScrollBar {
   /* transition from solid to transparent */
   transition-duration: 500ms;
   font-weight: bold;
-  height: 1.86em; }
+  height: 1.86em;
+  font-feature-settings: "tnum"; }
   #panel.unlock-screen, #panel.login-screen, #panel.lock-screen {
     background-color: transparent; }
   #panel #panelLeft, #panel #panelCenter {
@@ -827,7 +828,8 @@ StScrollBar {
   height: 2.4em;
   padding: 0.1em;
   margin: 2px;
-  border-radius: 1.4em; }
+  border-radius: 1.4em;
+  font-feature-settings: "tnum"; }
   .calendar-day-base:hover, .calendar-day-base:focus {
     background-color: #454c4c; }
   .calendar-day-base:active, .calendar-day-base:selected {
@@ -1741,7 +1743,8 @@ StScrollBar {
 
 .screen-shield-clock-time {
   font-size: 72pt;
-  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4); }
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);
+  font-feature-settings: "tnum"; }
 
 .screen-shield-clock-date {
   font-size: 28pt; }
