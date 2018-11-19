@@ -5,8 +5,10 @@
 * Improve consistency between ctrl- and middle-click on app icons [Xavier; #316]
 * Add support for font-feature-settings CSS property [Ryan; #34]
 * Adjust to MetaScreen removal [Jonas; #759538]
+* Allow cancelling direct switch operations [Xavier; #315]
+* Support being started by systemd --user [Iain; !138]
 * Misc. bug fixes [Marco, Florian, Lubomir, Xiaoguang+, Ole; !63,
- #787871, #294, #298, #26, #76]
+ #787871, #294, #298, #26, #76, !151]
 
 Contributors:
   Carlos Garnacho, Christian Kellner, Daniel van Vugt, Didier Roche,
@@ -20,7 +22,7 @@ Translators:
   Daniel Șerbănescu [ro], Fabio Tomat [fur], gogo [hr], Jordi Mas [ca],
   Kukuh Syafaat [id], Marcos Lans [gl], Marek Cernocky [cs],
   Matej Urbančič [sl], Mingcong Bai [zh_CN], Rafael Fontenelle [pt_BR],
-  Yi-Jyun Pan [zh_TW]
+  Stas Solovey [ru], Yi-Jyun Pan [zh_TW]
 
 3.28.3
 ======
