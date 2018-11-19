@@ -979,6 +979,7 @@ StScrollBar {
     margin-right: 1.09em; }
 
 .system-menu-action {
+  -st-icon-style: symbolic;
   color: #eeeeec;
   border-radius: 32px;
   /* wish we could do 50% */
