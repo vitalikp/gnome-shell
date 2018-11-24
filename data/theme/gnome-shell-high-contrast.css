@@ -147,6 +147,9 @@ StScrollBar {
   -barlevel-border-color: black; //trough border color
   -barlevel-active-background-color: #215d9c; //active trough fill
   -barlevel-active-border-color: #184472; //active trough border
+  -barlevel-overdrive-color: #ef2929;
+  -barlevel-overdrive-border-color: #d61010;
+  -barlevel-overdrive-separator-width: 0.2em;
   -barlevel-border-width: 1px;
   -slider-handle-radius: 6px; }
 
@@ -545,7 +548,9 @@ StScrollBar {
     height: 0.6em;
     -barlevel-height: 0.6em;
     -barlevel-background-color: rgba(11, 12, 13, 0.5);
-    -barlevel-active-background-color: #eeeeec; }
+    -barlevel-active-background-color: #eeeeec;
+    -barlevel-overdrive-color: #ef2929;
+    -barlevel-overdrive-separator-width: 0.2em; }
 
 .combo-box-label {
   width: 15em; }
