@@ -7,22 +7,28 @@
 * Adjust to MetaScreen removal [Jonas; #759538]
 * Allow cancelling direct switch operations [Xavier; #315]
 * Support being started by systemd --user [Iain; !138]
-* Misc. bug fixes [Marco, Florian, Lubomir, Xiaoguang+, Ole; !63,
- #787871, #294, #298, #26, #76, !151]
+* Add gesture to unfullscreen a window [Jan-Michael; !123]
+* Add PickColor method to screenshot D-Bus interface [Florian; #286]
+* Consider "new-window" action when opening new windows [Florian; #756844]
+* Make workspace switching gestures follow motion [Carlos; #788994]
+* Support maxValue higher than 1 in barLevel [Didier; #790280]
+* Misc. bug fixes [Marco, Florian, Lubomir, Xiaoguang+, Ole, Daniel; !63,
+ #787871, #294, #298, #26, #76, !151, #424, !132, !182, #433, !179, #786496]
 
 Contributors:
-  Carlos Garnacho, Christian Kellner, Daniel van Vugt, Didier Roche,
-  Florian Müllner, Jonas Ådahl, Lubomir Rintel, Marco Trevisan (Treviño),
+  Carlos Garnacho, Christian Kellner, Daniel Drake, Daniel van Vugt,
+  Didier Roche, Florian Müllner, Georges Basile Stavracas Neto, Jakub Steiner,
+  Jan-Michael Brummer, Jonas Ådahl, Lubomir Rintel, Marco Trevisan (Treviño),
   Mario Sanchez Prada, Milan Crha, Ole Jørgen Brønner, Piotr Drąg, Ray Strode,
   Ryan Hendrickson, Silvère Latchurié, Takao Fujiwara, verdre, Xavier Johnson,
   Xiaoguang Wang, Yussuf Khalil
 
 Translators:
-  Anders Jonsson [sv], Cédric Valmary [oc], Daniel Mustieles [es],
-  Daniel Șerbănescu [ro], Fabio Tomat [fur], gogo [hr], Jordi Mas [ca],
-  Kukuh Syafaat [id], Marcos Lans [gl], Marek Cernocky [cs],
-  Matej Urbančič [sl], Mingcong Bai [zh_CN], Rafael Fontenelle [pt_BR],
-  Stas Solovey [ru], Yi-Jyun Pan [zh_TW]
+  Anders Jonsson [sv], Cédric Valmary [oc], Charles Monzat [fr],
+  Daniel Mustieles [es], Daniel Șerbănescu [ro], Fabio Tomat [fur],
+  gogo [hr], Jordi Mas [ca], Kukuh Syafaat [id], Marcos Lans [gl],
+  Marek Cernocky [cs], Matej Urbančič [sl], Mingcong Bai [zh_CN],
+  Rafael Fontenelle [pt_BR], Stas Solovey [ru], Yi-Jyun Pan [zh_TW]
 
 3.28.3
 ======
