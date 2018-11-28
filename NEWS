@@ -12,23 +12,33 @@
 * Consider "new-window" action when opening new windows [Florian; #756844]
 * Make workspace switching gestures follow motion [Carlos; #788994]
 * Support maxValue higher than 1 in barLevel [Didier; #790280]
-* Misc. bug fixes [Marco, Florian, Lubomir, Xiaoguang+, Ole, Daniel; !63,
- #787871, #294, #298, #26, #76, !151, #424, !132, !182, #433, !179, #786496]
+* Fix handling of 0/false options in ShowOSD D-Bus API [Florian; #791669]
+* overview: Fix handling of confirmation dialogs on wayland [verdre; !180]
+* Keep workspace switcher slid out when workspaces are in use [Florian; !161]
+* Ignore auto-repeat for some keybindings [Andrea; #373]
+* Misc. bug fixes [Marco, Florian, Lubomir, Xiaoguang+, Ole, Daniel, Carlos,
+ Pascal;
+ !63, #787871, #294, #298, #26, #76, !151, #424, !132, !182, #433, !179,
+ #786496, #464, !189, !191, !192, !162]
 
 Contributors:
-  Carlos Garnacho, Christian Kellner, Daniel Drake, Daniel van Vugt,
-  Didier Roche, Florian Müllner, Georges Basile Stavracas Neto, Jakub Steiner,
-  Jan-Michael Brummer, Jonas Ådahl, Lubomir Rintel, Marco Trevisan (Treviño),
-  Mario Sanchez Prada, Milan Crha, Ole Jørgen Brønner, Piotr Drąg, Ray Strode,
-  Ryan Hendrickson, Silvère Latchurié, Takao Fujiwara, verdre, Xavier Johnson,
-  Xiaoguang Wang, Yussuf Khalil
+  Andrea Azzarone, Carlos Garnacho, Christian Kellner, Daniel Drake,
+  Daniel van Vugt, Didier Roche, Florian Müllner,
+  Georges Basile Stavracas Neto, Jakub Steiner, Jan-Michael Brummer,
+  Jonas Ådahl, Lubomir Rintel, Marco Trevisan (Treviño), Mario Sanchez Prada,
+  Milan Crha, Ole Jørgen Brønner, Olivier Blin, Pascal Nowack, Piotr Drąg,
+  Ray Strode, Ryan Hendrickson, Silvère Latchurié, Takao Fujiwara, verdre,
+  Xavier Johnson, Xiaoguang Wang, Yussuf Khalil
 
 Translators:
-  Anders Jonsson [sv], Cédric Valmary [oc], Charles Monzat [fr],
-  Daniel Mustieles [es], Daniel Șerbănescu [ro], Fabio Tomat [fur],
-  gogo [hr], Jordi Mas [ca], Kukuh Syafaat [id], Marcos Lans [gl],
-  Marek Cernocky [cs], Matej Urbančič [sl], Mingcong Bai [zh_CN],
-  Rafael Fontenelle [pt_BR], Stas Solovey [ru], Yi-Jyun Pan [zh_TW]
+  Alexandre Franke [fr], Anders Jonsson [sv], Andre Klapper [cs],
+  Aurimas Černius [lt], Bernd Homuth [de], Bruce Cowan [en_GB],
+  Bruno Lopes da Silva [pt_BR], Cédric Valmary [oc], Charles Monzat [fr],
+  Daniel Mustieles [es], Daniel Șerbănescu [ro], Emin Tufan Çetin [tr],
+  Fabio Tomat [fur], gogo [hr], Jordi Mas [ca], Kukuh Syafaat [id],
+  Marcos Lans [gl], Marek Cernocky [cs], Matej Urbančič [sl],
+  Mingcong Bai [zh_CN], Piotr Drąg [pl], Rafael Fontenelle [pt_BR],
+  Stas Solovey [ru], Yi-Jyun Pan [zh_TW]
 
 3.28.3
 ======
