@@ -27,9 +27,6 @@ var InputMethod = new Lang.Class({
         this._currentSource = this._inputSourceManager.currentSource;
     },
 
-    _onConnected() {
-    },
-
     _clear() {
         this._enabled = false;
     },
