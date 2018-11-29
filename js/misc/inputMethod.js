@@ -27,10 +27,6 @@ var InputMethod = new Lang.Class({
         this._currentSource = this._inputSourceManager.currentSource;
     },
 
-    _clear() {
-        this._enabled = false;
-    },
-
     _onCommitText(context, text) {
         this.commit(text.get_text());
     },
