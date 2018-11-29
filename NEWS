@@ -16,6 +16,8 @@
 * overview: Fix handling of confirmation dialogs on wayland [verdre; !180]
 * Keep workspace switcher slid out when workspaces are in use [Florian; !161]
 * Ignore auto-repeat for some keybindings [Andrea; #373]
+* Choose some actors to cache on the GPU [Daniel; #792633]
+* Fix forced fallback app-menus on wayland [Jonas; #276]
 * Misc. bug fixes [Marco, Florian, Lubomir, Xiaoguang+, Ole, Daniel, Carlos,
  Pascal;
  !63, #787871, #294, #298, #26, #76, !151, #424, !132, !182, #433, !179,
@@ -26,17 +28,18 @@ Contributors:
   Daniel van Vugt, Didier Roche, Florian Müllner,
   Georges Basile Stavracas Neto, Jakub Steiner, Jan-Michael Brummer,
   Jonas Ådahl, Lubomir Rintel, Marco Trevisan (Treviño), Mario Sanchez Prada,
-  Milan Crha, Ole Jørgen Brønner, Olivier Blin, Pascal Nowack, Piotr Drąg,
-  Ray Strode, Ryan Hendrickson, Silvère Latchurié, Takao Fujiwara, verdre,
-  Xavier Johnson, Xiaoguang Wang, Yussuf Khalil
+  Milan Crha, Mohammed Sadiq, Ole Jørgen Brønner, Olivier Blin, Pascal Nowack,
+  Piotr Drąg, Ray Strode, Ryan Hendrickson, Silvère Latchurié, Takao Fujiwara,
+  verdre, Xavier Johnson, Xiaoguang Wang, Yussuf Khalil
 
 Translators:
   Alexandre Franke [fr], Anders Jonsson [sv], Andre Klapper [cs],
-  Aurimas Černius [lt], Bernd Homuth [de], Bruce Cowan [en_GB],
-  Bruno Lopes da Silva [pt_BR], Cédric Valmary [oc], Charles Monzat [fr],
-  Daniel Mustieles [es], Daniel Șerbănescu [ro], Emin Tufan Çetin [tr],
-  Fabio Tomat [fur], gogo [hr], Jordi Mas [ca], Kukuh Syafaat [id],
-  Marcos Lans [gl], Marek Cernocky [cs], Matej Urbančič [sl],
+  Aurimas Černius [lt], Baurzhan Muftakhidinov [kk], Bernd Homuth [de],
+  Bruce Cowan [en_GB], Bruno Lopes da Silva [pt_BR], Cédric Valmary [oc],
+  Changwoo Ryu [ko], Charles Monzat [fr], Daniel Mustieles [es],
+  Daniel Șerbănescu [ro], Emin Tufan Çetin [tr], Fabio Tomat [fur],
+  gogo [hr], Jordi Mas [ca], Kukuh Syafaat [id], Marcos Lans [gl],
+  Marek Cernocky [cs], Matej Urbančič [sl], Milo Casagrande [it],
   Mingcong Bai [zh_CN], Piotr Drąg [pl], Rafael Fontenelle [pt_BR],
   Stas Solovey [ru], Yi-Jyun Pan [zh_TW]
 
