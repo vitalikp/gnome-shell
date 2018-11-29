@@ -26,22 +26,25 @@
 Contributors:
   Andrea Azzarone, Carlos Garnacho, Christian Kellner, Daniel Drake,
   Daniel van Vugt, Didier Roche, Florian Müllner,
-  Georges Basile Stavracas Neto, Jakub Steiner, Jan-Michael Brummer,
-  Jonas Ådahl, Lubomir Rintel, Marco Trevisan (Treviño), Mario Sanchez Prada,
-  Milan Crha, Mohammed Sadiq, Ole Jørgen Brønner, Olivier Blin, Pascal Nowack,
-  Piotr Drąg, Ray Strode, Ryan Hendrickson, Silvère Latchurié, Takao Fujiwara,
-  verdre, Xavier Johnson, Xiaoguang Wang, Yussuf Khalil
+  Georges Basile Stavracas Neto, Harry Mallon, Jakub Steiner,
+  Jan-Michael Brummer, Jonas Ådahl, Lubomir Rintel, Marco Trevisan (Treviño),
+  Mario Sanchez Prada, Milan Crha, Mohammed Sadiq, Ole Jørgen Brønner,
+  Olivier Blin, Pascal Nowack, Piotr Drąg, Ray Strode, Ryan Hendrickson,
+  Silvère Latchurié, Takao Fujiwara, verdre, Xavier Johnson, Xiaoguang Wang,
+  Yussuf Khalil
 
 Translators:
   Alexandre Franke [fr], Anders Jonsson [sv], Andre Klapper [cs],
-  Aurimas Černius [lt], Baurzhan Muftakhidinov [kk], Bernd Homuth [de],
-  Bruce Cowan [en_GB], Bruno Lopes da Silva [pt_BR], Cédric Valmary [oc],
-  Changwoo Ryu [ko], Charles Monzat [fr], Daniel Mustieles [es],
-  Daniel Șerbănescu [ro], Emin Tufan Çetin [tr], Fabio Tomat [fur],
-  gogo [hr], Jordi Mas [ca], Kukuh Syafaat [id], Marcos Lans [gl],
+  Ask Hjorth Larsen [da], Aurimas Černius [lt], Balázs Meskó [hu],
+  Baurzhan Muftakhidinov [kk], Bernd Homuth [de], Bruce Cowan [en_GB],
+  Bruno Lopes da Silva [pt_BR], Cédric Valmary [oc], Changwoo Ryu [ko],
+  Charles Monzat [fr], Daniel Mustieles [es], Daniel Șerbănescu [ro],
+  Emin Tufan Çetin [tr], Fabio Tomat [fur], Fran Dieguez [gl], gogo [hr],
+  Jiri Grönroos [fi], Jordi Mas [ca], Kukuh Syafaat [id], Marcos Lans [gl],
   Marek Cernocky [cs], Matej Urbančič [sl], Milo Casagrande [it],
   Mingcong Bai [zh_CN], Piotr Drąg [pl], Rafael Fontenelle [pt_BR],
-  Stas Solovey [ru], Yi-Jyun Pan [zh_TW]
+  Rūdolfs Mazurs [lv], Stas Solovey [ru], Trần Ngọc Quân [vi],
+  Yi-Jyun Pan [zh_TW]
 
 3.28.3
 ======
