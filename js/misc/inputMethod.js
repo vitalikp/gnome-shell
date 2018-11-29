@@ -27,10 +27,6 @@ var InputMethod = new Lang.Class({
         this._currentSource = this._inputSourceManager.currentSource;
     },
 
-    _onCommitText(context, text) {
-        this.commit(text.get_text());
-    },
-
     _onDeleteSurroundingText(context) {
         this.delete_surrounding();
     },
