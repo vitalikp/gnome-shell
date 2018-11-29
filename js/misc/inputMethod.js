@@ -42,14 +42,6 @@ var InputMethod = new Lang.Class({
         this.delete_surrounding();
     },
 
-    _onUpdatePreeditText(context, text, pos, visible) {
-        let str = null;
-        if (visible && text != null)
-            str = text.get_text();
-
-        this.set_preedit_text(str, pos);
-    },
-
     vfunc_focus_in(focus) {
         this._currentFocus = focus;
     },
