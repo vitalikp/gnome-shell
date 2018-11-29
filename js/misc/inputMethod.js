@@ -27,10 +27,6 @@ var InputMethod = new Lang.Class({
         this._currentSource = this._inputSourceManager.currentSource;
     },
 
-    _onDeleteSurroundingText(context) {
-        this.delete_surrounding();
-    },
-
     vfunc_focus_in(focus) {
         this._currentFocus = focus;
     },
