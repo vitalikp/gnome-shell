@@ -1,4 +1,4 @@
-3.30.0-dev
+3.30.0
 ======
 * Support icons in app-menu [Florian; #760985]
 * Save creation time in screenshot metadata [Florian; #790481]
