@@ -1,4 +1,4 @@
-3.30.2-dev
+3.30.2
 ======
 * popupMenu: Fix keyboard activation when numlock is active [Andrea; #550]
 * Do not block all shortcuts while app folders are expanded [Florian; #648]
