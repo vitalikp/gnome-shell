@@ -14,7 +14,6 @@
     <file>misc/fileUtils.js</file>
     <file>misc/gnomeSession.js</file>
     <file>misc/history.js</file>
-    <file>misc/inputMethod.js</file>
     <file>misc/jsParse.js</file>
     <file>misc/keyboardManager.js</file>
     <file>misc/loginManager.js</file>

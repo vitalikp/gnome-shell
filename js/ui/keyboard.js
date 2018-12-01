@@ -503,12 +503,6 @@ var FocusTracker = new Lang.Class({
                 (op == Meta.GrabOp.MOVING || op == Meta.GrabOp.KEYBOARD_MOVING))
                 this.emit('reset');
         });
-
-        /* Valid for wayland clients */
-        Main.inputMethod.connect('cursor-location-changed', (o, rect) => {
-            let newRect = { x: rect.get_x(), y: rect.get_y(), width: rect.get_width(), height: rect.get_height() };
-            this._setCurrentRect(newRect);
-        });
     },
 
     get currentWindow() {
@@ -770,8 +764,7 @@ var Keyboard = new Lang.Class({
                 button.setWidth(keys.length <= 3 ? 5 : 3);
 
             button.connect('pressed', (actor, keyval, str) => {
-                if (!Main.inputMethod.currentFocus ||
-                    !this._keyboardController.commitString(str, true)) {
+                 if (!this._keyboardController.commitString(str, true)) {
                     if (keyval != 0) {
                         this._keyboardController.keyvalPress(keyval);
                         button._keyvalPress = true;
@@ -1171,14 +1164,6 @@ var KeyboardController = new Lang.Class({
         this._sourcesModifiedId = this._inputSourceManager.connect ('sources-changed',
                                                                     this._onSourcesModified.bind(this));
         this._currentSource = this._inputSourceManager.currentSource;
-
-        Main.inputMethod.connect('notify::content-purpose',
-                                 this._onContentPurposeHintsChanged.bind(this));
-        Main.inputMethod.connect('notify::content-hints',
-                                 this._onContentPurposeHintsChanged.bind(this));
-        Main.inputMethod.connect('input-panel-state', (o, state) => {
-            this.emit('panel-state', state);
-        });
     },
 
     _onSourcesModified() {
@@ -1218,7 +1203,6 @@ var KeyboardController = new Lang.Class({
         if (string == null)
             return false;
 
-        Main.inputMethod.commit(string);
         return true;
     },
 
