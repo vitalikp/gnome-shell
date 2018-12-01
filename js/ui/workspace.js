@@ -613,6 +613,7 @@ var WindowOverlay = new Lang.Class({
     _animateOverlayActor(actor, x, y, width, height) {
         let params = { x: x,
                        y: y,
+                       width: width,
                        time: Overview.ANIMATION_TIME,
                        transition: 'easeOutQuad' };
 
