@@ -484,6 +484,7 @@ var WindowOverlay = new Lang.Class({
         windowClone.connect('hide-chrome', this._onHideChrome.bind(this));
 
         button.hide();
+        title.hide();
 
         this.title = title;
         this.closeButton = button;
