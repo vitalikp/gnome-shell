@@ -1,4 +1,4 @@
-3.30.1-dev
+3.30.1
 ======
 * Improve switch-monitor shortcut handling [Daniel; !208]
 * Fix missing key information in keyring dialog [Florian; #574]
