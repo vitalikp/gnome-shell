@@ -157,10 +157,10 @@ StScrollBar {
 .slider {
   height: 1em;
   -barlevel-height: 0.3em;
-  -barlevel-background-color: #333636; // background of the trough
-  -barlevel-border-color: #1c1f1f; // trough border color
-  -barlevel-active-background-color: #215d9c; // active trough fill
-  -barlevel-active-border-color: #184472; // active trough border
+  -barlevel-background-color: #333636;
+  -barlevel-border-color: #1c1f1f;
+  -barlevel-active-background-color: #215d9c;
+  -barlevel-active-border-color: #184472;
   -barlevel-overdrive-color: #d51010;
   -barlevel-overdrive-border-color: #a60c0c;
   -barlevel-overdrive-separator-width: 0.2em;
