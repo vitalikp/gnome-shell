@@ -115,9 +115,6 @@ var EmptyEventSource = new Lang.Class({
     destroy() {
     },
 
-    ignoreEvent(event) {
-    },
-
     requestRange(begin, end) {
     },
 
