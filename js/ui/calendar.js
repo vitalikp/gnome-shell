@@ -540,10 +540,6 @@ var EventMessage = new Lang.Class({
                 title = title + ELLIPSIS_CHAR;
         }
         return title;
-    },
-
-    canClose() {
-        return isToday(this._date);
     }
 });
 
@@ -606,6 +602,10 @@ var NotificationMessage = new Lang.Class({
         if (this._destroyId)
             this.notification.disconnect(this._destroyId);
         this._destroyId = 0;
+    },
+
+    canClose() {
+        return true;
     }
 });
 
@@ -634,10 +634,6 @@ var EventsSection = new Lang.Class({
         Shell.AppSystem.get_default().connect('installed-changed',
                                               this._appInstalledChanged.bind(this));
         this._appInstalledChanged();
-    },
-
-    _ignoreEvent(event) {
-        this._eventSource.ignoreEvent(event);
     },
 
     setEventSource(eventSource) {
@@ -692,9 +688,6 @@ var EventsSection = new Lang.Class({
             let message = this._messageById.get(event.id);
             if (!message) {
                 message = new EventMessage(event, this._date);
-                message.connect('close', () => {
-                    this._ignoreEvent(event);
-                });
                 this._messageById.set(event.id, message);
                 this.addMessage(message, false);
             } else {

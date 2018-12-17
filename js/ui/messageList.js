@@ -496,7 +496,7 @@ var Message = new Lang.Class({
     },
 
     canClose() {
-        return this._mediaControls.get_n_children() == 0;
+        return false;
     },
 
     _sync() {
