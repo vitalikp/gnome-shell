@@ -48,7 +48,6 @@ gnome_shell_deps = [
   cogl_pango_dep,
   startup_dep,
   gi_dep,
-  canberra_dep, canberra_gtk_dep,
   polkit_dep,
   gcr_dep,
   libsystemd_dep

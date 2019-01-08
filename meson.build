@@ -70,8 +70,6 @@ else
 endif
 
 atk_bridge_dep = dependency('atk-bridge-2.0')
-canberra_dep = dependency('libcanberra')
-canberra_gtk_dep = dependency('libcanberra-gtk3')
 gcr_dep = dependency('gcr-base-3', version: gcr_req)
 gdk_x11_dep = dependency('gdk-x11-3.0')
 gdk_pixbuf_dep = dependency('gdk-pixbuf-2.0')
