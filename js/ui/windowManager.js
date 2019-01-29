@@ -12,6 +12,7 @@ const Shell = imports.gi.Shell;
 const Signals = imports.signals;
 
 const AltTab = imports.ui.altTab;
+const AppFavorites = imports.ui.appFavorites;
 const Dialog = imports.ui.dialog;
 const WorkspaceSwitcherPopup = imports.ui.workspaceSwitcherPopup;
 const InhibitShortcutsDialog = imports.ui.inhibitShortcutsDialog;
@@ -930,6 +931,69 @@ var WindowManager = class {
                            Shell.ActionMode.OVERVIEW |
                            Shell.ActionMode.POPUP,
                            this._toggleCalendar.bind(this));
+
+        this.addKeybinding('switch-to-application-1',
+                           new Gio.Settings({ schema_id: SHELL_KEYBINDINGS_SCHEMA }),
+                           Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
+                           Shell.ActionMode.NORMAL |
+                           Shell.ActionMode.OVERVIEW,
+                           this._switchToApplication.bind(this));
+
+        this.addKeybinding('switch-to-application-2',
+                           new Gio.Settings({ schema_id: SHELL_KEYBINDINGS_SCHEMA }),
+                           Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
+                           Shell.ActionMode.NORMAL |
+                           Shell.ActionMode.OVERVIEW,
+                           this._switchToApplication.bind(this));
+
+        this.addKeybinding('switch-to-application-3',
+                           new Gio.Settings({ schema_id: SHELL_KEYBINDINGS_SCHEMA }),
+                           Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
+                           Shell.ActionMode.NORMAL |
+                           Shell.ActionMode.OVERVIEW,
+                           this._switchToApplication.bind(this));
+
+        this.addKeybinding('switch-to-application-4',
+                           new Gio.Settings({ schema_id: SHELL_KEYBINDINGS_SCHEMA }),
+                           Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
+                           Shell.ActionMode.NORMAL |
+                           Shell.ActionMode.OVERVIEW,
+                           this._switchToApplication.bind(this));
+
+        this.addKeybinding('switch-to-application-5',
+                           new Gio.Settings({ schema_id: SHELL_KEYBINDINGS_SCHEMA }),
+                           Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
+                           Shell.ActionMode.NORMAL |
+                           Shell.ActionMode.OVERVIEW,
+                           this._switchToApplication.bind(this));
+
+        this.addKeybinding('switch-to-application-6',
+                           new Gio.Settings({ schema_id: SHELL_KEYBINDINGS_SCHEMA }),
+                           Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
+                           Shell.ActionMode.NORMAL |
+                           Shell.ActionMode.OVERVIEW,
+                           this._switchToApplication.bind(this));
+
+        this.addKeybinding('switch-to-application-7',
+                           new Gio.Settings({ schema_id: SHELL_KEYBINDINGS_SCHEMA }),
+                           Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
+                           Shell.ActionMode.NORMAL |
+                           Shell.ActionMode.OVERVIEW,
+                           this._switchToApplication.bind(this));
+
+        this.addKeybinding('switch-to-application-8',
+                           new Gio.Settings({ schema_id: SHELL_KEYBINDINGS_SCHEMA }),
+                           Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
+                           Shell.ActionMode.NORMAL |
+                           Shell.ActionMode.OVERVIEW,
+                           this._switchToApplication.bind(this));
+
+        this.addKeybinding('switch-to-application-9',
+                           new Gio.Settings({ schema_id: SHELL_KEYBINDINGS_SCHEMA }),
+                           Meta.KeyBindingFlags.IGNORE_AUTOREPEAT,
+                           Shell.ActionMode.NORMAL |
+                           Shell.ActionMode.OVERVIEW,
+                           this._switchToApplication.bind(this));
 
         global.display.connect('show-resize-popup', this._showResizePopup.bind(this));
         global.display.connect('show-osd', (display, monitorIndex, iconName, label) => {
@@ -1986,6 +2050,14 @@ var WindowManager = class {
 
     _startA11ySwitcher(display, window, binding) {
         Main.ctrlAltTabManager.popup(binding.is_reversed(), binding.get_name(), binding.get_mask());
+    }
+
+    _switchToApplication(display, window, binding) {
+        let [,,,target] = binding.get_name().split('-');
+        let apps = AppFavorites.getAppFavorites().getFavorites();
+        let app = apps[target - 1];
+        if (app)
+            app.activate();
     }
 
     _toggleAppMenu(display, window, event, binding) {
