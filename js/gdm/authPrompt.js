@@ -57,23 +57,23 @@ var AuthPrompt = class {
         this._userVerifier.connect('ovirt-user-authenticated', this._onOVirtUserAuthenticated.bind(this));
 
         this.connect('next', () => {
-                this.updateSensitivity(false);
-                this.startSpinning();
-                if (this._queryingService) {
-                    this._userVerifier.answerQuery(this._queryingService, this._entry.text);
-                } else {
-                    this._preemptiveAnswer = this._entry.text;
-                }
-            });
+            this.updateSensitivity(false);
+            this.startSpinning();
+            if (this._queryingService) {
+                this._userVerifier.answerQuery(this._queryingService, this._entry.text);
+            } else {
+                this._preemptiveAnswer = this._entry.text;
+            }
+        });
 
         this.actor = new St.BoxLayout({ style_class: 'login-dialog-prompt-layout',
                                         vertical: true });
         this.actor.connect('destroy', this._onDestroy.bind(this));
         this.actor.connect('key-press-event', (actor, event) => {
-                if (event.get_key_symbol() == Clutter.KEY_Escape)
-                    this.cancel();
-                return Clutter.EVENT_PROPAGATE;
-            });
+            if (event.get_key_symbol() == Clutter.KEY_Escape)
+                this.cancel();
+            return Clutter.EVENT_PROPAGATE;
+        });
 
         this._userWell = new St.Bin({ x_fill: true,
                                       x_align: St.Align.START });
@@ -275,10 +275,10 @@ var AuthPrompt = class {
                                    delay: DEFAULT_BUTTON_WELL_ANIMATION_DELAY,
                                    transition: 'linear',
                                    onComplete: () => {
-                                      if (wasSpinner) {
-                                          if (this._spinner)
-                                              this._spinner.stop();
-                                      }
+                                       if (wasSpinner) {
+                                           if (this._spinner)
+                                               this._spinner.stop();
+                                       }
                                    }
                                  });
             }
