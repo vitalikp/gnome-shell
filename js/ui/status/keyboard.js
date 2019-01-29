@@ -419,7 +419,7 @@ var InputSourceManager = class {
             let exists = false;
 
             if (type == INPUT_SOURCE_TYPE_XKB) {
-                [exists, displayName, shortName, , ] =
+                [exists, displayName, shortName] =
                     this._xkbInfo.get_layout_info(id);
             }
 
@@ -430,7 +430,7 @@ var InputSourceManager = class {
         if (infosList.length == 0) {
             let type = INPUT_SOURCE_TYPE_XKB;
             let id = KeyboardManager.DEFAULT_LAYOUT;
-            let [ , displayName, shortName, , ] = this._xkbInfo.get_layout_info(id);
+            let [ , displayName, shortName] = this._xkbInfo.get_layout_info(id);
             infosList.push({ type: type, id: id, displayName: displayName, shortName: shortName });
         }
 
