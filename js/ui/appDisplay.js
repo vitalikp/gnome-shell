@@ -231,7 +231,7 @@ class BaseAppView {
 
         Tweener.addTween(this._grid, params);
     }
-};
+}
 Signals.addSignalMethods(BaseAppView.prototype);
 
 var AllView = class AllView extends BaseAppView {
@@ -867,7 +867,7 @@ var AppDisplay = class AppDisplay {
             this._controls.opacity = 0;
             finalOpacity = 255;
         } else {
-            finalOpacity = 0
+            finalOpacity = 0;
         }
 
         Tweener.addTween(this._controls,

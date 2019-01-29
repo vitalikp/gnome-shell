@@ -897,7 +897,7 @@ var NMWirelessDialog = class extends ModalDialog.ModalDialog {
                             this._device.get_path(), accessPoints[0].get_path()]);
             } else {
                 let connection = new NM.SimpleConnection();
-                this._client.add_and_activate_connection_async(connection, this._device, accessPoints[0].get_path(), null, null)
+                this._client.add_and_activate_connection_async(connection, this._device, accessPoints[0].get_path(), null, null);
             }
         }
 

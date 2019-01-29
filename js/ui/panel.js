@@ -52,7 +52,7 @@ function _premultiply(color) {
                                green: _norm(color.green * color.alpha),
                                blue: _norm(color.blue * color.alpha),
                                alpha: color.alpha });
-};
+}
 
 function _unpremultiply(color) {
     if (color.alpha == 0)
@@ -63,7 +63,7 @@ function _unpremultiply(color) {
     let blue = Math.min((color.blue * 255 + 127) / color.alpha, 255);
     return new Clutter.Color({ red: red, green: green,
                                blue: blue, alpha: color.alpha });
-};
+}
 
 class AppMenu extends PopupMenu.PopupMenu {
     constructor(sourceActor) {
