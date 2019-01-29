@@ -53,7 +53,7 @@ function _premultiply(color) {
                                green: _norm(color.green * color.alpha),
                                blue: _norm(color.blue * color.alpha),
                                alpha: color.alpha });
-};
+}
 
 function _unpremultiply(color) {
     if (color.alpha == 0)
@@ -64,7 +64,7 @@ function _unpremultiply(color) {
     let blue = Math.min((color.blue * 255 + 127) / color.alpha, 255);
     return new Clutter.Color({ red: red, green: green,
                                blue: blue, alpha: color.alpha });
-};
+}
 
 class AppMenu extends PopupMenu.PopupMenu {
     constructor(sourceActor) {
@@ -1165,7 +1165,7 @@ class Panel extends St.Widget {
 
     _getDraggableWindowForPosition(stageX) {
         let workspaceManager = global.workspace_manager;
-        let workspace = workspaceManager.get_active_workspace()
+        let workspace = workspaceManager.get_active_workspace();
         let allWindowsByStacking = global.display.sort_windows_by_stacking(
             workspace.list_windows()
         ).reverse();
@@ -1176,7 +1176,7 @@ class Panel extends St.Widget {
                    metaWindow.showing_on_its_workspace() &&
                    metaWindow.get_window_type() != Meta.WindowType.DESKTOP &&
                    metaWindow.maximized_vertically &&
-                   stageX > rect.x && stageX < rect.x + rect.width
+                   stageX > rect.x && stageX < rect.x + rect.width;
         });
     }
 });

@@ -1072,7 +1072,7 @@ var WindowManager = class {
         let updateUnfullscreenGesture = () => {
             let currentWindow = global.display.focus_window;
             topDragAction.enabled = currentWindow && currentWindow.is_fullscreen();
-        }
+        };
 
         global.display.connect('notify::focus-window', updateUnfullscreenGesture);
         global.display.connect('in-fullscreen-changed', updateUnfullscreenGesture);
