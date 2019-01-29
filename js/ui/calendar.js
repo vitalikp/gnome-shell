@@ -224,8 +224,8 @@ var Calendar = class Calendar {
         this._topBox.add(this._backButton);
         this._backButton.connect('clicked', this._onPrevMonthButtonClicked.bind(this));
 
-        this._monthLabel = new St.Label({style_class: 'calendar-month-label',
-                                         can_focus: true });
+        this._monthLabel = new St.Label({ style_class: 'calendar-month-label',
+                                          can_focus: true });
         this._topBox.add(this._monthLabel, { expand: true, x_fill: false, x_align: St.Align.MIDDLE });
 
         this._forwardButton = new St.Button({ style_class: 'calendar-change-month-forward pager-button',
@@ -916,7 +916,7 @@ var CalendarMessageList = class CalendarMessageList {
     _addSection(section) {
         let obj = {
             destroyId: 0,
-            visibleId:  0,
+            visibleId: 0,
             emptyChangedId: 0,
             canClearChangedId: 0,
             keyFocusId: 0
