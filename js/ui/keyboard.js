@@ -231,7 +231,7 @@ var LanguageSelectionPopup = class extends PopupMenu.PopupMenu {
 };
 
 var Key = class Key {
-    constructor(key) {
+    constructor(key, extendedKeys) {
         this.key = key || "";
         this.keyButton = this._makeKey(this.key);
 
