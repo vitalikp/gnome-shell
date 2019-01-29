@@ -403,7 +403,7 @@ var VPNRequestHandler = class {
                                                     this._vpnChildFinished.bind(this));
 
             this._writeConnection();
-        } catch(e) {
+        } catch (e) {
             logError(e, 'error while spawning VPN auth helper');
 
             this._agent.respond(requestId, Shell.NetworkAgentResponse.INTERNAL_ERROR);
@@ -420,7 +420,7 @@ var VPNRequestHandler = class {
         } else {
             try {
                 this._stdin.write('QUIT\n\n', null);
-            } catch(e) { /* ignore broken pipe errors */ }
+            } catch (e) { /* ignore broken pipe errors */ }
         }
 
         this.destroy();
@@ -469,7 +469,7 @@ var VPNRequestHandler = class {
             if (line == '' && this._previousLine == '') {
                 try {
                     this._stdin.write('QUIT\n\n', null);
-                } catch(e) { /* ignore broken pipe errors */ }
+                } catch (e) { /* ignore broken pipe errors */ }
             } else {
                 this._agent.set_password(this._requestId, this._previousLine, line);
                 this._previousLine = undefined;
@@ -557,7 +557,7 @@ var VPNRequestHandler = class {
                     this._agent.set_password(this._requestId, groups[i], value);
                 }
             }
-        } catch(e) {
+        } catch (e) {
             // No output is a valid case it means "both secrets are stored"
             if (data.length > 0) {
                 logError(e, 'error while reading VPN plugin output keyfile');
@@ -591,7 +591,7 @@ var VPNRequestHandler = class {
                 this._stdin.write('SECRET_VAL=' + (value || '') + '\n\n', null);
             });
             this._stdin.write('DONE\n\n', null);
-        } catch(e) {
+        } catch (e) {
             logError(e, 'internal error while writing connection to helper');
 
             this._agent.respond(this._requestId, Shell.NetworkAgentResponse.INTERNAL_ERROR);
@@ -616,7 +616,7 @@ var NetworkAgent = class {
         try {
             let monitor = this._pluginDir.monitor(Gio.FileMonitorFlags.NONE, null);
             monitor.connect('changed', () => { this._vpnCacheBuilt = false; });
-        } catch(e) {
+        } catch (e) {
             log('Failed to create monitor for VPN plugin dir: ' + e.message);
         }
 
@@ -628,7 +628,7 @@ var NetworkAgent = class {
             try {
                 this._native.init_finish(res);
                 this._initialized = true;
-            } catch(e) {
+            } catch (e) {
                 this._native = null;
                 logError(e, 'error initializing the NetworkManager Agent');
             }
