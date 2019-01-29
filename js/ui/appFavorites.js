@@ -152,7 +152,7 @@ class AppFavorites {
     }
 
     _removeFavorite(appId) {
-        if (!appId in this._favorites)
+        if (!(appId in this._favorites))
             return false;
 
         let ids = this._getIds().filter(id => id != appId);
