@@ -592,7 +592,7 @@ var AppSwitchAction = GObject.registerClass({
         });
     }
 
-    vfunc_gesture_prepare(action, actor) {
+    vfunc_gesture_prepare(actor) {
         if (Main.actionMode != Shell.ActionMode.NORMAL) {
             this.cancel();
             return false;
@@ -601,7 +601,7 @@ var AppSwitchAction = GObject.registerClass({
         return this.get_n_current_points() <= 4;
     }
 
-    vfunc_gesture_begin(action, actor) {
+    vfunc_gesture_begin(actor) {
         // in milliseconds
         const LONG_PRESS_TIMEOUT = 250;
 
@@ -625,7 +625,7 @@ var AppSwitchAction = GObject.registerClass({
         return this.get_n_current_points() <= 4;
     }
 
-    vfunc_gesture_progress(action, actor) {
+    vfunc_gesture_progress(actor) {
         const MOTION_THRESHOLD = 30;
 
         if (this.get_n_current_points() == 3) {
