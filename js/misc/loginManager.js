@@ -154,7 +154,7 @@ var LoginManagerSystemd = class {
             (proxy, result) => {
                 let fd = -1;
                 try {
-                    let [outVariant, fdList] = proxy.call_with_unix_fd_list_finish(result);
+                    let [outVariant_, fdList] = proxy.call_with_unix_fd_list_finish(result);
                     fd = fdList.steal_fds()[0];
                     callback(new Gio.UnixInputStream({ fd: fd }));
                 } catch (e) {
