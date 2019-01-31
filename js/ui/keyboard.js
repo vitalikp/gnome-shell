@@ -404,9 +404,6 @@ var Key = class Key {
             return Clutter.EVENT_PROPAGATE;
         });
         button.connect('touch-event', (actor, event) => {
-            let device = event.get_device();
-            let sequence = event.get_event_sequence();
-
             // We only handle touch events here on wayland. On X11
             // we do get emulated pointer events, which already works
             // for single-touch cases. Besides, the X11 passive touch grab
@@ -891,7 +888,6 @@ var EmojiSelection = class EmojiSelection {
             contents = imports.byteArray.toString(contents);
         let emoji = JSON.parse(contents);
 
-        let pages = [];
         let variants = [];
         let currentKey = 0;
         let currentSection = null;
@@ -1383,8 +1379,6 @@ var Keyboard = class Keyboard {
     }
 
     _getDefaultKeysForRow(row, numRows, level) {
-        let pre, post;
-
         /* The first 2 rows in defaultKeysPre/Post belong together with
          * the first 2 rows on each keymap. On keymaps that have more than
          * 4 rows, the last 2 default key rows must be respectively
@@ -1623,8 +1617,7 @@ var Keyboard = class Keyboard {
     }
 
     _windowSlideAnimationComplete(window, delta) {
-        // Synchronize window and actor positions again.
-        let windowActor = window.get_compositor_private();
+        // Synchronize window positions again.
         let frameRect = window.get_frame_rect();
         frameRect.y += delta;
         window.move_frame(true, frameRect.x, frameRect.y);
@@ -1670,7 +1663,6 @@ var Keyboard = class Keyboard {
 
         if (window && monitor) {
             let keyboardHeight = Main.layoutManager.keyboardBox.height;
-            let focusObscured = false;
 
             if (y + h >= monitor.y + monitor.height - keyboardHeight) {
                 if (this._keyboardVisible)
@@ -1713,7 +1705,6 @@ var KeyboardController = class {
     }
 
     _onContentPurposeHintsChanged(method) {
-        let hints = method.content_hints;
         let purpose = method.content_purpose;
         let emojiVisible = false;
         let keypadVisible = false;
