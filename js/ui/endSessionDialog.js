@@ -771,7 +771,7 @@ class EndSessionDialog extends ModalDialog.ModalDialog {
         });
     }
 
-    Close(parameters, invocation) {
+    Close(_parameters, _invocation) {
         this.close();
     }
 });

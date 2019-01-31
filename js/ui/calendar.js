@@ -105,15 +105,15 @@ var EmptyEventSource = class EmptyEventSource {
     destroy() {
     }
 
-    requestRange(begin, end) {
+    requestRange(_begin, _end) {
     }
 
-    getEvents(begin, end) {
+    getEvents(_begin, _end) {
         let result = [];
         return result;
     }
 
-    hasEvents(day) {
+    hasEvents(_day) {
         return false;
     }
 };
@@ -555,7 +555,7 @@ class NotificationMessage extends MessageList.Message {
             return this.notification.source.createIcon(MESSAGE_ICON_SIZE);
     }
 
-    _onUpdated(n, clear) {
+    _onUpdated(n, _clear) {
         this.setIcon(this._getIcon());
         this.setTitle(n.title);
         this.setBody(n.bannerBodyText);
