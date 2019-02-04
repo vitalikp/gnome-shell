@@ -2009,7 +2009,7 @@ var WindowManager = class {
         this._tilePreview.show(window, tileRect, monitorIndex);
     }
 
-    _hideTilePreview(shellwm) {
+    _hideTilePreview() {
         if (!this._tilePreview)
             return;
         this._tilePreview.hide();
@@ -2077,11 +2077,11 @@ var WindowManager = class {
             app.activate();
     }
 
-    _toggleAppMenu(display, window, event, binding) {
+    _toggleAppMenu() {
         Main.panel.toggleAppMenu();
     }
 
-    _toggleCalendar(display, window, event, binding) {
+    _toggleCalendar() {
         Main.panel.toggleCalendar();
     }
 
