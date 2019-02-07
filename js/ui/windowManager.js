@@ -1464,8 +1464,13 @@ var WindowManager = class {
         if (this._clearAnimationInfo(actor))
             this._shellwm.completed_size_change(actor);
 
+        let destroyId = actor.connect('destroy', () => {
+            this._clearAnimationInfo(actor);
+        });
+
         actor.__animationInfo = { clone: actorClone,
-                                  oldRect: oldFrameRect };
+                                  oldRect: oldFrameRect,
+                                  destroyId: destroyId };
     }
 
     _sizeChangedWindow(shellwm, actor) {
@@ -1526,6 +1531,7 @@ var WindowManager = class {
     _clearAnimationInfo(actor) {
         if (actor.__animationInfo) {
             actor.__animationInfo.clone.destroy();
+            actor.disconnect(actor.__animationInfo.destroyId);
             delete actor.__animationInfo;
             return true;
         }
