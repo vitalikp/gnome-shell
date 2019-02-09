@@ -1,11 +1,7 @@
 // -*- mode: js; js-indent-level: 4; indent-tabs-mode: nil -*-
 
-const GLib = imports.gi.GLib;
-const GnomeDesktop = imports.gi.GnomeDesktop;
-const GObject = imports.gi.GObject;
-const Clutter = imports.gi.Clutter;
-const Shell = imports.gi.Shell;
-const St = imports.gi.St;
+const { Clutter, GLib, GnomeDesktop,
+        GObject, Shell, St } = imports.gi;
 
 const Util = imports.misc.util;
 const Main = imports.ui.main;
