@@ -107,6 +107,8 @@ class AppMenu extends PopupMenu.PopupMenu {
             });
         });
 
+        this.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+
         this.addAction(_("Quit"), () => {
             this._app.request_quit();
         });
