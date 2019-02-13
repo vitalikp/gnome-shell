@@ -42,6 +42,7 @@ const RENAMED_DESKTOP_IDS = {
     'gtali.desktop': 'tali.desktop',
     'iagno.desktop': 'org.gnome.Reversi.desktop',
     'nautilus.desktop': 'org.gnome.Nautilus.desktop',
+    'org.gnome.gnome-2048.desktop': 'org.gnome.TwentyFortyEight.desktop',
     'polari.desktop': 'org.gnome.Polari.desktop',
     'totem.desktop': 'org.gnome.Totem.desktop',
     'evince.desktop': 'org.gnome.Evince.desktop',
