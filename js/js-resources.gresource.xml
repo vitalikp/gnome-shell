@@ -75,6 +75,7 @@
     <file>ui/panelMenu.js</file>
     <file>ui/pointerWatcher.js</file>
     <file>ui/popupMenu.js</file>
+    <file>ui/ripples.js</file>
     <file>ui/runDialog.js</file>
     <file>ui/screenShield.js</file>
     <file>ui/screencast.js</file>
