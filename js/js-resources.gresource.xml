@@ -73,6 +73,7 @@
     <file>ui/pageIndicators.js</file>
     <file>ui/panel.js</file>
     <file>ui/panelMenu.js</file>
+    <file>ui/pointerA11yTimeout.js</file>
     <file>ui/pointerWatcher.js</file>
     <file>ui/popupMenu.js</file>
     <file>ui/ripples.js</file>
@@ -111,6 +112,7 @@
 
     <file>ui/status/accessibility.js</file>
     <file>ui/status/brightness.js</file>
+    <file>ui/status/dwellClick.js</file>
     <file>ui/status/keyboard.js</file>
     <file>ui/status/network.js</file>
     <file>ui/status/power.js</file>
