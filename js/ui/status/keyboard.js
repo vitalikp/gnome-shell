@@ -626,7 +626,7 @@ class InputSourceIndicator extends PanelMenu.Button {
         this._hbox.add_child(this._container);
         this._hbox.add_child(PopupMenu.arrowIcon(St.Side.BOTTOM));
 
-        this.actor.add_child(this._hbox);
+        this.add_child(this._hbox);
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this._showLayoutItem = this.menu.addAction(_("Show Keyboard Layout"), this._showLayout.bind(this));
@@ -704,11 +704,11 @@ class InputSourceIndicator extends PanelMenu.Button {
             // we can't fix it here. *shrug*
 
             this.menu.close();
-            this.actor.hide();
+            this.hide();
             return;
         }
 
-        this.actor.show();
+        this.show();
 
         this._menuItems[newSource.index].setOrnament(PopupMenu.Ornament.DOT);
         this._indicatorLabels[newSource.index].show();
