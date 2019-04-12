@@ -124,7 +124,7 @@ class AppMenu extends PopupMenu.PopupMenu {
 
     _updateDetailsVisibility() {
         let sw = this._appSystem.lookup_app('org.gnome.Software.desktop');
-        this._detailsItem.actor.visible = (sw != null);
+        this._detailsItem.visible = (sw != null);
     }
 
     isEmpty() {
@@ -162,7 +162,7 @@ class AppMenu extends PopupMenu.PopupMenu {
             });
         });
 
-        this._newWindowItem.actor.visible =
+        this._newWindowItem.visible =
             app && app.can_open_new_window() && !actions.includes('new-window');
     }
 
