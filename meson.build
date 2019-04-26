@@ -222,6 +222,8 @@ config_h = configure_file(
 
 conf_inc = include_directories('.')
 
+po_dir = join_paths(meson.current_source_dir(), 'po')
+
 subdir('js')
 subdir('src')
 subdir('po')
