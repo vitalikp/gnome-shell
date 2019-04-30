@@ -1447,7 +1447,12 @@ var Keyboard = class Keyboard {
     }
 
     _onKeyboardGroupsChanged(keyboard) {
-        this._groups = [];
+        let nonGroupActors = [this._emojiSelection.actor, this._keypad.actor];
+        this._aspectContainer.get_children().filter(c => !nonGroupActors.includes(c)).forEach(c => {
+            c.destroy();
+        });
+
+        this._groups = {};
         this._onGroupChanged();
     }
 
