@@ -1496,6 +1496,12 @@ var Keyboard = class Keyboard {
     _setActiveLayer(activeLevel) {
         let activeGroupName = this._keyboardController.getCurrentGroup();
         let layers = this._groups[activeGroupName];
+        let currentPage = layers[activeLevel];
+
+        if (this._current_page == currentPage) {
+            this._updateCurrentPageVisible();
+            return;
+        }
 
         if (this._current_page != null) {
             this._setCurrentLevelLatched(this._current_page, false);
@@ -1504,7 +1510,7 @@ var Keyboard = class Keyboard {
             delete this._current_page._destroyID;
         }
 
-        this._current_page = layers[activeLevel];
+        this._current_page = currentPage;
         this._current_page._destroyID = this._current_page.connect('destroy', () => {
             this._current_page = null;
         });
