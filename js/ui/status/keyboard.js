@@ -12,7 +12,7 @@ const PanelMenu = imports.ui.panelMenu;
 const SwitcherPopup = imports.ui.switcherPopup;
 const Util = imports.misc.util;
 
-const INPUT_SOURCE_TYPE_XKB = 'xkb';
+var INPUT_SOURCE_TYPE_XKB = 'xkb';
 
 var LayoutMenuItem = GObject.registerClass(
 class LayoutMenuItem extends PopupMenu.PopupBaseMenuItem {
