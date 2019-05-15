@@ -118,7 +118,7 @@ remove_mnemonics (const GValue *value)
   if (!label)
     return NULL;
 
-  /* Stripped label will have the original label lenght at most */
+  /* Stripped label will have the original label length at most */
   stripped_label = temp = g_new (gchar, strlen(label) + 1);
   g_assert (stripped_label != NULL);
 
