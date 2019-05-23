@@ -32,9 +32,10 @@ var MOTION_THRESHOLD = 100;
 
 var ONE_SECOND = 1000; // in ms
 
-var DisplayChangeDialog = class extends ModalDialog.ModalDialog {
-    constructor(wm) {
-        super({ styleClass: 'prompt-dialog' });
+var DisplayChangeDialog = GObject.registerClass(
+class DisplayChangeDialog extends ModalDialog.ModalDialog {
+    _init(wm) {
+        super._init({ styleClass: 'prompt-dialog' });
 
         this._wm = wm;
 
@@ -103,7 +104,7 @@ var DisplayChangeDialog = class extends ModalDialog.ModalDialog {
         this._wm.complete_display_change(true);
         this.close();
     }
-};
+});
 
 var WindowDimmer = class {
     constructor(actor) {
