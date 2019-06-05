@@ -1,3 +1,18 @@
+3.32.0-dev
+======
+* Port away from and remove ShellGenericContainer [Georges; !153]
+* Reask password after udisk errors for no/wrong passwords [Sebastian; #640]
+* Misc. bug fixes [Florian, Carmen, Georges, Cosimo, Carlos;
+  #666, #647, !66, !258, !287]
+
+Contributors:
+  Carmen Bianca Bakker, Cosimo Cecchi, Sergio Costas, Florian Müllner,
+  Georges Basile Stavracas Neto, Sebastian Pinnau, Jakub Steiner,
+  Marco Trevisan (Treviño)
+
+Translators:
+  Dušan Kazik [sk], Matej Urbančič [sl]
+
 3.30.2
 ======
 * popupMenu: Fix keyboard activation when numlock is active [Andrea; #550]
