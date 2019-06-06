@@ -1016,11 +1016,12 @@ StScrollBar {
 .ripple-box {
   width: 52px;
   height: 52px;
-  background-image: url("resource:///org/gnome/shell/theme/corner-ripple-ltr.png");
-  background-size: contain; }
+  border-radius: 0 0 52px 0;
+  background-color: rgba(158, 196, 235, 0.3);
+  box-shadow: 0 0 2px 2px #4a90d9; }
 
 .ripple-box:rtl {
-  background-image: url("resource:///org/gnome/shell/theme/corner-ripple-rtl.png"); }
+  border-radius: 0 0 0 52px; }
 
 .popup-menu-arrow {
   width: 16px;
