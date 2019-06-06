@@ -2,16 +2,25 @@
 ======
 * Port away from and remove ShellGenericContainer [Georges; !153]
 * Reask password after udisk errors for no/wrong passwords [Sebastian; #640]
-* Misc. bug fixes [Florian, Carmen, Georges, Cosimo, Carlos;
-  #666, #647, !66, !258, !287]
+* Improve icon grid performance [Daniel; #174]
+* Remove browser plugin [Michael; #766776]
+* Add DBus API for introspecting the application state [Jonas, Olivier; !326]
+* Always allow leaving the overview via the hot-corner [Pascal; #429]
+* Misc. bug fixes [Florian, Jasper, Carmen, Georges, Cosimo, Carlos, Sam;
+  #666, #647, !66, !258, !287, #643595, #673767, !298, !297, #782, !301, 
+  !314, !305, #632, !327]
 
 Contributors:
-  Carmen Bianca Bakker, Cosimo Cecchi, Sergio Costas, Florian Müllner,
+  Jonas Ådahl, Michael Catanzaro, Carmen Bianca Bakker, Cosimo Cecchi,
+  daniruiz, Olivier Fourdan, Carlos Garnacho, Sam Hewitt, Andre Klapper,
+  Sergio Costas, Florian Müllner, Pascal Nowack, Jasper St. Pierre,
   Georges Basile Stavracas Neto, Sebastian Pinnau, Jakub Steiner,
-  Marco Trevisan (Treviño)
+  Marco Trevisan (Treviño), João Paulo Rechi Vita, Daniel van Vugt
 
 Translators:
-  Dušan Kazik [sk], Matej Urbančič [sl]
+  Dušan Kazik [sk], Matej Urbančič [sl], Daniel Mustieles [es],
+  Fabio Tomat [fur], Emin Tufan Çetin [tr], Anders Jonsson [sv],
+  Ryuta Fujii [ja]
 
 3.30.2
 ======
