@@ -962,8 +962,8 @@ StScrollBar {
     background-color: #393f3f;
     border: 2px solid #393f3f;
     border-radius: 2px;
-    icon-size: 16px;
-    padding: 8px; }
+    icon-size: 32px !important;
+    padding: 6px; }
 
 .system-switch-user-submenu-icon.user-icon {
   icon-size: 20px;
