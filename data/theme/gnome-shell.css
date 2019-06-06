@@ -819,7 +819,6 @@ StScrollBar {
   padding: 8px 0; }
 
 .pager-button {
-  color: white;
   background-color: transparent;
   width: 32px;
   border-radius: 4px; }
@@ -833,10 +832,8 @@ StScrollBar {
   .calendar-change-month-back:rtl {
     background-image: url("resource:///org/gnome/shell/theme/calendar-arrow-right.svg"); }
 
-.calendar-change-month-forward {
-  background-image: url("resource:///org/gnome/shell/theme/calendar-arrow-right.svg"); }
-  .calendar-change-month-forward:rtl {
-    background-image: url("resource:///org/gnome/shell/theme/calendar-arrow-left.svg"); }
+.calendar-change-month-back StIcon, .calendar-change-month-forward StIcon {
+  icon-size: 1.09em; }
 
 .calendar-day-base {
   font-size: 80%;
