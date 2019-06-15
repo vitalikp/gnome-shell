@@ -36,6 +36,7 @@ const KbdA11yDialog = imports.ui.kbdA11yDialog;
 
 const A11Y_SCHEMA = 'org.gnome.desktop.a11y.keyboard';
 const STICKY_KEYS_ENABLE = 'stickykeys-enable';
+const LOG_DOMAIN = 'GNOME Shell';
 const GNOMESHELL_STARTED_MESSAGE_ID = 'f3ea493c22934e26811cd62abe8e203a';
 
 const USER_THEME = 'user-theme';
@@ -224,8 +225,10 @@ function _initializeUI() {
         }
         if (sessionMode.currentMode != 'gdm' &&
             sessionMode.currentMode != 'initial-setup') {
-            Shell.Global.log_structured('GNOME Shell started at ' + _startDate,
-                                        ['MESSAGE_ID=' + GNOMESHELL_STARTED_MESSAGE_ID]);
+            GLib.log_structured(LOG_DOMAIN, GLib.LogLevelFlags.LEVEL_MESSAGE, {
+                'MESSAGE': `GNOME Shell started at ${_startDate}`,
+                'MESSAGE_ID': GNOMESHELL_STARTED_MESSAGE_ID
+            });
         }
 
         let perfModuleName = GLib.getenv("SHELL_PERF_MODULE");
