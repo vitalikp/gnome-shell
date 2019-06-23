@@ -1504,6 +1504,11 @@ StScrollBar {
 
 #keyboard {
   background-color: rgba(46, 52, 54, 0.7); }
+  #keyboard .page-indicator {
+    padding: 4px 4px; }
+    #keyboard .page-indicator .page-indicator-icon {
+      width: 6px;
+      height: 6px; }
 
 .key-container {
   padding: 4px;
@@ -1568,6 +1573,14 @@ StScrollBar {
   -arrow-base: 20px;
   -arrow-rise: 10px;
   -boxpointer-gap: 5px; }
+
+.emoji-page .keyboard-key {
+  background-color: transparent;
+  border: none; }
+
+.emoji-panel .keyboard-key:latched {
+  border-color: #005684;
+  background-color: #006098; }
 
 .candidate-popup-content {
   padding: 0.5em;
