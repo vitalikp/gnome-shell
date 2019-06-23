@@ -967,6 +967,10 @@ StScrollBar {
   #appMenu .label-shadow {
     color: transparent; }
 
+.app-menu,
+.app-well-menu {
+  max-width: 27.25em; }
+
 .aggregate-menu {
   min-width: 21em; }
   .aggregate-menu .popup-menu-icon {
