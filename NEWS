@@ -6,21 +6,40 @@
 * Remove browser plugin [Michael; #766776]
 * Add DBus API for introspecting the application state [Jonas, Olivier; !326]
 * Always allow leaving the overview via the hot-corner [Pascal; #429]
-* Misc. bug fixes [Florian, Jasper, Carmen, Georges, Cosimo, Carlos, Sam;
+* Refresh world clocks and weather sections [Florian; #262]
+* Port to ES6 classes (update your extensions!) [Florian; !361]
+* networkAgent: Advise users when WPS support is available [Lubomir; !329]
+* Performance improvements [Carlos; #832, #815]
+* Fix drag-and-drop with wacom pens [Carlos; #540]
+* Fix CAPS LOCK indication on wayland [Carlos; #762881]
+* Show details of non-sensitive notifications on lock screen [Philip; #726]
+* Refine extension-prefs' error UI [Florian; !193]
+* Add switch-to-application-n keybindings [Florian; #648000]
+* Remove top bar translucency [Florian; #408]
+* Support emojis and keypads in on-screen keyboard [Carlos; #675]
+* Replace app menu [Florian; #624]
+* Include commonly copied+pasted extension helpers [Florian; !150]
+* Misc. bug fixes [Florian, Jasper, Carmen, Georges, Cosimo, Carlos, Sam,
+  Daniel, Philip, Sergio, Pascal, Georges, verdre;
   #666, #647, !66, !258, !287, #643595, #673767, !298, !297, #782, !301, 
-  !314, !305, #632, !327]
+  !314, !305, #632, !327, #780, #909, !316, !308, !309, #915, !350, !362,
+  !357, !365, !366, !283, !367, #942, !371, !373, !374, !343, !375, !292,
+  !317, !377, !346, !383, #953, !388]
 
 Contributors:
   Jonas Ådahl, Michael Catanzaro, Carmen Bianca Bakker, Cosimo Cecchi,
-  daniruiz, Olivier Fourdan, Carlos Garnacho, Sam Hewitt, Andre Klapper,
-  Sergio Costas, Florian Müllner, Pascal Nowack, Jasper St. Pierre,
-  Georges Basile Stavracas Neto, Sebastian Pinnau, Jakub Steiner,
-  Marco Trevisan (Treviño), João Paulo Rechi Vita, Daniel van Vugt
+  daniruiz, Olivier Fourdan, Bilal Elmoussaoui, Carlos Garnacho, Niels De Graef,
+  Sam Hewitt, Andre Klapper, Sergio Costas, Ignat Loskutov, Florian Müllner,
+  Pascal Nowack, Lubomir Rintel, Jasper St. Pierre, Georges Basile Stavracas Neto,
+  Sebastian Pinnau, Jakub Steiner, Marco Trevisan (Treviño), João Paulo Rechi Vita,
+  verdre, Daniel van Vugt, Philip Withnall
 
 Translators:
   Dušan Kazik [sk], Matej Urbančič [sl], Daniel Mustieles [es],
-  Fabio Tomat [fur], Emin Tufan Çetin [tr], Anders Jonsson [sv],
-  Ryuta Fujii [ja]
+  Carmen Bianca BAKKER [eo], Pieter Schalk Schoeman [af], Jordi Mas [ca],
+  Fran Dieguez [gl], Balázs Úr [hu], A S Alam [pa], Fabio Tomat [fur],
+  Aurimas Černius [lt], Piotr Drąg [pl], Marek Cernocky [cs],
+  Emin Tufan Çetin [tr], Anders Jonsson [sv], Ryuta Fujii [ja]
 
 3.30.2
 ======
