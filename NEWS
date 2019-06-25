@@ -19,12 +19,16 @@
 * Support emojis and keypads in on-screen keyboard [Carlos; #675]
 * Replace app menu [Florian; #624]
 * Include commonly copied+pasted extension helpers [Florian; !150]
+* Don't close on-screen-keyboard's language menu on hover [Florian; #171]
+* Don't let unfullscreen gesture interfere with top bar taps [Jonas D.; #552]
+* Always use symbolic user icon in system menu [Florian; #957]
+* Add flags parameter in GrabAccelerators API [Andrea; #68]
 * Misc. bug fixes [Florian, Jasper, Carmen, Georges, Cosimo, Carlos, Sam,
-  Daniel, Philip, Sergio, Pascal, Georges, verdre;
+  Daniel, Philip, Sergio, Pascal, Georges, verdre, Jonas A.;
   #666, #647, !66, !258, !287, #643595, #673767, !298, !297, #782, !301, 
   !314, !305, #632, !327, #780, #909, !316, !308, !309, #915, !350, !362,
   !357, !365, !366, !283, !367, #942, !371, !373, !374, !343, !375, !292,
-  !317, !377, !346, !383, #953, !388]
+  !317, !377, !346, !383, #953, !388, !399, !398, !400, !402, !410, !411]
 
 Contributors:
   Jonas Ådahl, Michael Catanzaro, Carmen Bianca Bakker, Cosimo Cecchi,
@@ -32,14 +36,17 @@ Contributors:
   Sam Hewitt, Andre Klapper, Sergio Costas, Ignat Loskutov, Florian Müllner,
   Pascal Nowack, Lubomir Rintel, Jasper St. Pierre, Georges Basile Stavracas Neto,
   Sebastian Pinnau, Jakub Steiner, Marco Trevisan (Treviño), João Paulo Rechi Vita,
-  verdre, Daniel van Vugt, Philip Withnall
+  verdre, Daniel van Vugt, Philip Withnall, Andrea Azzarone, Arnaud Bonatti,
+  Jonas Dreßler
 
 Translators:
   Dušan Kazik [sk], Matej Urbančič [sl], Daniel Mustieles [es],
   Carmen Bianca BAKKER [eo], Pieter Schalk Schoeman [af], Jordi Mas [ca],
   Fran Dieguez [gl], Balázs Úr [hu], A S Alam [pa], Fabio Tomat [fur],
   Aurimas Černius [lt], Piotr Drąg [pl], Marek Cernocky [cs],
-  Emin Tufan Çetin [tr], Anders Jonsson [sv], Ryuta Fujii [ja]
+  Emin Tufan Çetin [tr], Jiri Grönroos [fi], Serdar Sağlam [tr],
+  Anders Jonsson [sv], Ryuta Fujii [ja], Kukuh Syafaat [id],
+  Baurzhan Muftakhidinov [kk], Alan Mortensen [da], Rafael Fontenelle [pt_BR]
 
 3.30.2
 ======
