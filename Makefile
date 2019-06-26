@@ -3,6 +3,7 @@ export PACKAGE := gnome-shell
 export VERSION := $(shell cat version)
 
 
+.PHONY: all
 ifneq (${V},1)
 .SILENT:
 endif
