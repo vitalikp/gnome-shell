@@ -289,7 +289,7 @@ StScrollBar {
     text-align: right; }
 
 .end-session-dialog-logout-icon {
-  border-radius: 5px;
+  border-radius: 99px;
   width: 48px;
   height: 48px;
   background-size: contain; }
@@ -422,7 +422,7 @@ StScrollBar {
   color: #f57900; }
 
 .polkit-dialog-user-icon {
-  border-radius: 5px;
+  border-radius: 99px;
   background-size: contain;
   width: 48px;
   height: 48px; }
@@ -1622,13 +1622,11 @@ StScrollBar {
   icon-size: 1em; }
 
 /* Auth Dialogs & Screen Shield */
-.framed-user-icon {
+.user-icon {
   background-size: contain;
-  border: 2px solid #eeeeec;
   color: #eeeeec;
-  border-radius: 3px; }
-  .framed-user-icon:hover {
-    border-color: white;
+  border-radius: 99px; }
+  .user-icon:hover {
     color: white; }
 
 .login-dialog-banner-view {
