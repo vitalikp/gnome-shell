@@ -31,6 +31,10 @@
 * Fix legacy tray icons not responding to events on wayland [Florian; #191]
 * Fix generating French OSK layout [Florian; #997]
 * Use borderless round user images [Florian; #811]
+* Fix sizing issues in on-screen-keyboard emoji panel [Carlos; !439]
+* Fix test linker failure on Debian/Ubuntu [Iain; !442]
+* Avoid assertion when sizing fallback app icons from CSS [Florian; #1027]
+* Fix mis-sized menu arrows after texture cache changes [Florian; !452]
 * Misc. bug fixes [Florian, Jasper, Carmen, Georges, Cosimo, Carlos, Sam,
   Daniel, Philip, Sergio, Pascal, Georges, verdre, Jonas A., Andrea, Robert,
   Marco, Niels, Benjamin;
@@ -48,7 +52,7 @@ Contributors:
   Pascal Nowack, Lubomir Rintel, Jasper St. Pierre, Georges Basile Stavracas Neto,
   Sebastian Pinnau, Jakub Steiner, Marco Trevisan (Treviño), João Paulo Rechi Vita,
   verdre, Daniel van Vugt, Philip Withnall, Andrea Azzarone, Arnaud Bonatti,
-  Jonas Dreßler, Benjamin Berg, Robert Mader, Alex Monday
+  Jonas Dreßler, Benjamin Berg, Robert Mader, Alex Monday, Iain Lane
 
 Translators:
   Dušan Kazik [sk], Matej Urbančič [sl], Daniel Mustieles [es],
@@ -61,7 +65,9 @@ Translators:
   Asier Sarasua Garmendia [eu], Stas Solovey [ru], Changwoo Ryu [ko],
   Julien Humbert [fr], Milo Casagrande [it], Марко Костић [sr],
   Ask Hjorth Larsen [da], Daniel Șerbănescu [ro], Bernd Homuth [de],
-  Trần Ngọc Quân [vi], Nathan Follens [nl], Rūdolfs Mazurs [lv]
+  Trần Ngọc Quân [vi], Nathan Follens [nl], Rūdolfs Mazurs [lv],
+  Gábor Kelemen [hu], Victor Ibragimov [tg], Piotr Drąg [af,tg],
+  Mart Raudsepp [et]
 
 3.30.2
 ======
