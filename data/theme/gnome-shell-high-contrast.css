@@ -1014,8 +1014,7 @@ StScrollBar {
   border-radius: 0 0 0 52px; }
 
 .popup-menu-arrow {
-  width: 16px;
-  height: 16px; }
+  icon-size: 1.09em; }
 
 .popup-menu-icon {
   icon-size: 1.09em; }
