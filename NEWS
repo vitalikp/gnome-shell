@@ -1,4 +1,4 @@
-3.32.0-dev
+3.32.0
 ======
 * Port away from and remove ShellGenericContainer [Georges; !153]
 * Reask password after udisk errors for no/wrong passwords [Sebastian; #640]
