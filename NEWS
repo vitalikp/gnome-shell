@@ -23,12 +23,23 @@
 * Don't let unfullscreen gesture interfere with top bar taps [Jonas D.; #552]
 * Always use symbolic user icon in system menu [Florian; #957]
 * Add flags parameter in GrabAccelerators API [Andrea; #68]
+* Fix visual glitch in submenus [Alex; #987]
+* Support fractional scaling [Jonas, Marco; #765011, !5]
+* Only consider visible children for :first-child/:last-child [Florian; !312]
+* Hide trailing separator in search results [verdre; !311]
+* Remember choice in inhibit-shortcuts dialogue [Olivier; !382]
+* Fix legacy tray icons not responding to events on wayland [Florian; #191]
+* Fix generating French OSK layout [Florian; #997]
+* Use borderless round user images [Florian; #811]
 * Misc. bug fixes [Florian, Jasper, Carmen, Georges, Cosimo, Carlos, Sam,
-  Daniel, Philip, Sergio, Pascal, Georges, verdre, Jonas A.;
+  Daniel, Philip, Sergio, Pascal, Georges, verdre, Jonas A., Andrea, Robert,
+  Marco, Niels, Benjamin;
   #666, #647, !66, !258, !287, #643595, #673767, !298, !297, #782, !301, 
   !314, !305, #632, !327, #780, #909, !316, !308, !309, #915, !350, !362,
   !357, !365, !366, !283, !367, #942, !371, !373, !374, !343, !375, !292,
-  !317, !377, !346, !383, #953, !388, !399, !398, !400, !402, !410, !411]
+  !317, !377, !346, !383, #953, !388, !399, !398, !400, !402, !410, !411,
+  !414, !417, !420, #996, !422, !425, #1006, !315, #989, !430, !431, !432,
+  !429, !423, !419, !434]
 
 Contributors:
   Jonas Ådahl, Michael Catanzaro, Carmen Bianca Bakker, Cosimo Cecchi,
@@ -37,7 +48,7 @@ Contributors:
   Pascal Nowack, Lubomir Rintel, Jasper St. Pierre, Georges Basile Stavracas Neto,
   Sebastian Pinnau, Jakub Steiner, Marco Trevisan (Treviño), João Paulo Rechi Vita,
   verdre, Daniel van Vugt, Philip Withnall, Andrea Azzarone, Arnaud Bonatti,
-  Jonas Dreßler
+  Jonas Dreßler, Benjamin Berg, Robert Mader, Alex Monday
 
 Translators:
   Dušan Kazik [sk], Matej Urbančič [sl], Daniel Mustieles [es],
@@ -46,7 +57,11 @@ Translators:
   Aurimas Černius [lt], Piotr Drąg [pl], Marek Cernocky [cs],
   Emin Tufan Çetin [tr], Jiri Grönroos [fi], Serdar Sağlam [tr],
   Anders Jonsson [sv], Ryuta Fujii [ja], Kukuh Syafaat [id],
-  Baurzhan Muftakhidinov [kk], Alan Mortensen [da], Rafael Fontenelle [pt_BR]
+  Baurzhan Muftakhidinov [kk], Alan Mortensen [da], Rafael Fontenelle [pt_BR],
+  Asier Sarasua Garmendia [eu], Stas Solovey [ru], Changwoo Ryu [ko],
+  Julien Humbert [fr], Milo Casagrande [it], Марко Костић [sr],
+  Ask Hjorth Larsen [da], Daniel Șerbănescu [ro], Bernd Homuth [de],
+  Trần Ngọc Quân [vi], Nathan Follens [nl], Rūdolfs Mazurs [lv]
 
 3.30.2
 ======
