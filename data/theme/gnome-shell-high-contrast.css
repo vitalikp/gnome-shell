@@ -396,7 +396,7 @@ StScrollBar {
 
 .prompt-dialog-error-label {
   font-size: 10pt;
-  color: #cc0000;
+  color: #f57900;
   padding-bottom: 8px; }
 
 .prompt-dialog-info-label {
