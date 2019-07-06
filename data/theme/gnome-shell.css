@@ -1332,9 +1332,10 @@ StScrollBar {
   .page-indicator:active .page-indicator-icon {
     border: none;
     margin: 2px;
-    background-color:#fff; }
-  .page-indicator:checked .page-indicator-icon, .page-indicator:checked:active {
-    background-color: #fff; }
+    background-color: white; }
+  .page-indicator:checked .page-indicator-icon,
+  .page-indicator:checked:active .page-indicator-icon {
+    background-color: white; }
 
 .app-well-app > .overview-icon.overview-icon-with-label,
 .grid-search-result .overview-icon.overview-icon-with-label {
