@@ -1,5 +1,16 @@
 3.32.2-dev
 ======
+* Handle network interface name changes [Fabrice; !534]
+* Don't leak old on-screen keyboard layout groups [Carlos; mutter#556]
+* Avoid unnecessary style changes when computing :first/:last-child
+  [Florian; !529]
+* Misc. bug fixes [Simon, Carlos, Florian; #822, #1054, !506, #1065]
+
+Contributors:
+  Fabrice Bellet, Carlos Garnacho, Simon McVittie, Florian Müllner
+
+Translators:
+  Dingzhong Chen [zh_CN], Tim Sabsch [de]
 
 3.32.1
 ======
