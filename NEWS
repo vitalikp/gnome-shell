@@ -1,3 +1,6 @@
+3.32.2-dev
+======
+
 3.32.1
 ======
 * Fix avatar scaling on login screen [Florian; #1024]
