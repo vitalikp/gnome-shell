@@ -4,7 +4,7 @@
 * Don't leak old on-screen keyboard layout groups [Carlos; mutter#556]
 * Avoid unnecessary style changes when computing :first/:last-child
   [Florian; !529]
-* Misc. bug fixes [Simon, Carlos, Florian; #822, #1054, !506, #1065]
+* Misc. bug fixes [Simon, Carlos, Florian; #822, #1054, !506, #1065, !525]
 
 Contributors:
   Fabrice Bellet, Carlos Garnacho, Simon McVittie, Florian Müllner
