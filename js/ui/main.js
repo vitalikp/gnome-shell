@@ -210,6 +210,7 @@ function _initializeUI() {
 
     ExtensionDownloader.init();
     extensionManager = new ExtensionSystem.ExtensionManager();
+    extensionManager.init();
 
     if (sessionMode.isGreeter && screenShield) {
         layoutManager.connect('startup-prepared', () => {
