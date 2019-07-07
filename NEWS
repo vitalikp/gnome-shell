@@ -1,4 +1,4 @@
-3.32.2-dev
+3.32.2
 ======
 * Handle network interface name changes [Fabrice; !534]
 * Don't leak old on-screen keyboard layout groups [Carlos; mutter#556]
