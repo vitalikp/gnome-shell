@@ -1,4 +1,4 @@
-3.32.1-dev
+3.32.1
 ======
 * Fix avatar scaling on login screen [Florian; #1024]
 * Fix distortion of desktop zoom [Florian; #646]
