@@ -471,9 +471,7 @@ var Notification = class Notification {
             this.destroy();
     }
 
-    destroy(reason) {
-        if (!reason)
-            reason = NotificationDestroyedReason.DISMISSED;
+    destroy(reason = NotificationDestroyedReason.DISMISSED) {
         this.emit('destroy', reason);
     }
 };

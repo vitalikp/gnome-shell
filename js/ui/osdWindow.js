@@ -150,9 +150,7 @@ var OsdWindow = class {
         }
     }
 
-    setMaxLevel(maxLevel) {
-        if (maxLevel === undefined)
-            maxLevel = 100;
+    setMaxLevel(maxLevel = 100) {
         this._level.maxLevel = maxLevel;
     }
 
