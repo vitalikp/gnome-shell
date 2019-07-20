@@ -15,12 +15,10 @@ libmutter_pc = 'libmutter-' + mutter_api_version
 
 croco_req = '>= 0.6.8'
 gcr_req = '>= 3.7.5'
-gdesktop_req = '>= 3.7.90'
 gio_req = '>= 2.56.0'
 gi_req = '>= 1.49.1'
 gjs_req = '>= 1.57.3'
 gtk_req = '>= 3.15.0'
-json_glib_req = '>= 0.13.2'
 mutter_req = '>= 3.33.3'
 polkit_req = '>= 0.100'
 schemas_req = '>= 3.27.90'
