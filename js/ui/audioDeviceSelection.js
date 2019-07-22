@@ -88,6 +88,7 @@ class AudioDeviceSelectionDialog extends ModalDialog.ModalDialog {
         box.connect('notify::height', () => {
             Meta.later_add(Meta.LaterType.BEFORE_REDRAW, () => {
                 box.width = box.height;
+                return GLib.SOURCE_REMOVE;
             });
         });
 
