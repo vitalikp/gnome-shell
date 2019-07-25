@@ -10,7 +10,6 @@ const Layout = imports.ui.layout;
 const Main = imports.ui.main;
 const PageIndicators = imports.ui.pageIndicators;
 const PopupMenu = imports.ui.popupMenu;
-const Tweener = imports.ui.tweener;
 
 var KEYBOARD_REST_TIME = Layout.KEYBOARD_ANIMATION_TIME * 2;
 var KEY_LONG_PRESS_TIME = 250;
@@ -690,15 +689,13 @@ var EmojiPager = GObject.registerClass({
             let relDelta = Math.abs(this._delta - value) / this._width;
             let time = PANEL_SWITCH_ANIMATION_TIME * Math.abs(relDelta);
 
-            Tweener.removeTweens(this);
-            Tweener.addTween(this,
-                             { delta: value,
-                               time: time / 1000,
-                               transition: 'easeInOutQuad',
-                               onComplete() {
-                                   this.setCurrentPage(this.getFollowingPage());
-                               }
-                             });
+            this.remove_all_transitions();
+            this.ease_property('delta', value, {
+                duration: time,
+                onComplete: () => {
+                    this.setCurrentPage(this.getFollowingPage());
+                }
+            });
         }
     }
 
@@ -706,12 +703,10 @@ var EmojiPager = GObject.registerClass({
         let relDelta = Math.abs(this._delta) / this.width;
         let time = PANEL_SWITCH_ANIMATION_TIME * Math.abs(relDelta);
 
-        Tweener.removeTweens(this);
-        Tweener.addTween(this,
-                         { delta: 0,
-                           time: time / 1000,
-                           transition: 'easeInOutQuad',
-                         });
+        this.remove_all_transitions();
+        this.ease_property('delta', 0, {
+            duration: time,
+        });
     }
 
     _initPagingInfo() {
