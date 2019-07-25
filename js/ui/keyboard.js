@@ -548,11 +548,21 @@ var FocusTracker = class {
 };
 Signals.addSignalMethods(FocusTracker.prototype);
 
-var EmojiPager = class EmojiPager {
-    constructor(sections, nCols, nRows) {
-        this.actor = new St.Widget({ layout_manager: new Clutter.BinLayout(),
-                                     reactive: true,
-                                     clip_to_allocation: true });
+var EmojiPager = GObject.registerClass({
+    Signals: {
+        'emoji': { param_types: [GObject.TYPE_STRING] },
+        'page-changed': {
+            param_types: [GObject.TYPE_INT, GObject.TYPE_INT, GObject.TYPE_INT]
+        }
+    }
+}, class EmojiPager extends St.Widget {
+    _init(sections, nCols, nRows) {
+        super._init({
+            layout_manager: new Clutter.BinLayout(),
+            reactive: true,
+            clip_to_allocation: true
+        });
+
         this._sections = sections;
         this._nCols = nCols;
         this._nRows = nRows;
@@ -574,7 +584,7 @@ var EmojiPager = class EmojiPager {
         panAction.connect('gesture-cancel', this._onPanCancel.bind(this));
         panAction.connect('gesture-end', this._onPanEnd.bind(this));
         this._panAction = panAction;
-        this.actor.add_action(panAction);
+        this.add_action(panAction);
     }
 
     get delta() {
@@ -604,8 +614,8 @@ var EmojiPager = class EmojiPager {
             if (followingPage != null) {
                 this._followingPanel = this._generatePanel(followingPage);
                 this._followingPanel.set_pivot_point(0.5, 0.5);
-                this.actor.add_child(this._followingPanel);
-                this.actor.set_child_below_sibling(this._followingPanel, this._panel);
+                this.add_child(this._followingPanel);
+                this.set_child_below_sibling(this._followingPanel, this._panel);
             }
 
             this._followingPage = followingPage;
@@ -653,12 +663,12 @@ var EmojiPager = class EmojiPager {
     }
 
     _onPanBegin() {
-        this._width = this.actor.width;
+        this._width = this.width;
         return true;
     }
 
     _onPanEnd() {
-        if (Math.abs(this._delta) < this.actor.width * PANEL_SWITCH_RELATIVE_DISTANCE) {
+        if (Math.abs(this._delta) < this.width * PANEL_SWITCH_RELATIVE_DISTANCE) {
             this._onPanCancel();
         } else {
             let value;
@@ -683,7 +693,7 @@ var EmojiPager = class EmojiPager {
     }
 
     _onPanCancel() {
-        let relDelta = Math.abs(this._delta) / this.actor.width;
+        let relDelta = Math.abs(this._delta) / this.width;
         let time = PANEL_SWITCH_ANIMATION_TIME * Math.abs(relDelta);
 
         Tweener.removeTweens(this);
@@ -801,7 +811,7 @@ var EmojiPager = class EmojiPager {
 
         if (!this._panel) {
             this._panel = this._generatePanel(nPage);
-            this.actor.add_child(this._panel);
+            this.add_child(this._panel);
         }
 
         let page = this._pages[nPage];
@@ -818,8 +828,7 @@ var EmojiPager = class EmojiPager {
             }
         }
     }
-};
-Signals.addSignalMethods(EmojiPager.prototype);
+});
 
 var EmojiSelection = class EmojiSelection {
     constructor() {
