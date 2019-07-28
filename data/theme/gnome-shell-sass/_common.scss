@@ -925,7 +925,7 @@ StScrollBar {
     .datemenu-today-button,
     .world-clocks-button,
     .events-section-title {
-      &:hover, focus { background-color: $_hover_bg_color }
+      &:hover, &:focus { background-color: $_hover_bg_color }
       &:active { background-color: $_active_bg_color }
     }
 
@@ -976,7 +976,7 @@ StScrollBar {
       background-color: transparent;
       width: 32px;
       border-radius: 4px;
-      &:hover, focus { background-color: $_hover_bg_color; }
+      &:hover, &:focus { background-color: $_hover_bg_color; }
       &:active { background-color: transparentize($fg_color, 0.84); }
     }
 
@@ -992,7 +992,7 @@ StScrollBar {
       margin: 2px;
       border-radius: 1.4em;
       font-feature-settings: "tnum";
-      &:hover, focus { background-color: $_hover_bg_color; }
+      &:hover, &:focus { background-color: $_hover_bg_color; }
       &:active,&:selected {
         color: lighten($selected_fg_color,5%);
         background-color: $selected_bg_color;
