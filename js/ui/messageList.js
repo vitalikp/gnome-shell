@@ -7,7 +7,7 @@ const Calendar = imports.ui.calendar;
 const Tweener = imports.ui.tweener;
 const Util = imports.misc.util;
 
-var MESSAGE_ANIMATION_TIME = 0.1;
+var MESSAGE_ANIMATION_TIME = 100;
 
 var DEFAULT_EXPAND_LINES = 6;
 
@@ -440,12 +440,12 @@ var Message = class Message {
         if (animate) {
             Tweener.addTween(this._bodyStack.layout_manager,
                              { expansion: 1,
-                               time: MessageTray.ANIMATION_TIME,
+                               time: MessageTray.ANIMATION_TIME / 1000,
                                transition: 'easeOutQuad' });
             this._actionBin.scale_y = 0;
             Tweener.addTween(this._actionBin,
                              { scale_y: 1,
-                               time: MessageTray.ANIMATION_TIME,
+                               time: MessageTray.ANIMATION_TIME / 1000,
                                transition: 'easeOutQuad' });
         } else {
             this._bodyStack.layout_manager.expansion = 1;
@@ -459,11 +459,11 @@ var Message = class Message {
         if (animate) {
             Tweener.addTween(this._bodyStack.layout_manager,
                              { expansion: 0,
-                               time: MessageTray.ANIMATION_TIME,
+                               time: MessageTray.ANIMATION_TIME / 1000,
                                transition: 'easeOutQuad' });
             Tweener.addTween(this._actionBin,
                              { scale_y: 0,
-                               time: MessageTray.ANIMATION_TIME,
+                               time: MessageTray.ANIMATION_TIME / 1000,
                                transition: 'easeOutQuad',
                                onComplete: () => {
                                    this._actionBin.hide();
@@ -581,7 +581,7 @@ var MessageListSection = class MessageListSection {
         if (animate)
             Tweener.addTween(obj.container, { scale_x: 1,
                                               scale_y: 1,
-                                              time: MESSAGE_ANIMATION_TIME,
+                                              time: MESSAGE_ANIMATION_TIME / 1000,
                                               transition: 'easeOutQuad' });
     }
 
@@ -597,12 +597,12 @@ var MessageListSection = class MessageListSection {
             this._list.set_child_at_index(obj.container, index);
             Tweener.addTween(obj.container, { scale_x: 1,
                                               scale_y: 1,
-                                              time: MESSAGE_ANIMATION_TIME,
+                                              time: MESSAGE_ANIMATION_TIME / 1000,
                                               transition: 'easeOutQuad' });
         };
         Tweener.addTween(obj.container, { scale_x: 0,
                                           scale_y: 0,
-                                          time: MESSAGE_ANIMATION_TIME,
+                                          time: MESSAGE_ANIMATION_TIME / 1000,
                                           transition: 'easeOutQuad',
                                           onComplete: onComplete });
     }
@@ -618,7 +618,7 @@ var MessageListSection = class MessageListSection {
 
         if (animate) {
             Tweener.addTween(obj.container, { scale_x: 0, scale_y: 0,
-                                              time: MESSAGE_ANIMATION_TIME,
+                                              time: MESSAGE_ANIMATION_TIME / 1000,
                                               transition: 'easeOutQuad',
                                               onComplete() {
                                                   obj.container.destroy();
@@ -648,8 +648,8 @@ var MessageListSection = class MessageListSection {
                 Tweener.addTween(obj.container,
                                  { anchor_x: this._list.width,
                                    opacity: 0,
-                                   time: MESSAGE_ANIMATION_TIME,
-                                   delay: i * delay,
+                                   time: MESSAGE_ANIMATION_TIME / 1000,
+                                   delay: i * delay / 1000,
                                    transition: 'easeOutQuad',
                                    onComplete() {
                                        message.close();

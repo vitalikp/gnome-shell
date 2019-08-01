@@ -20,15 +20,15 @@ const SwitchMonitor = imports.ui.switchMonitor;
 const { loadInterfaceXML } = imports.misc.fileUtils;
 
 var SHELL_KEYBINDINGS_SCHEMA = 'org.gnome.shell.keybindings';
-var MINIMIZE_WINDOW_ANIMATION_TIME = 0.2;
-var SHOW_WINDOW_ANIMATION_TIME = 0.15;
-var DIALOG_SHOW_WINDOW_ANIMATION_TIME = 0.1;
-var DESTROY_WINDOW_ANIMATION_TIME = 0.15;
-var DIALOG_DESTROY_WINDOW_ANIMATION_TIME = 0.1;
-var WINDOW_ANIMATION_TIME = 0.25;
+var MINIMIZE_WINDOW_ANIMATION_TIME = 200;
+var SHOW_WINDOW_ANIMATION_TIME = 150;
+var DIALOG_SHOW_WINDOW_ANIMATION_TIME = 100;
+var DESTROY_WINDOW_ANIMATION_TIME = 150;
+var DIALOG_DESTROY_WINDOW_ANIMATION_TIME = 100;
+var WINDOW_ANIMATION_TIME = 250;
 var DIM_BRIGHTNESS = -0.3;
-var DIM_TIME = 0.500;
-var UNDIM_TIME = 0.250;
+var DIM_TIME = 500;
+var UNDIM_TIME = 250;
 var MOTION_THRESHOLD = 100;
 
 var ONE_SECOND = 1000; // in ms
@@ -411,7 +411,7 @@ var TilePreview = class {
                            width: tileRect.width,
                            height: tileRect.height,
                            opacity: 255,
-                           time: WINDOW_ANIMATION_TIME,
+                           time: WINDOW_ANIMATION_TIME / 1000,
                            transition: 'easeOutQuad'
                          });
     }
@@ -423,7 +423,7 @@ var TilePreview = class {
         this._showing = false;
         Tweener.addTween(this.actor,
                          { opacity: 0,
-                           time: WINDOW_ANIMATION_TIME,
+                           time: WINDOW_ANIMATION_TIME / 1000,
                            transition: 'easeOutQuad',
                            onComplete: this._reset.bind(this)
                          });
@@ -1112,7 +1112,7 @@ var WindowManager = class {
         Tweener.addTween(switchData.container,
                          { x: 0,
                            y: 0,
-                           time: WINDOW_ANIMATION_TIME,
+                           time: WINDOW_ANIMATION_TIME / 1000,
                            transition: 'easeOutQuad',
                            onComplete: this._finishWorkspaceSwitch,
                            onCompleteScope: this,
@@ -1258,7 +1258,7 @@ var WindowManager = class {
         if (actor.meta_window.is_monitor_sized()) {
             Tweener.addTween(actor,
                              { opacity: 0,
-                               time: MINIMIZE_WINDOW_ANIMATION_TIME,
+                               time: MINIMIZE_WINDOW_ANIMATION_TIME / 1000,
                                transition: 'easeOutQuad',
                                onComplete: this._minimizeWindowDone,
                                onCompleteScope: this,
@@ -1294,7 +1294,7 @@ var WindowManager = class {
                                scale_y: yScale,
                                x: xDest,
                                y: yDest,
-                               time: MINIMIZE_WINDOW_ANIMATION_TIME,
+                               time: MINIMIZE_WINDOW_ANIMATION_TIME / 1000,
                                transition: 'easeInExpo',
                                onComplete: this._minimizeWindowDone,
                                onCompleteScope: this,
@@ -1339,7 +1339,7 @@ var WindowManager = class {
             actor.set_scale(1.0, 1.0);
             Tweener.addTween(actor,
                              { opacity: 255,
-                               time: MINIMIZE_WINDOW_ANIMATION_TIME,
+                               time: MINIMIZE_WINDOW_ANIMATION_TIME / 1000,
                                transition: 'easeOutQuad',
                                onComplete: this._unminimizeWindowDone,
                                onCompleteScope: this,
@@ -1376,7 +1376,7 @@ var WindowManager = class {
                                scale_y: 1.0,
                                x: xDest,
                                y: yDest,
-                               time: MINIMIZE_WINDOW_ANIMATION_TIME,
+                               time: MINIMIZE_WINDOW_ANIMATION_TIME / 1000,
                                transition: 'easeInExpo',
                                onComplete: this._unminimizeWindowDone,
                                onCompleteScope: this,
@@ -1462,7 +1462,7 @@ var WindowManager = class {
                            scale_x: scaleX,
                            scale_y: scaleY,
                            opacity: 0,
-                           time: WINDOW_ANIMATION_TIME,
+                           time: WINDOW_ANIMATION_TIME / 1000,
                            transition: 'easeOutQuad'
                          });
 
@@ -1479,7 +1479,7 @@ var WindowManager = class {
                            scale_y: 1.0,
                            translation_x: 0,
                            translation_y: 0,
-                           time: WINDOW_ANIMATION_TIME,
+                           time: WINDOW_ANIMATION_TIME / 1000,
                            transition: 'easeOutQuad',
                            onComplete: this._sizeChangeWindowDone,
                            onCompleteScope: this,
@@ -1560,7 +1560,7 @@ var WindowManager = class {
         if (this._shouldAnimate())
             Tweener.addTween(dimmer,
                              { dimFactor: 1.0,
-                               time: DIM_TIME,
+                               time: DIM_TIME / 1000,
                                transition: 'linear'
                              });
         else
@@ -1577,7 +1577,7 @@ var WindowManager = class {
         if (this._shouldAnimate())
             Tweener.addTween(dimmer,
                              { dimFactor: 0.0,
-                               time: UNDIM_TIME,
+                               time: UNDIM_TIME / 1000,
                                transition: 'linear' });
         else
             dimmer.dimFactor = 0.0;
@@ -1629,7 +1629,7 @@ var WindowManager = class {
                              { opacity: 255,
                                scale_x: 1,
                                scale_y: 1,
-                               time: SHOW_WINDOW_ANIMATION_TIME,
+                               time: SHOW_WINDOW_ANIMATION_TIME / 1000,
                                transition: 'easeOutExpo',
                                onComplete: this._mapWindowDone,
                                onCompleteScope: this,
@@ -1651,7 +1651,7 @@ var WindowManager = class {
                              { opacity: 255,
                                scale_x: 1,
                                scale_y: 1,
-                               time: DIALOG_SHOW_WINDOW_ANIMATION_TIME,
+                               time: DIALOG_SHOW_WINDOW_ANIMATION_TIME / 1000,
                                transition: 'easeOutQuad',
                                onComplete: this._mapWindowDone,
                                onCompleteScope: this,
@@ -1717,7 +1717,7 @@ var WindowManager = class {
                              { opacity: 0,
                                scale_x: 0.8,
                                scale_y: 0.8,
-                               time: DESTROY_WINDOW_ANIMATION_TIME,
+                               time: DESTROY_WINDOW_ANIMATION_TIME / 1000,
                                transition: 'easeOutQuad',
                                onComplete: this._destroyWindowDone,
                                onCompleteScope: this,
@@ -1742,7 +1742,7 @@ var WindowManager = class {
 
             Tweener.addTween(actor,
                              { scale_y: 0,
-                               time: DIALOG_DESTROY_WINDOW_ANIMATION_TIME,
+                               time: DIALOG_DESTROY_WINDOW_ANIMATION_TIME / 1000,
                                transition: 'easeOutQuad',
                                onComplete: this._destroyWindowDone,
                                onCompleteScope: this,
@@ -1991,7 +1991,7 @@ var WindowManager = class {
         Tweener.addTween(this._switchData.container,
                          { x: xDest,
                            y: yDest,
-                           time: WINDOW_ANIMATION_TIME,
+                           time: WINDOW_ANIMATION_TIME / 1000,
                            transition: 'easeOutQuad',
                            onComplete: this._switchWorkspaceDone,
                            onCompleteScope: this,
