@@ -1653,7 +1653,6 @@ var WindowManager = class {
             break;
         default:
             shellwm.completed_map(actor);
-            return;
         }
     }
 
@@ -1734,7 +1733,6 @@ var WindowManager = class {
             break;
         default:
             shellwm.completed_destroy(actor);
-            return;
         }
     }
 
