@@ -1,7 +1,6 @@
 // -*- mode: js; js-indent-level: 4; indent-tabs-mode: nil -*-
 
 const { GLib, Meta } = imports.gi;
-const Mainloop = imports.mainloop;
 
 // We stop polling if the user is idle for more than this amount of time
 var IDLE_TIME = 1000;
@@ -86,7 +85,7 @@ var PointerWatcher = class {
 
     _updateTimeout() {
         if (this._timeoutId) {
-            Mainloop.source_remove(this._timeoutId);
+            GLib.source_remove(this._timeoutId);
             this._timeoutId = 0;
         }
 
@@ -97,8 +96,8 @@ var PointerWatcher = class {
         for (let i = 1; i < this._watches.length; i++)
             minInterval = Math.min(this._watches[i].interval, minInterval);
 
-        this._timeoutId = Mainloop.timeout_add(minInterval,
-                                               this._onTimeout.bind(this));
+        this._timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, minInterval,
+            this._onTimeout.bind(this));
         GLib.Source.set_name_by_id(this._timeoutId, '[gnome-shell] this._onTimeout');
     }
 

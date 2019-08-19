@@ -1,7 +1,6 @@
 // -*- mode: js; js-indent-level: 4; indent-tabs-mode: nil -*-
 
 const { Clutter, GLib, GObject, Meta, St } = imports.gi;
-const Mainloop = imports.mainloop;
 
 const Main = imports.ui.main;
 const Tweener = imports.ui.tweener;
@@ -151,14 +150,14 @@ class WorkspaceSwitcherPopup extends St.Widget {
 
         this._redisplay();
         if (this._timeoutId != 0)
-            Mainloop.source_remove(this._timeoutId);
-        this._timeoutId = Mainloop.timeout_add(DISPLAY_TIMEOUT, this._onTimeout.bind(this));
+            GLib.source_remove(this._timeoutId);
+        this._timeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, DISPLAY_TIMEOUT, this._onTimeout.bind(this));
         GLib.Source.set_name_by_id(this._timeoutId, '[gnome-shell] this._onTimeout');
         this._show();
     }
 
     _onTimeout() {
-        Mainloop.source_remove(this._timeoutId);
+        GLib.source_remove(this._timeoutId);
         this._timeoutId = 0;
         Tweener.addTween(this._container, { opacity: 0.0,
                                             time: ANIMATION_TIME,
@@ -171,7 +170,7 @@ class WorkspaceSwitcherPopup extends St.Widget {
 
     _onDestroy() {
         if (this._timeoutId)
-            Mainloop.source_remove(this._timeoutId);
+            GLib.source_remove(this._timeoutId);
         this._timeoutId = 0;
 
         let workspaceManager = global.workspace_manager;

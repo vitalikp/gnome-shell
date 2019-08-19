@@ -2,7 +2,6 @@
 
 const { Atspi, Clutter, GDesktopEnums,
         Gio, GLib, GObject, Meta, Shell, St } = imports.gi;
-const Mainloop = imports.mainloop;
 const Signals = imports.signals;
 
 const Background = imports.ui.background;
@@ -1149,7 +1148,7 @@ var ZoomRegion = class ZoomRegion {
 
     _clearScrollContentsTimer() {
         if (this._scrollContentsTimerId != 0) {
-            Mainloop.source_remove(this._scrollContentsTimerId);
+            GLib.source_remove(this._scrollContentsTimerId);
             this._scrollContentsTimerId = 0;
         }
     }
@@ -1161,7 +1160,7 @@ var ZoomRegion = class ZoomRegion {
         }
 
         this._clearScrollContentsTimer();
-        this._scrollContentsTimerId = Mainloop.timeout_add(POINTER_REST_TIME, () => {
+        this._scrollContentsTimerId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, POINTER_REST_TIME, () => {
             this._scrollContentsToDelayed(x, y);
             return GLib.SOURCE_REMOVE;
         });

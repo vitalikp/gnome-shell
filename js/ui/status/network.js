@@ -1,6 +1,5 @@
 // -*- mode: js; js-indent-level: 4; indent-tabs-mode: nil -*-
 const { Clutter, Gio, GLib, GObject, NM, St } = imports.gi;
-const Mainloop = imports.mainloop;
 const Signals = imports.signals;
 
 const Animation = imports.ui.animation;
@@ -699,7 +698,7 @@ var NMWirelessDialog = class extends ModalDialog.ModalDialog {
         this._updateSensitivity();
         this._syncView();
 
-        this._scanTimeoutId = Mainloop.timeout_add_seconds(15, this._onScanTimeout.bind(this));
+        this._scanTimeoutId = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 15, this._onScanTimeout.bind(this));
         GLib.Source.set_name_by_id(this._scanTimeoutId, '[gnome-shell] this._onScanTimeout');
         this._onScanTimeout();
 
@@ -735,7 +734,7 @@ var NMWirelessDialog = class extends ModalDialog.ModalDialog {
         }
 
         if (this._scanTimeoutId) {
-            Mainloop.source_remove(this._scanTimeoutId);
+            GLib.source_remove(this._scanTimeoutId);
             this._scanTimeoutId = 0;
         }
 

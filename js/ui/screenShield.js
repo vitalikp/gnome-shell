@@ -3,7 +3,6 @@
 const { AccountsService, Clutter, Cogl, Gio, GLib,
         GnomeDesktop, GObject, Meta, Shell, St } = imports.gi;
 const Cairo = imports.cairo;
-const Mainloop = imports.mainloop;
 const Signals = imports.signals;
 const TweenerEquations = imports.tweener.equations;
 
@@ -819,12 +818,14 @@ var ScreenShield = class {
 
         if (shouldLock) {
             let lockTimeout = Math.max(STANDARD_FADE_TIME, this._settings.get_uint(LOCK_DELAY_KEY));
-            this._lockTimeoutId = Mainloop.timeout_add(lockTimeout * 1000,
-                                                       () => {
-                                                           this._lockTimeoutId = 0;
-                                                           this.lock(false);
-                                                           return GLib.SOURCE_REMOVE;
-                                                       });
+            this._lockTimeoutId = GLib.timeout_add(
+                GLib.PRIORITY_DEFAULT,
+                lockTimeout * 1000,
+                () => {
+                    this._lockTimeoutId = 0;
+                    this.lock(false);
+                    return GLib.SOURCE_REMOVE;
+                });
             GLib.Source.set_name_by_id(this._lockTimeoutId, '[gnome-shell] this.lock');
         }
 
@@ -1016,7 +1017,7 @@ var ScreenShield = class {
         this._arrowActiveWatchId = 0;
 
         if (!this._arrowAnimationId) {
-            this._arrowAnimationId = Mainloop.timeout_add(6000, this._animateArrows.bind(this));
+            this._arrowAnimationId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 6000, this._animateArrows.bind(this));
             GLib.Source.set_name_by_id(this._arrowAnimationId, '[gnome-shell] this._animateArrows');
             this._animateArrows();
         }
@@ -1028,7 +1029,7 @@ var ScreenShield = class {
 
     _pauseArrowAnimation() {
         if (this._arrowAnimationId) {
-            Mainloop.source_remove(this._arrowAnimationId);
+            GLib.source_remove(this._arrowAnimationId);
             this._arrowAnimationId = 0;
         }
 
@@ -1038,7 +1039,7 @@ var ScreenShield = class {
 
     _stopArrowAnimation() {
         if (this._arrowAnimationId) {
-            Mainloop.source_remove(this._arrowAnimationId);
+            GLib.source_remove(this._arrowAnimationId);
             this._arrowAnimationId = 0;
         }
         if (this._arrowActiveWatchId) {
@@ -1085,7 +1086,7 @@ var ScreenShield = class {
         if (params.fadeToBlack && params.animateFade) {
             // Take a beat
 
-            this._fadeTimeoutId = Mainloop.timeout_add(1000 * WAIT_FADE_TIME, () => {
+            this._fadeTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000 * WAIT_FADE_TIME, () => {
                 this._fadeTimeoutId = 0;
                 this._activateFade(this._shortLightbox, FADE_TIME);
                 return GLib.SOURCE_REMOVE;
@@ -1229,12 +1230,12 @@ var ScreenShield = class {
         }
 
         if (this._lockTimeoutId != 0) {
-            Mainloop.source_remove(this._lockTimeoutId);
+            GLib.source_remove(this._lockTimeoutId);
             this._lockTimeoutId = 0;
         }
 
         if (this._fadeTimeoutId != 0) {
-            Mainloop.source_remove(this._fadeTimeoutId);
+            GLib.source_remove(this._fadeTimeoutId);
             this._fadeTimeoutId = 0;
         }
 

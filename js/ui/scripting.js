@@ -1,7 +1,6 @@
 // -*- mode: js; js-indent-level: 4; indent-tabs-mode: nil -*-
 
 const { Gio, GLib, Meta, Shell } = imports.gi;
-const Mainloop = imports.mainloop;
 
 const Main = imports.ui.main;
 const Params = imports.misc.params;
@@ -38,7 +37,7 @@ const { loadInterfaceXML } = imports.misc.fileUtils;
  */
 function sleep(milliseconds) {
     return new Promise(resolve => {
-        let id = Mainloop.timeout_add(milliseconds, () => {
+        let id = GLib.timeout_add(GLib.PRIORITY_DEFAULT, milliseconds, () => {
             resolve();
             return GLib.SOURCE_REMOVE;
         });

@@ -1,7 +1,6 @@
 // -*- mode: js; js-indent-level: 4; indent-tabs-mode: nil -*-
 
 const { GLib, Gio, St } = imports.gi;
-const Mainloop = imports.mainloop;
 
 const Tweener = imports.ui.tweener;
 
@@ -46,7 +45,7 @@ var Animation = class {
 
     stop() {
         if (this._timeoutId > 0) {
-            Mainloop.source_remove(this._timeoutId);
+            GLib.source_remove(this._timeoutId);
             this._timeoutId = 0;
         }
 
