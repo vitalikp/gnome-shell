@@ -1059,7 +1059,7 @@ var Keyboard = class Keyboard {
                 this.hide();
         });
 
-        Meta.get_backend().connect('last-device-changed', 
+        Meta.get_backend().connect('last-device-changed',
             (backend, deviceId) => {
                 let manager = Clutter.DeviceManager.get_default();
                 let device = manager.get_device(deviceId);
