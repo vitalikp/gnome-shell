@@ -282,7 +282,7 @@ StScrollBar {
     text-align: right; }
 
 .end-session-dialog-logout-icon {
-  border-radius: 99px;
+  border-radius: 5px;
   width: 48px;
   height: 48px;
   background-size: contain; }
@@ -415,7 +415,7 @@ StScrollBar {
   color: #f57900; }
 
 .polkit-dialog-user-icon {
-  border-radius: 99px;
+  border-radius: 5px;
   background-size: contain;
   width: 48px;
   height: 48px; }
@@ -1626,7 +1626,7 @@ StScrollBar {
 .user-icon {
   background-size: contain;
   color: #eeeeec;
-  border-radius: 99px; }
+  border-radius: 5px; }
   .user-icon:hover {
     color: white; }
 
