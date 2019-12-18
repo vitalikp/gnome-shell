@@ -893,28 +893,6 @@ msgstr "Немає подій"
 msgid "Clear"
 msgstr "Очистити"
 
-#. Translators: %s is an application name
-#: js/ui/closeDialog.js:42
-#, javascript-format
-msgid "“%s” is not responding."
-msgstr "«%s» не відповідає."
-
-#: js/ui/closeDialog.js:43
-msgid ""
-"You may choose to wait a short while for it to continue or force the "
-"application to quit entirely."
-msgstr ""
-"Ви можете вибрати зачекати недовго для продовження або примусити додаток "
-"повністю вийти."
-
-#: js/ui/closeDialog.js:59
-msgid "Force Quit"
-msgstr "Вийти примусово"
-
-#: js/ui/closeDialog.js:62
-msgid "Wait"
-msgstr "Чекати"
-
 #: js/ui/components/automountManager.js:86
 msgid "External drive connected"
 msgstr "Зовнішній пристрій під'єднано"
@@ -1960,22 +1938,22 @@ msgstr "Пошук"
 msgid "“%s” is ready"
 msgstr "«%s» готовий"
 
-#: js/ui/windowManager.js:46
+#: js/ui/windowManager.js:45
 msgid "Do you want to keep these display settings?"
 msgstr "Ви бажаєте зберегти ці параметри екрана?"
 
 #. Translators: this and the following message should be limited in lenght,
 #. to avoid ellipsizing the labels.
 #.
-#: js/ui/windowManager.js:58
+#: js/ui/windowManager.js:57
 msgid "Revert Settings"
 msgstr "Повернути параметри"
 
-#: js/ui/windowManager.js:61
+#: js/ui/windowManager.js:60
 msgid "Keep Changes"
 msgstr "Зберегти зміни"
 
-#: js/ui/windowManager.js:79
+#: js/ui/windowManager.js:78
 #, javascript-format
 msgid "Settings changes will revert in %d second"
 msgid_plural "Settings changes will revert in %d seconds"
@@ -1985,7 +1963,7 @@ msgstr[2] "Зміни параметрів буде повернуто чере�
 
 #. Translators: This represents the size of a window. The first number is
 #. * the width of the window and the second is the height.
-#: js/ui/windowManager.js:670
+#: js/ui/windowManager.js:669
 #, javascript-format
 msgid "%d × %d"
 msgstr "%d × %d"

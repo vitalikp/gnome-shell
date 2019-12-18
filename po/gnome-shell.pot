@@ -839,26 +839,6 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-#. Translators: %s is an application name
-#: js/ui/closeDialog.js:42
-#, javascript-format
-msgid "“%s” is not responding."
-msgstr ""
-
-#: js/ui/closeDialog.js:43
-msgid ""
-"You may choose to wait a short while for it to continue or force the "
-"application to quit entirely."
-msgstr ""
-
-#: js/ui/closeDialog.js:59
-msgid "Force Quit"
-msgstr ""
-
-#: js/ui/closeDialog.js:62
-msgid "Wait"
-msgstr ""
-
 #: js/ui/components/automountManager.js:86
 msgid "External drive connected"
 msgstr ""
@@ -1876,22 +1856,22 @@ msgstr ""
 msgid "“%s” is ready"
 msgstr ""
 
-#: js/ui/windowManager.js:46
+#: js/ui/windowManager.js:45
 msgid "Do you want to keep these display settings?"
 msgstr ""
 
 #. Translators: this and the following message should be limited in lenght,
 #. to avoid ellipsizing the labels.
 #.
-#: js/ui/windowManager.js:58
+#: js/ui/windowManager.js:57
 msgid "Revert Settings"
 msgstr ""
 
-#: js/ui/windowManager.js:61
+#: js/ui/windowManager.js:60
 msgid "Keep Changes"
 msgstr ""
 
-#: js/ui/windowManager.js:79
+#: js/ui/windowManager.js:78
 #, javascript-format
 msgid "Settings changes will revert in %d second"
 msgid_plural "Settings changes will revert in %d seconds"
@@ -1900,7 +1880,7 @@ msgstr[1] ""
 
 #. Translators: This represents the size of a window. The first number is
 #. * the width of the window and the second is the height.
-#: js/ui/windowManager.js:670
+#: js/ui/windowManager.js:669
 #, javascript-format
 msgid "%d × %d"
 msgstr ""
