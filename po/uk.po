@@ -21,6 +21,7 @@ msgstr ""
 "X-Project-Style: gnome\n"
 
 #: data/gnome-shell-extension-prefs.desktop.in.in:4
+#: js/extensionPrefs/main.js:216
 msgid "Shell Extensions"
 msgstr "Розширення оболонки"
 
@@ -708,12 +709,12 @@ msgstr "Додати до улюбленого"
 msgid "Show Details"
 msgstr "Показати подробиці"
 
-#: js/ui/appFavorites.js:139
+#: js/ui/appFavorites.js:147
 #, javascript-format
 msgid "%s has been added to your favorites."
 msgstr "%s додано до улюбленого."
 
-#: js/ui/appFavorites.js:173
+#: js/ui/appFavorites.js:181
 #, javascript-format
 msgid "%s has been removed from your favorites."
 msgstr "%s видалено з улюбленого."
@@ -1230,26 +1231,26 @@ msgid "Download and install “%s” from extensions.gnome.org?"
 msgstr "Звантажити і встановити «%s» з extensions.gnome.org?"
 
 #. Translators: %s is an application name like "Settings"
-#: js/ui/inhibitShortcutsDialog.js:78
+#: js/ui/inhibitShortcutsDialog.js:50
 #, javascript-format
 msgid "%s wants to inhibit shortcuts"
 msgstr "%s бажає ігнорувати скорочення"
 
-#: js/ui/inhibitShortcutsDialog.js:79
+#: js/ui/inhibitShortcutsDialog.js:51
 msgid "Application wants to inhibit shortcuts"
 msgstr "Додаток бажає ігнорувати скорочення"
 
 #. Translators: %s is a keyboard shortcut like "Super+x"
-#: js/ui/inhibitShortcutsDialog.js:88
+#: js/ui/inhibitShortcutsDialog.js:60
 #, javascript-format
 msgid "You can restore shortcuts by pressing %s."
 msgstr "Ви можете відновити скорочення, натиснувши %s."
 
-#: js/ui/inhibitShortcutsDialog.js:93
+#: js/ui/inhibitShortcutsDialog.js:65
 msgid "Deny"
 msgstr "Заборонити"
 
-#: js/ui/inhibitShortcutsDialog.js:100
+#: js/ui/inhibitShortcutsDialog.js:71
 msgid "Allow"
 msgstr "Дозволити"
 
@@ -1316,7 +1317,7 @@ msgstr "Вимкнути"
 msgid "Leave Off"
 msgstr "Залишити вимкненим"
 
-#: js/ui/keyboard.js:202
+#: js/ui/keyboard.js:199
 msgid "Region & Language Settings"
 msgstr "Налаштування «Регіон та мова»"
 
@@ -1402,11 +1403,11 @@ msgstr "Вийти"
 
 #. Translators: If there is no suitable word for "Activities"
 #. in your language, you can use the word for "Overview".
-#: js/ui/panel.js:473
+#: js/ui/panel.js:472
 msgid "Activities"
 msgstr "Діяльність"
 
-#: js/ui/panel.js:748
+#: js/ui/panel.js:747
 msgctxt "System menu in the top bar"
 msgid "System"
 msgstr "Система"
@@ -1462,7 +1463,7 @@ msgstr[0] "%d нове сповіщення"
 msgstr[1] "%d нових сповіщення"
 msgstr[2] "%d нових сповіщень"
 
-#: js/ui/screenShield.js:448 js/ui/status/system.js:270
+#: js/ui/screenShield.js:448 js/ui/status/system.js:271
 msgid "Lock"
 msgstr "Заблокувати"
 
@@ -1477,11 +1478,11 @@ msgstr "GNOME потребує заблокувати екран"
 #.
 #. XXX: another option is to kick the user into the gdm login
 #. screen, where we're not affected by grabs
-#: js/ui/screenShield.js:823 js/ui/screenShield.js:1296
+#: js/ui/screenShield.js:815 js/ui/screenShield.js:1288
 msgid "Unable to lock"
 msgstr "Неможливо заблокувати"
 
-#: js/ui/screenShield.js:824 js/ui/screenShield.js:1297
+#: js/ui/screenShield.js:816 js/ui/screenShield.js:1289
 msgid "Lock was blocked by an application"
 msgstr "Блокування заборонено додатком"
 
@@ -1790,11 +1791,11 @@ msgstr[0] "%s з'єднання через модем"
 msgstr[1] "%s з'єднання через модем"
 msgstr[2] "%s з'єднань через модем"
 
-#: js/ui/status/network.js:1701
+#: js/ui/status/network.js:1705
 msgid "Connection failed"
 msgstr "Не вдалось з'єднатись"
 
-#: js/ui/status/network.js:1702
+#: js/ui/status/network.js:1706
 msgid "Activation of network connection failed"
 msgstr "Не вдалось увімкнути мережеве з'єднання"
 
@@ -1868,15 +1869,15 @@ msgstr "Вийти"
 msgid "Account Settings"
 msgstr "Параметри облікових записів"
 
-#: js/ui/status/system.js:255
+#: js/ui/status/system.js:256
 msgid "Orientation Lock"
 msgstr "Напрямлене блокування"
 
-#: js/ui/status/system.js:281
+#: js/ui/status/system.js:282
 msgid "Suspend"
 msgstr "Призупинити"
 
-#: js/ui/status/system.js:291
+#: js/ui/status/system.js:292
 msgid "Power Off"
 msgstr "Вимкнути"
 
@@ -1954,7 +1955,7 @@ msgstr[2] "Зміни параметрів буде повернуто чере�
 
 #. Translators: This represents the size of a window. The first number is
 #. * the width of the window and the second is the height.
-#: js/ui/windowManager.js:655
+#: js/ui/windowManager.js:670
 #, javascript-format
 msgid "%d × %d"
 msgstr "%d × %d"
@@ -2039,21 +2040,21 @@ msgstr "Використовувати вказаний режим, прикла
 msgid "List possible modes"
 msgstr "Список можливих режимів"
 
-#: src/shell-app.c:260
+#: src/shell-app.c:264
 msgctxt "program"
 msgid "Unknown"
 msgstr "Невідомо"
 
-#: src/shell-app.c:511
+#: src/shell-app.c:515
 #, c-format
 msgid "Failed to launch “%s”"
 msgstr "Не вдалося запустити «%s»"
 
-#: src/shell-keyring-prompt.c:730
+#: src/shell-keyring-prompt.c:731
 msgid "Passwords do not match."
 msgstr "Пароль не збігається."
 
-#: src/shell-keyring-prompt.c:738
+#: src/shell-keyring-prompt.c:739
 msgid "Password cannot be blank"
 msgstr "Пароль не може бути порожнім"
 
