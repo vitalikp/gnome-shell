@@ -379,9 +379,27 @@ msgstr "Технічні деталі"
 msgid "Copy Error"
 msgstr "Копіювати помилку"
 
+#: js/extensionPrefs/main.js:185
+msgid "Homepage"
+msgstr ""
+
+#: js/extensionPrefs/main.js:186
+msgid "Visit extension homepage"
+msgstr ""
+
 #: js/extensionPrefs/main.js:449
 msgid "No Extensions Installed"
 msgstr "Жодного розширення не встановлено"
+
+#: js/extensionPrefs/main.js:459
+msgid ""
+"Extensions can be installed through Software or <a href=\"https://extensions."
+"gnome.org\">extensions.gnome.org</a>."
+msgstr ""
+
+#: js/extensionPrefs/main.js:474
+msgid "Browse in Software"
+msgstr ""
 
 #: js/gdm/authPrompt.js:138 js/ui/audioDeviceSelection.js:55
 #: js/ui/components/networkAgent.js:117 js/ui/components/polkitAgent.js:136
@@ -1367,6 +1385,10 @@ msgstr "Переглянути джерело"
 msgid "Web Page"
 msgstr "Веб-сторінка"
 
+#: js/ui/messageTray.js:1480
+msgid "System Information"
+msgstr ""
+
 #: js/ui/mpris.js:177
 msgid "Unknown artist"
 msgstr "Невідомий виконавець"
@@ -1476,6 +1498,22 @@ msgstr "Неможливо заблокувати"
 #: js/ui/screenShield.js:816 js/ui/screenShield.js:1289
 msgid "Lock was blocked by an application"
 msgstr "Блокування заборонено додатком"
+
+#: js/ui/search.js:616
+msgid "Searching…"
+msgstr ""
+
+#: js/ui/search.js:618
+msgid "No results."
+msgstr ""
+
+#: js/ui/search.js:742
+#, javascript-format
+msgid "%d more"
+msgid_plural "%d more"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: js/ui/shellEntry.js:19
 msgid "Copy"
