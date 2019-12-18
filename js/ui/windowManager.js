@@ -14,7 +14,6 @@ const ModalDialog = imports.ui.modalDialog;
 const Tweener = imports.ui.tweener;
 const WindowMenu = imports.ui.windowMenu;
 const EdgeDragAction = imports.ui.edgeDragAction;
-const CloseDialog = imports.ui.closeDialog;
 const SwitchMonitor = imports.ui.switchMonitor;
 
 const { loadInterfaceXML } = imports.misc.fileUtils;
@@ -727,7 +726,6 @@ var WindowManager = class {
         this._shellwm.connect('destroy', this._destroyWindow.bind(this));
         this._shellwm.connect('filter-keybinding', this._filterKeybinding.bind(this));
         this._shellwm.connect('confirm-display-change', this._confirmDisplayChange.bind(this));
-        this._shellwm.connect('create-close-dialog', this._createCloseDialog.bind(this));
         this._shellwm.connect('create-inhibit-shortcuts-dialog', this._createInhibitShortcutsDialog.bind(this));
         global.display.connect('restacked', this._syncStacking.bind(this));
 
@@ -2211,10 +2209,6 @@ var WindowManager = class {
     _confirmDisplayChange() {
         let dialog = new DisplayChangeDialog(this._shellwm);
         dialog.open();
-    }
-
-    _createCloseDialog(shellwm, window) {
-        return new CloseDialog.CloseDialog(window);
     }
 
     _createInhibitShortcutsDialog(shellwm, window) {
