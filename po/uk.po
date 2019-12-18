@@ -7,10 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-shell master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-27 01:03+0300\n"
+"POT-Creation-Date: 2019-12-18 20:52+0200\n"
 "PO-Revision-Date: 2017-09-06 18:25+0300\n"
-"Last-Translator: Daniel Korostil <ted.korostiled@gmail.com>\n"
-"Language-Team: linux.org.ua\n"
+"Last-Translator: Vitaliy Perevertun <vitalik.perevertun@gmail.com>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -381,11 +380,11 @@ msgstr "Копіювати помилку"
 
 #: js/extensionPrefs/main.js:185
 msgid "Homepage"
-msgstr ""
+msgstr "Домашня сторінка"
 
 #: js/extensionPrefs/main.js:186
 msgid "Visit extension homepage"
-msgstr ""
+msgstr "Відвідати домашню сторінку розширення"
 
 #: js/extensionPrefs/main.js:449
 msgid "No Extensions Installed"
@@ -396,10 +395,12 @@ msgid ""
 "Extensions can be installed through Software or <a href=\"https://extensions."
 "gnome.org\">extensions.gnome.org</a>."
 msgstr ""
+"Розширення можуть бути встановлені за допомогою Software або "
+"<a href=\"https://extensions.gnome.org\">extensions.gnome.org</a>."
 
 #: js/extensionPrefs/main.js:474
 msgid "Browse in Software"
-msgstr ""
+msgstr "Переглянути в Software"
 
 #: js/gdm/authPrompt.js:138 js/ui/audioDeviceSelection.js:55
 #: js/ui/components/networkAgent.js:117 js/ui/components/polkitAgent.js:136
@@ -1387,7 +1388,7 @@ msgstr "Веб-сторінка"
 
 #: js/ui/messageTray.js:1480
 msgid "System Information"
-msgstr ""
+msgstr "Інформація про систему"
 
 #: js/ui/mpris.js:177
 msgid "Unknown artist"
@@ -1501,19 +1502,19 @@ msgstr "Блокування заборонено додатком"
 
 #: js/ui/search.js:616
 msgid "Searching…"
-msgstr ""
+msgstr "Пошук…"
 
 #: js/ui/search.js:618
 msgid "No results."
-msgstr ""
+msgstr "Без результатів."
 
 #: js/ui/search.js:742
 #, javascript-format
 msgid "%d more"
 msgid_plural "%d more"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "ще %d"
+msgstr[1] "ще %d"
+msgstr[2] "ще %d"
 
 #: js/ui/shellEntry.js:19
 msgid "Copy"
