@@ -16,7 +16,7 @@ LINGUAS := $(shell cat LINGUAS|sed '/^[^a-z]/d')
 POFILES := $(patsubst %,%.po,$(LINGUAS))
 
 
-.PHONY: update-po check
+.PHONY: update-po check stat
 ifneq (${V},1)
 .SILENT:
 endif
@@ -41,4 +41,9 @@ update-po: ${PACKAGE}.pot ${POFILES}
 check:
 	@for po in ${POFILES} ; do \
 		$(MSGFMT) -c $$po ; \
+	done
+
+stat:
+	@for po in ${POFILES} ; do \
+		$(MSGFMT) -v --statistics $$po ; \
 	done
