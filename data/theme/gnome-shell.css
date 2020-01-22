@@ -1014,22 +1014,19 @@ StScrollBar {
   icon-size: 1.09em; }
 
 .window-close {
-  background-color: white;
+  background-color: #15539e;
+  color: white;
   border-radius: 24px;
-  border: 4px solid #15539e;
-  box-shadow: inset 0 -4px 0 0 rgba(21, 83, 158, 0.5);
-  color: #15539e;
+  border: 2px solid #3584e4;
   height: 24px;
   width: 24px;
-  -shell-close-overlap: 14px; }
+  -shell-close-overlap: 11px;
+  box-shadow: -1px 1px 5px 0px transparentize(black, 0.5); }
   .window-close:hover {
-    background-color: #15539e;
-    border-color: white;
-    color: white; }
+    background-color: #185fb4; }
   .window-close:active {
-    background-color: #c5d4e7;
-    border-color: #15539e;
-    color: #15539e; }
+    background-color: #124787;
+    border-color: #124787; }
 
 /* NETWORK DIALOGS */
 .nm-dialog {
@@ -1100,9 +1097,9 @@ StScrollBar {
     padding: 16px; }
 
 .window-clone-border {
-  border: 4px solid #15539e;
-  border-radius: 4px;
-  box-shadow: inset 0px 0px 0px 1px #15539e; }
+  border: 5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35); }
 
 .window-caption {
   spacing: 25px;
