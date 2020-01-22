@@ -1,6 +1,7 @@
 
 XGETTEXT = /usr/bin/xgettext
 MSGINIT = /usr/bin/msginit
+MSGFMT = /usr/bin/msgfmt
 MSGMERGE = /usr/bin/msgmerge
 
 PACKAGE := gnome-shell
@@ -15,7 +16,7 @@ LINGUAS := $(shell cat LINGUAS|sed '/^[^a-z]/d')
 POFILES := $(patsubst %,%.po,$(LINGUAS))
 
 
-.PHONY: update-po
+.PHONY: update-po check
 ifneq (${V},1)
 .SILENT:
 endif
@@ -36,3 +37,8 @@ $(PACKAGE).pot: POTFILES.in
 	$(XGETTEXT) ${XGETTEXT_OPT} -o $@ -f $<
 
 update-po: ${PACKAGE}.pot ${POFILES}
+
+check:
+	@for po in ${POFILES} ; do \
+		$(MSGFMT) -c $$po ; \
+	done
