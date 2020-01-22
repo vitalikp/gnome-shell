@@ -1,3 +1,26 @@
+3.34.0-dev
+======
+* Refine the app menu [Florian; #968]
+* Refine window preview style [Feichtmeier; !461]
+* Only emit ::style-changed on actual changes [Carlos; #1153]
+* Disable emoji on-screen keyboard support on X11 [Florian; #1172]
+* Fix ellipsization in dialog subtitles/bodies [Marco; !531]
+* Fix glitch of fullscreen window in workspace switch animation [Jonas D.; !322]
+* Allow dragging unfocused tiled/maximized windows from top bar [Dylan; #679290]
+* Avoid unnecessary style changes when computing :first/:last-child
+  [Florian; !529]
+* Misc. bug fixes and cleanups [Florian, Marco, Robert, Georges, Carlos, Jonas D.;
+  !487, !441, !502, !503, !504, !512, !524, !331, !540]
+
+Contributors:
+  Jonas Dreßler, Feichtmeier, Carlos Garnacho, Robert Mader,
+  Dylan McCall, Florian Müllner, Georges Basile Stavracas Neto,
+  Marco Trevisan (Treviño)
+
+Translators:
+  Daniel Mustieles [es], Kukuh Syafaat [id], Fabio Tomat [fur],
+  Carmen Bianca BAKKER [eo], Dingzhong Chen [zh_CN]
+
 3.32.2
 ======
 * Handle network interface name changes [Fabrice; !534]
