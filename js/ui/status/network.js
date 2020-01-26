@@ -579,40 +579,6 @@ var NMDeviceModem = class extends NMConnectionDevice {
     }
 };
 
-var NMDeviceBluetooth = class extends NMConnectionDevice {
-    constructor(client, device) {
-        super(client, device);
-
-        this.item.menu.addSettingsAction(_("Bluetooth Settings"), 'gnome-network-panel.desktop');
-    }
-
-    get category() {
-        return NMConnectionCategory.WWAN;
-    }
-
-    _getDescription() {
-        return this._device.name;
-    }
-
-    getConnectLabel() {
-        return _("Connect to Internet");
-    }
-
-    getIndicatorIcon() {
-        if (this._device.active_connection) {
-            let state = this._device.active_connection.state;
-            if (state == NM.ActiveConnectionState.ACTIVATING)
-                return 'network-cellular-acquiring-symbolic';
-            else if (state == NM.ActiveConnectionState.ACTIVATED)
-                return 'network-cellular-connected-symbolic';
-            else
-                return 'network-cellular-signal-none-symbolic';
-        } else {
-            return 'network-cellular-signal-none-symbolic';
-        }
-    }
-};
-
 var NMWirelessDialogItem = class {
     constructor(network) {
         this._network = network;
@@ -1590,13 +1556,11 @@ var NMApplet = class extends PanelMenu.SystemIndicator {
         this._dtypes[NM.DeviceType.ETHERNET] = NMDeviceWired;
         this._dtypes[NM.DeviceType.WIFI] = NMDeviceWireless;
         this._dtypes[NM.DeviceType.MODEM] = NMDeviceModem;
-        this._dtypes[NM.DeviceType.BT] = NMDeviceBluetooth;
 
         // Connection types
         this._ctypes = { };
         this._ctypes[NM.SETTING_WIRED_SETTING_NAME] = NMConnectionCategory.WIRED;
         this._ctypes[NM.SETTING_WIRELESS_SETTING_NAME] = NMConnectionCategory.WIRELESS;
-        this._ctypes[NM.SETTING_BLUETOOTH_SETTING_NAME] = NMConnectionCategory.WWAN;
         this._ctypes[NM.SETTING_CDMA_SETTING_NAME] = NMConnectionCategory.WWAN;
         this._ctypes[NM.SETTING_GSM_SETTING_NAME] = NMConnectionCategory.WWAN;
         this._ctypes[NM.SETTING_VPN_SETTING_NAME] = NMConnectionCategory.VPN;

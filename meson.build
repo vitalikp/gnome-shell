@@ -89,7 +89,6 @@ startup_dep = dependency('libstartup-notification-1.0', version: startup_req)
 x11_dep = dependency('x11')
 schemas_dep = dependency('gsettings-desktop-schemas', version: schemas_req)
 
-bt_dep = dependency('gnome-bluetooth-1.0', version: bt_req, required: false)
 gst_dep = dependency('gstreamer-1.0', version: gst_req, required: false)
 gst_base_dep = dependency('gstreamer-base-1.0', required: false)
 

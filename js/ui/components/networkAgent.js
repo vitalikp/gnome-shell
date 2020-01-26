@@ -288,10 +288,8 @@ var NetworkSecretDialog = class extends ModalDialog.ModalDialog {
 
     _getMobileSecrets(secrets, connectionType) {
         let setting;
-        if (connectionType == 'bluetooth')
-            setting = this._connection.get_setting_cdma() || this._connection.get_setting_gsm();
-        else
-            setting = this._connection.get_setting_by_name(connectionType);
+
+        setting = this._connection.get_setting_by_name(connectionType);
         secrets.push({ label: _("Password: "), key: 'password',
                        value: setting.value || '', password: true });
     }
@@ -336,7 +334,6 @@ var NetworkSecretDialog = class extends ModalDialog.ModalDialog {
             }
             // fall through
         case 'cdma':
-        case 'bluetooth':
             content.title = _("Mobile broadband network password");
             content.message = _("A password is required to connect to “%s”.").format(connectionSetting.get_id());
             this._getMobileSecrets(content.secrets, connectionType);
@@ -702,7 +699,6 @@ var NetworkAgent = class {
             }
             // fall through
         case 'cdma':
-        case 'bluetooth':
             title = _("Mobile broadband network password");
             body = _("A password is required to connect to “%s”.").format(connectionSetting.get_id());
             break;
