@@ -42,7 +42,6 @@ endforeach
 
 
 subdir('dbus-interfaces')
-subdir('theme')
 
 data_resources = [
   ['dbus-interfaces', []],
