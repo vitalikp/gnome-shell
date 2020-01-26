@@ -46,6 +46,7 @@ var SUMMARY_ICON_SIZE = 48;
 // - BACKGROUND_FADE_TIME is used when the background changes to crossfade to new background
 // - CURTAIN_SLIDE_TIME is used when raising the shield before unlocking
 var STANDARD_FADE_TIME = 10;
+var FADE_TIME = 3.0;
 var MANUAL_FADE_TIME = 0.3;
 var BACKGROUND_FADE_TIME = 1.0;
 var CURTAIN_SLIDE_TIME = 0.3;
@@ -1090,8 +1091,8 @@ var ScreenShield = class {
         if (params.fadeToBlack && params.animateFade) {
             // Take a beat
 
-            let id = Mainloop.timeout_add(1000 * MANUAL_FADE_TIME, () => {
-                this._activateFade(this._shortLightbox, MANUAL_FADE_TIME);
+            let id = Mainloop.timeout_add(1000 * 10 * FADE_TIME, () => {
+                this._activateFade(this._shortLightbox, FADE_TIME);
                 return GLib.SOURCE_REMOVE;
             });
             GLib.Source.set_name_by_id(id, '[gnome-shell] this._activateFade');
