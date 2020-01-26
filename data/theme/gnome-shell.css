@@ -403,6 +403,11 @@ StScrollBar {
   font-size: 10pt;
   padding-bottom: 8px; }
 
+.prompt-dialog-grid {
+  spacing-rows: 15px;
+  spacing-columns: 1em;
+}
+
 /* Polkit Dialog */
 .polkit-dialog-user-layout {
   padding-left: 10px;
