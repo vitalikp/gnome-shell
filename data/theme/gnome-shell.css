@@ -1044,6 +1044,14 @@ StScrollBar {
     background-color: #124787;
     border-color: #124787; }
 
+.pie-timer {
+  width: 60px;
+  height: 60px;
+  -pie-border-width: 3px;
+  -pie-border-color: #15539e;
+  -pie-background-color: rgba(143, 187, 240, 0.3);
+}
+
 /* NETWORK DIALOGS */
 .nm-dialog {
   max-height: 34em;
