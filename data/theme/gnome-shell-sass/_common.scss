@@ -262,7 +262,7 @@ StScrollBar {
   }
 
   .end-session-dialog-logout-icon {
-    border-radius: 99px;
+    border-radius: 5px;
     width: 48px;
     height: 48px;
     background-size: contain;
@@ -438,7 +438,7 @@ StScrollBar {
   }
 
   .polkit-dialog-user-icon {
-    border-radius: 99px;
+    border-radius: 5px;
     background-size: contain;
     width: 48px;
     height: 48px;
@@ -1752,7 +1752,7 @@ StScrollBar {
 .user-icon {
   background-size: contain;
   color: $osd_fg_color;
-  border-radius: 99px;
+  border-radius: 5px;
   &:hover {
     color: lighten($osd_fg_color,30%);
   }
