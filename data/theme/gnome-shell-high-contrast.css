@@ -168,7 +168,7 @@ StScrollBar {
   -slider-handle-radius: 8px;
   -slider-handle-border-width: 1px;
   -slider-handle-border-color: black;
-  color: #000; }
+  color: #1a1a1a; }
   .slider:hover {
     color: #0d0d0d; }
   .slider:active {
