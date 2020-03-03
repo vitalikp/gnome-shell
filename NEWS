@@ -13,18 +13,31 @@
 * Move some chrome above popup windows [Jonas D.; !358]
 * Include 'sandboxed-app-id' in winodw introspection info [Florian; #1289]
 * Support TCRYPT in mount password dialog [segfault; !126]
+* Prepare for optional X11 [Carlos; !378]
+* Fix opening window menu [Marco; !557]
+* Implement locate-pointer accessibility feature [Olivier; #981]
+* Allow to disable window menus via session mode [Cosimo; !569]
+* Implement mouse accessibility [Olivier; !474]
+* Call GDM's RegisterSession() after startup [Iain; !570]
+* Fix extended keys popups being hidden by on-screen keyboard [Marco; !583]
+* Update theme to better match GTK's Adwaita [Frederik; #841]
+* Fix top bar being hidden by lock screen [Jonas; !571]
+* Set up GJS profiler when GJS_TRACE_FD is set [Christian; !573]
 * Misc. bug fixes and cleanups [Florian, Marco, Robert, Georges, Carlos, Jonas D.,
-  Veerasamy; !487, !441, !502, !503, !504, !512, !524, !331, !540, !517, #745,
-  499, !510, !515, !549]
+  Veerasamy, Laurent, Niels, Will; !487, !441, !502, !503, !504, !512, !524, !331,
+  !540, !517, #745, !499, !510, !515, !549, !551, !464, #1333, !565, !572, !558,
+  #1205, !579, #1336, !576, #1392, !582, !586, #1406, #1351]
 
 Contributors:
   Cosimo Cecchi, Jonas Dreßler, Feichtmeier, Carlos Garnacho, Robert Mader,
   Dylan McCall, Florian Müllner, segfault, Veerasamy Sevagen, Georges Basile Stavracas Neto,
-  Marco Trevisan (Treviño)
+  Marco Trevisan (Treviño), Piotr Drąg, Robert Mader, Olivier Fourdan, Laurent Bigonville,
+  Iain Lane, Niels De Graef, Frederik Feichtmeier, Will Thompson, Christian Hergert
 
 Translators:
   Daniel Mustieles [es], Kukuh Syafaat [id], Fabio Tomat [fur],
-  Carmen Bianca BAKKER [eo], Dingzhong Chen [zh_CN]
+  Carmen Bianca BAKKER [eo], Dingzhong Chen [zh_CN], Balázs Meskó [hu],
+  Nathan Follens [nl], Goran Vidović [hr], Jordi Mas [ca]
 
 3.32.2
 ======
