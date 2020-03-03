@@ -995,10 +995,6 @@ StScrollBar {
     icon-size: 32px !important;
     padding: 6px; }
 
-.system-switch-user-submenu-icon {
-  icon-size: 16px;
-  padding: 0 4px; }
-
 #appMenu {
   spinner-image: url("resource:///org/gnome/shell/theme/process-working.svg");
   spacing: 4px; }
