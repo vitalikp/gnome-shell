@@ -2,7 +2,6 @@ const { Gio, GLib, Meta, Shell } = imports.gi;
 
 const INTROSPECT_SCHEMA = 'org.gnome.shell';
 const INTROSPECT_KEY = 'introspect';
-const APP_WHITELIST = ['org.freedesktop.impl.portal.desktop.gtk'];
 
 const { loadInterfaceXML } = imports.misc.fileUtils;
 
@@ -49,10 +48,6 @@ var IntrospectService = class {
 
     _isIntrospectEnabled() {
        return this._settings.get_boolean(INTROSPECT_KEY);
-    }
-
-    _isSenderWhitelisted(sender) {
-       return APP_WHITELIST.includes(sender);
     }
 
     _syncRunningApplications() {
@@ -103,8 +98,7 @@ var IntrospectService = class {
     }
 
     GetRunningApplicationsAsync(params, invocation) {
-        if (!this._isIntrospectEnabled() &&
-            !this._isSenderWhitelisted(invocation.get_sender())) {
+        if (!this._isIntrospectEnabled()) {
             invocation.return_error_literal(Gio.DBusError,
                                             Gio.DBusError.ACCESS_DENIED,
                                             'App introspection not allowed');

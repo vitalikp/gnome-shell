@@ -18,8 +18,6 @@ data/gschemas.compiled
 data/perf-background.xml
 data/org.gnome.shell.gschema.xml
 data/org.gnome.shell.gschema.valid
-data/org.gnome.Shell.PortalHelper.desktop
-data/org.gnome.Shell.PortalHelper.service
 data/theme/.sass-cache
 docs/reference/*/*.args
 docs/reference/*/*.bak
@@ -62,7 +60,6 @@ src/gnome-shell-extension-tool
 src/gnome-shell-hotplug-sniffer
 src/gnome-shell-perf-helper
 src/gnome-shell-perf-tool
-src/gnome-shell-portal-helper
 src/hotplug-sniffer/org.gnome.Shell.HotplugSniffer.service
 src/org-gtk-application.[ch]
 src/run-js-test

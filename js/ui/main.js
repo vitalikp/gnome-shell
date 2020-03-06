@@ -3,7 +3,6 @@
 const { Clutter, Gio, GLib, Meta, Shell, St } = imports.gi;
 const Mainloop = imports.mainloop;
 
-const AccessDialog = imports.ui.accessDialog;
 const AudioDeviceSelection = imports.ui.audioDeviceSelection;
 const Components = imports.ui.components;
 const CtrlAltTab = imports.ui.ctrlAltTab;
@@ -54,7 +53,6 @@ var ctrlAltTabManager = null;
 var osdWindowManager = null;
 var osdMonitorLabeler = null;
 var sessionMode = null;
-var shellAccessDialogDBusService = null;
 var shellAudioSelectionDBusService = null;
 var shellDBusService = null;
 var shellMountOpDBusService = null;
@@ -119,7 +117,6 @@ function start() {
     St.Settings.get().connect('notify::gtk-theme', _loadDefaultStylesheet);
     _initializeUI();
 
-    shellAccessDialogDBusService = new AccessDialog.AccessDialogDBus();
     shellAudioSelectionDBusService = new AudioDeviceSelection.AudioDeviceSelectionDBus();
     shellDBusService = new ShellDBus.GnomeShell();
     shellMountOpDBusService = new ShellMountOperation.GnomeShellMountOpHandler();
