@@ -4,19 +4,16 @@ const { Clutter, Gio, GLib } = imports.gi;
 const Signals = imports.signals;
 
 const Batch = imports.gdm.batch;
-const Fprint = imports.gdm.fingerprint;
 const Main = imports.ui.main;
 const Params = imports.misc.params;
 const Tweener = imports.ui.tweener;
 
 var PASSWORD_SERVICE_NAME = 'gdm-password';
-var FINGERPRINT_SERVICE_NAME = 'gdm-fingerprint';
 var FADE_ANIMATION_TIME = 0.16;
 var CLONE_FADE_ANIMATION_TIME = 0.25;
 
 var LOGIN_SCREEN_SCHEMA = 'org.gnome.login-screen';
 var PASSWORD_AUTHENTICATION_KEY = 'enable-password-authentication';
-var FINGERPRINT_AUTHENTICATION_KEY = 'enable-fingerprint-authentication';
 var BANNER_MESSAGE_KEY = 'banner-message-enable';
 var BANNER_MESSAGE_TEXT_KEY = 'banner-message-text';
 var ALLOWED_FAILURES_KEY = 'allowed-failures';
@@ -123,8 +120,6 @@ var ShellUserVerifier = class {
                                this._updateDefaultService.bind(this));
         this._updateDefaultService();
 
-        this._fprintManager = Fprint.FprintManager();
-
         this._messageQueue = [];
         this._messageQueueTimeoutId = 0;
         this.hasPendingMessages = false;
@@ -138,8 +133,6 @@ var ShellUserVerifier = class {
         this._hold = hold;
         this._userName = userName;
         this.reauthenticating = false;
-
-        this._checkForFingerprintReader();
 
         if (userName) {
             // If possible, reauthenticate an already running session,
@@ -252,24 +245,6 @@ var ShellUserVerifier = class {
         this.emit('show-message', null, MessageType.NONE);
     }
 
-    _checkForFingerprintReader() {
-        this._haveFingerprintReader = false;
-
-        if (!this._settings.get_boolean(FINGERPRINT_AUTHENTICATION_KEY) ||
-            this._fprintManager == null) {
-            this._updateDefaultService();
-            return;
-        }
-
-        this._fprintManager.GetDefaultDeviceRemote(Gio.DBusCallFlags.NONE, this._cancellable,
-            (device, error) => {
-                if (!error && device) {
-                    this._haveFingerprintReader = true;
-                    this._updateDefaultService();
-                }
-            });
-    }
-
     _reportInitError(where, error) {
         logError(error, where);
         this._hold.release();
@@ -349,8 +324,6 @@ var ShellUserVerifier = class {
     _updateDefaultService() {
         if (this._settings.get_boolean(PASSWORD_AUTHENTICATION_KEY))
             this._defaultService = PASSWORD_SERVICE_NAME;
-        else if (this._haveFingerprintReader)
-            this._defaultService = FINGERPRINT_SERVICE_NAME;
 
         if (!this._defaultService) {
             log("no authentication service is enabled, using password authentication");
@@ -396,23 +369,11 @@ var ShellUserVerifier = class {
 
     _beginVerification() {
         this._startService(this._getForegroundService());
-
-        if (this._userName && this._haveFingerprintReader && !this.serviceIsForeground(FINGERPRINT_SERVICE_NAME))
-            this._startService(FINGERPRINT_SERVICE_NAME);
     }
 
     _onInfo(client, serviceName, info) {
         if (this.serviceIsForeground(serviceName)) {
             this._queueMessage(info, MessageType.INFO);
-        } else if (serviceName == FINGERPRINT_SERVICE_NAME &&
-            this._haveFingerprintReader) {
-            // We don't show fingerprint messages directly since it's
-            // not the main auth service. Instead we use the messages
-            // as a cue to display our own message.
-
-            // Translators: this message is shown below the password entry field
-            // to indicate the user can swipe their finger instead
-            this._queueMessage(_("(or swipe finger)"), MessageType.HINT);
         }
     }
 
@@ -495,8 +456,6 @@ var ShellUserVerifier = class {
 
     _onConversationStopped(client, serviceName) {
         // if the password service fails, then cancel everything.
-        // But if, e.g., fingerprint fails, still give
-        // password authentication a chance to succeed
         if (this.serviceIsForeground(serviceName)) {
             this._verificationFailed(true);
         }
