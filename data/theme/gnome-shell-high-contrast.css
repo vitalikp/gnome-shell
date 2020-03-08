@@ -1178,10 +1178,8 @@ StScrollBar {
   .search-entry:hover .search-entry-icon, .search-entry:focus .search-entry-icon, .login-dialog StEntry:hover .search-entry-icon, .login-dialog StEntry:focus .search-entry-icon {
     color: rgba(255, 255, 255, 0.7); }
 
-#searchResultsBin {
-  max-width: 1000px; }
-
 #searchResultsContent {
+  max-width: 1000px;
   padding-left: 20px;
   padding-right: 20px;
   spacing: 16px; }
