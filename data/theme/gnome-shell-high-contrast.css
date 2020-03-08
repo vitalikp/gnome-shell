@@ -1011,7 +1011,6 @@ StScrollBar {
     padding: 6px; }
 
 #appMenu {
-  spinner-image: url("resource:///org/gnome/shell/theme/process-working.svg");
   spacing: 4px; }
   #appMenu .label-shadow {
     color: transparent; }
