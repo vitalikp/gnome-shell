@@ -1408,7 +1408,6 @@ StScrollBar {
   border: 2px solid #215d9c;
   padding: 1px; }
 
-.search-display > StBoxLayout,
 .all-apps,
 .frequent-apps > StBoxLayout {
   padding: 0px 88px 10px 88px; }
