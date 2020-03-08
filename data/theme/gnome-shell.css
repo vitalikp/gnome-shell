@@ -1311,11 +1311,6 @@ StScrollBar {
   .app-view-control:last-child {
     border-radius: 0; }
 
-.search-provider-icon:active, .search-provider-icon:checked,
-.list-search-result:active,
-.list-search-result:checked {
-  background-color: rgba(7, 7, 7, 0.86); }
-
 .search-provider-icon:focus, .search-provider-icon:selected, .search-provider-icon:hover,
 .list-search-result:focus,
 .list-search-result:selected,
@@ -1323,15 +1318,10 @@ StScrollBar {
   background-color: rgba(238, 238, 236, 0.1);
   transition-duration: 200ms; }
 
-.app-well-app:active .overview-icon,
-.app-well-app:checked .overview-icon,
-.app-well-app.app-folder:active .overview-icon,
-.app-well-app.app-folder:checked .overview-icon,
-.show-apps:active .overview-icon,
-.show-apps:checked .overview-icon,
-.grid-search-result:active .overview-icon,
-.grid-search-result:checked .overview-icon {
-  background-color: rgba(7, 7, 7, 0.46); }
+.search-provider-icon:active, .search-provider-icon:checked,
+.list-search-result:active,
+.list-search-result:checked {
+  background-color: rgba(7, 7, 7, 0.86); }
 
 .app-well-app:hover .overview-icon,
 .app-well-app:focus .overview-icon,
@@ -1349,6 +1339,16 @@ StScrollBar {
   transition-duration: 0ms;
   border-image: none;
   background-image: none; }
+
+.app-well-app:active .overview-icon,
+.app-well-app:checked .overview-icon,
+.app-well-app.app-folder:active .overview-icon,
+.app-well-app.app-folder:checked .overview-icon,
+.show-apps:active .overview-icon,
+.show-apps:checked .overview-icon,
+.grid-search-result:active .overview-icon,
+.grid-search-result:checked .overview-icon {
+  background-color: rgba(7, 7, 7, 0.46); }
 
 .app-well-app-running-dot {
   width: 10px;
