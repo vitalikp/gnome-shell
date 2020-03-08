@@ -23,21 +23,35 @@
 * Update theme to better match GTK's Adwaita [Frederik; #841]
 * Fix top bar being hidden by lock screen [Jonas; !571]
 * Set up GJS profiler when GJS_TRACE_FD is set [Christian; !573]
+* Fix unintentional interference between gestures [Jonas; !598]
+* Fix unintentional loop while polkit dialog is active [Ray; !602]
+* Style fixes and improvements [Frederik, Jakub; !610, #1446, #1449]
+* Fix style updates for non-background CSS properties [Florian; #1212]
+* Add option for disabling the hot corner [Florian; #688320]
+* Use more fine-grained levels in battery indicator [Florian; !561, #1442]
+* Fix the calculation of the maximum number of app search results [Jonas; !110]
+* Handle horizontal workspace layout with gestures/animations [Florian; !575]
+* Improve handling of session mode extensions [Didier; #789852]
 * Misc. bug fixes and cleanups [Florian, Marco, Robert, Georges, Carlos, Jonas D.,
-  Veerasamy, Laurent, Niels, Will; !487, !441, !502, !503, !504, !512, !524, !331,
-  !540, !517, #745, !499, !510, !515, !549, !551, !464, #1333, !565, !572, !558,
-  #1205, !579, #1336, !576, #1392, !582, !586, #1406, #1351]
+  Veerasamy, Laurent, Niels, Will, Sonny, Mario, Benjamin, Ting-Wei; !487, !441,
+  !502, !503, !504, !512, !524, !331, !540, !517, #745, !499, !510, !515, !549,
+  !551, !464, #1333, !565, !572, !558, #1205, !579, #1336, !576, #1392, !582, !586,
+  #1406, #1351, !599, !600, !591, !606, !152, !607, !604, !495, !608, !611, !614,
+  !612, !615, !618, #369, !620, #774, !621, !616, #1065, !626, !491, !631, !632,
+  !633, #1457]
 
 Contributors:
-  Cosimo Cecchi, Jonas Dreßler, Feichtmeier, Carlos Garnacho, Robert Mader,
+  Cosimo Cecchi, Jonas Dreßler, Frederik Feichtmeier, Carlos Garnacho, Robert Mader,
   Dylan McCall, Florian Müllner, segfault, Veerasamy Sevagen, Georges Basile Stavracas Neto,
   Marco Trevisan (Treviño), Piotr Drąg, Robert Mader, Olivier Fourdan, Laurent Bigonville,
-  Iain Lane, Niels De Graef, Frederik Feichtmeier, Will Thompson, Christian Hergert
+  Iain Lane, Niels De Graef, Frederik Feichtmeier, Will Thompson, Christian Hergert,
+  Benjamin Berg, Ting-Wei Lan, Sonny Piers, Mario Sanchez Prada, Didier Roche, Jakub Steiner,
+  Ray Strode
 
 Translators:
   Daniel Mustieles [es], Kukuh Syafaat [id], Fabio Tomat [fur],
   Carmen Bianca BAKKER [eo], Dingzhong Chen [zh_CN], Balázs Meskó [hu],
-  Nathan Follens [nl], Goran Vidović [hr], Jordi Mas [ca]
+  Nathan Follens [nl], Goran Vidović [hr], Jordi Mas [ca], Jor Teron [mjw]
 
 3.32.2
 ======
