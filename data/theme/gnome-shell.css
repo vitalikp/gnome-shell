@@ -1163,8 +1163,8 @@ StScrollBar {
     padding: 16px; }
 
 .window-clone-border {
-  border: 5px solid rgba(255, 255, 255, 0.35);
-  border-radius: 6px;
+  border: 7px solid rgba(255, 255, 255, 0.35);
+  border-radius: 9px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35); }
 
 .window-caption {
