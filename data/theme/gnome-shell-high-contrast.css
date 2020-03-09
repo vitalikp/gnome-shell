@@ -1333,6 +1333,12 @@ StScrollBar {
   border-image: none;
   background-image: none; }
 
+.app-well-app:drop .overview-icon,
+.app-well-app.app-folder:drop .overview-icon,
+.show-apps:drop .overview-icon,
+.grid-search-result:drop .overview-icon {
+  background-color: rgba(33, 93, 156, 0.85); }
+
 .app-well-app:active .overview-icon,
 .app-well-app:checked .overview-icon,
 .app-well-app.app-folder:active .overview-icon,
