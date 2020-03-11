@@ -136,19 +136,6 @@ msgid ""
 "state of the checkbox."
 msgstr ""
 
-#: data/org.gnome.shell.gschema.xml.in:90
-msgid ""
-"Whether the default Bluetooth adapter had set up devices associated to it"
-msgstr ""
-
-#: data/org.gnome.shell.gschema.xml.in:91
-msgid ""
-"The shell will only show a Bluetooth menu item if a Bluetooth adapter is "
-"powered, or if there were devices set up associated with the default "
-"adapter. This will be reset if the default adapter is ever seen not to have "
-"devices associated to it."
-msgstr ""
-
 #: data/org.gnome.shell.gschema.xml.in:101
 msgid "Enable introspection API"
 msgstr ""
@@ -201,11 +188,6 @@ msgid "Keybinding to focus the active notification."
 msgstr ""
 
 #: data/org.gnome.shell.gschema.xml.in:150
-msgid ""
-"Keybinding that pauses and resumes all running tweens, for debugging purposes"
-msgstr ""
-
-#: data/org.gnome.shell.gschema.xml.in:150
 msgid "Switch to application 1"
 msgstr ""
 
@@ -239,14 +221,6 @@ msgstr ""
 
 #: data/org.gnome.shell.gschema.xml.in:182
 msgid "Switch to application 9"
-msgstr ""
-
-#: data/org.gnome.shell.gschema.xml.in:195
-msgid "Which keyboard to use"
-msgstr ""
-
-#: data/org.gnome.shell.gschema.xml.in:196
-msgid "The type of keyboard to use."
 msgstr ""
 
 #: data/org.gnome.shell.gschema.xml.in:191
@@ -304,15 +278,6 @@ msgstr ""
 
 #: data/org.gnome.shell.gschema.xml.in:264
 msgid "Delay focus changes in mouse mode until the pointer stops moving"
-msgstr ""
-
-#: data/org.gnome.Shell.PortalHelper.desktop.in.in:3
-msgid "Network Login"
-msgstr ""
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.Shell.PortalHelper.desktop.in.in:9
-msgid "network-workgroup"
 msgstr ""
 
 #: js/extensionPrefs/main.js:104 js/extensionPrefs/main.js:534
@@ -620,27 +585,6 @@ msgstr ""
 msgid "%B %-d %Y, %l∶%M %p"
 msgstr ""
 
-#. TRANSLATORS: this is the title of the wifi captive portal login window
-#: js/portalHelper/main.js:40
-msgid "Hotspot Login"
-msgstr ""
-
-#: js/portalHelper/main.js:86
-msgid ""
-"Your connection to this hotspot login is not secure. Passwords or other "
-"information you enter on this page can be viewed by people nearby."
-msgstr ""
-
-#. No support for non-modal system dialogs, so ignore the option
-#. let modal = options['modal'] || true;
-#: js/ui/accessDialog.js:39
-msgid "Deny Access"
-msgstr ""
-
-#: js/ui/accessDialog.js:40
-msgid "Grant Access"
-msgstr ""
-
 #: js/ui/appDisplay.js:874
 msgid "Frequently used applications will appear here"
 msgstr ""
@@ -838,14 +782,6 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-#: js/ui/components/automountManager.js:86
-msgid "External drive connected"
-msgstr ""
-
-#: js/ui/components/automountManager.js:98
-msgid "External drive disconnected"
-msgstr ""
-
 #: js/ui/components/autorunManager.js:330
 #, javascript-format
 msgid "Open with %s"
@@ -998,14 +934,6 @@ msgstr ""
 #.
 #: js/ui/dateMenu.js:67
 msgid "%A %B %e %Y"
-msgstr ""
-
-#: js/ui/dateMenu.js:138
-msgid "Add world clocks…"
-msgstr ""
-
-#: js/ui/dateMenu.js:139
-msgid "World Clocks"
 msgstr ""
 
 #: js/ui/endSessionDialog.js:39
@@ -1298,10 +1226,6 @@ msgstr ""
 msgid "Unknown title"
 msgstr ""
 
-#: js/ui/osdWindow.js:22
-msgid "Volume"
-msgstr ""
-
 #: js/ui/overview.js:73
 msgid "Undo"
 msgstr ""
@@ -1429,14 +1353,6 @@ msgstr ""
 msgid "Hide Text"
 msgstr ""
 
-#: js/ui/shellMountOperation.js:352
-msgid "Password"
-msgstr ""
-
-#: js/ui/shellMountOperation.js:382
-msgid "Remember Password"
-msgstr ""
-
 #: js/ui/status/accessibility.js:36
 msgid "Accessibility"
 msgstr ""
@@ -1479,30 +1395,6 @@ msgstr ""
 
 #: js/ui/status/accessibility.js:178
 msgid "Large Text"
-msgstr ""
-
-#: js/ui/status/bluetooth.js:38
-msgid "Bluetooth"
-msgstr ""
-
-#: js/ui/status/bluetooth.js:47 js/ui/status/network.js:585
-msgid "Bluetooth Settings"
-msgstr ""
-
-#. Translators: this is the number of connected bluetooth devices
-#: js/ui/status/bluetooth.js:127
-#, javascript-format
-msgid "%d Connected"
-msgid_plural "%d Connected"
-msgstr[0] ""
-msgstr[1] ""
-
-#: js/ui/status/bluetooth.js:129
-msgid "Off"
-msgstr ""
-
-#: js/ui/status/bluetooth.js:131
-msgid "On"
 msgstr ""
 
 #: js/ui/status/brightness.js:38
@@ -1598,10 +1490,6 @@ msgstr ""
 #: js/ui/status/network.js:554
 #, javascript-format
 msgid "%s Disabled"
-msgstr ""
-
-#: js/ui/status/network.js:597
-msgid "Connect to Internet"
 msgstr ""
 
 #: js/ui/status/network.js:754
@@ -1720,22 +1608,6 @@ msgstr ""
 
 #: js/ui/status/network.js:1670
 msgid "Activation of network connection failed"
-msgstr ""
-
-#: js/ui/status/nightLight.js:60
-msgid "Night Light Disabled"
-msgstr ""
-
-#: js/ui/status/nightLight.js:61
-msgid "Night Light On"
-msgstr ""
-
-#: js/ui/status/nightLight.js:62
-msgid "Resume"
-msgstr ""
-
-#: js/ui/status/nightLight.js:63
-msgid "Disable Until Tomorrow"
 msgstr ""
 
 #: js/ui/status/power.js:46
