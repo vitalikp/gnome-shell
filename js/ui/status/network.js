@@ -40,15 +40,6 @@ const NM80211Mode = NM['80211Mode'];
 const NM80211ApFlags = NM['80211ApFlags'];
 const NM80211ApSecurityFlags = NM['80211ApSecurityFlags'];
 
-var PortalHelperResult = {
-    CANCELLED: 0,
-    COMPLETED: 1,
-    RECHECK: 2
-};
-
-const PortalHelperIface = loadInterfaceXML('org.gnome.Shell.PortalHelper');
-const PortalHelperProxy = Gio.DBusProxy.makeProxyWrapper(PortalHelperIface);
-
 function signalToIcon(value) {
     if (value > 80)
         return 'excellent';
@@ -1583,7 +1574,6 @@ var NMApplet = class extends PanelMenu.SystemIndicator {
 
         this._activeConnections = [];
         this._connections = [];
-        this._connectivityQueue = [];
 
         this._mainConnection = null;
         this._mainConnectionIconChangedId = 0;
@@ -1619,7 +1609,6 @@ var NMApplet = class extends PanelMenu.SystemIndicator {
         this._client.connect('notify::primary-connection', this._syncMainConnection.bind(this));
         this._client.connect('notify::activating-connection', this._syncMainConnection.bind(this));
         this._client.connect('notify::active-connections', this._syncVpnConnections.bind(this));
-        this._client.connect('notify::connectivity', this._syncConnectivity.bind(this));
         this._client.connect('device-added', this._deviceAdded.bind(this));
         this._client.connect('device-removed', this._deviceRemoved.bind(this));
         this._client.connect('connection-added', this._connectionAdded.bind(this));
@@ -1801,7 +1790,6 @@ var NMApplet = class extends PanelMenu.SystemIndicator {
         }
 
         this._updateIcon();
-        this._syncConnectivity();
     }
 
     _syncVpnConnections() {
@@ -1907,96 +1895,6 @@ var NMApplet = class extends PanelMenu.SystemIndicator {
         this.menu.actor.visible = this._client.networking_enabled;
 
         this._updateIcon();
-        this._syncConnectivity();
-    }
-
-    _flushConnectivityQueue() {
-        if (this._portalHelperProxy) {
-            for (let item of this._connectivityQueue)
-                this._portalHelperProxy.CloseRemote(item);
-        }
-
-        this._connectivityQueue = [];
-    }
-
-    _closeConnectivityCheck(path) {
-        let index = this._connectivityQueue.indexOf(path);
-
-        if (index >= 0) {
-            if (this._portalHelperProxy)
-                this._portalHelperProxy.CloseRemote(path);
-
-            this._connectivityQueue.splice(index, 1);
-        }
-    }
-
-    _portalHelperDone(proxy, emitter, parameters) {
-        let [path, result] = parameters;
-
-        if (result == PortalHelperResult.CANCELLED) {
-            // Keep the connection in the queue, so the user is not
-            // spammed with more logins until we next flush the queue,
-            // which will happen once he chooses a better connection
-            // or we get to full connectivity through other means
-        } else if (result == PortalHelperResult.COMPLETED) {
-            this._closeConnectivityCheck(path);
-            return;
-        } else if (result == PortalHelperResult.RECHECK) {
-            this._client.check_connectivity_async(null, (client, result) => {
-                try {
-                    let state = client.check_connectivity_finish(result);
-                    if (state >= NM.ConnectivityState.FULL)
-                        this._closeConnectivityCheck(path);
-                } catch (e) { }
-            });
-        } else {
-            log(`Invalid result from portal helper: ${result}`);
-        }
-    }
-
-    _syncConnectivity() {
-        if (this._mainConnection == null ||
-            this._mainConnection.state != NM.ActiveConnectionState.ACTIVATED) {
-            this._flushConnectivityQueue();
-            return;
-        }
-
-        let isPortal = this._client.connectivity == NM.ConnectivityState.PORTAL;
-        // For testing, allow interpreting any value != FULL as PORTAL, because
-        // LIMITED (no upstream route after the default gateway) is easy to obtain
-        // with a tethered phone
-        // NONE is also possible, with a connection configured to force no default route
-        // (but in general we should only prompt a portal if we know there is a portal)
-        if (GLib.getenv('GNOME_SHELL_CONNECTIVITY_TEST') != null)
-            isPortal = isPortal || this._client.connectivity < NM.ConnectivityState.FULL;
-        if (!isPortal || Main.sessionMode.isGreeter)
-            return;
-
-        let path = this._mainConnection.get_path();
-        for (let item of this._connectivityQueue) {
-            if (item == path)
-                return;
-        }
-
-        let timestamp = global.get_current_time();
-        if (this._portalHelperProxy) {
-            this._portalHelperProxy.AuthenticateRemote(path, '', timestamp);
-        } else {
-            new PortalHelperProxy(Gio.DBus.session, 'org.gnome.Shell.PortalHelper',
-                                  '/org/gnome/Shell/PortalHelper', (proxy, error) => {
-                                      if (error) {
-                                          log(`Error launching the portal helper: ${error}`);
-                                          return;
-                                      }
-
-                                      this._portalHelperProxy = proxy;
-                                      proxy.connectSignal('Done', this._portalHelperDone.bind(this));
-
-                                      proxy.AuthenticateRemote(path, '', timestamp);
-                                  });
-        }
-
-        this._connectivityQueue.push(path);
     }
 
     _updateIcon() {

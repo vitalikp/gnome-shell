@@ -247,18 +247,6 @@ executable('gnome-shell-extension-prefs',
   install: true
 )
 
-
-if have_networkmanager
-  executable('gnome-shell-portal-helper',
-    'gnome-shell-portal-helper.c', portal_resources,
-    c_args: tools_cflags,
-    dependencies: tools_deps,
-    include_directories: [conf_inc],
-    install_dir: libexecdir,
-    install: true
-  )
-endif
-
 executable('gnome-shell-perf-helper', 'shell-perf-helper.c',
   dependencies: [gtk_dep, gio_dep, m_dep],
   include_directories: [conf_inc],

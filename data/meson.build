@@ -4,11 +4,6 @@ desktop_files = [
 ]
 service_files = []
 
-if have_networkmanager
-  desktop_files += 'org.gnome.Shell.PortalHelper.desktop'
-  service_files += 'org.gnome.Shell.PortalHelper.service'
-endif
-
 desktopconf = configuration_data()
 # We substitute in bindir so it works as an autostart
 # file when built in a non-system prefix
@@ -70,9 +65,6 @@ configure_file(
   configuration: perfconf,
   install_dir: pkgdatadir
 )
-
-
-install_data('gnome-shell.portal', install_dir: portaldir)
 
 
 schemaconf = configuration_data()
