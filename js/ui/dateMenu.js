@@ -1,7 +1,7 @@
 // -*- mode: js; js-indent-level: 4; indent-tabs-mode: nil -*-
 /* exported DateMenuButton */
 
-const { Clutter, Gio, GLib, GnomeDesktop,
+const { Clutter, GLib, GnomeDesktop,
         GObject, Shell, St } = imports.gi;
 
 const Util = imports.misc.util;
@@ -9,11 +9,6 @@ const Main = imports.ui.main;
 const PanelMenu = imports.ui.panelMenu;
 const Calendar = imports.ui.calendar;
 const System = imports.system;
-
-const { loadInterfaceXML } = imports.misc.fileUtils;
-
-const ClocksIntegrationIface = loadInterfaceXML('org.gnome.Shell.ClocksIntegration');
-const ClocksProxy = Gio.DBusProxy.makeProxyWrapper(ClocksIntegrationIface);
 
 function _isToday(date) {
     let now = new Date();
@@ -71,156 +66,6 @@ var TodayButton = class TodayButton {
          */
         dateFormat = Shell.util_translate_time_string (N_("%A %B %e %Y"));
         this.actor.accessible_name = date.toLocaleFormat(dateFormat);
-    }
-};
-
-var WorldClocksSection = class WorldClocksSection {
-    constructor() {
-        this._clock = new GnomeDesktop.WallClock();
-        this._clockNotifyId = 0;
-
-        this._locations = [];
-
-        this.actor = new St.Button({ style_class: 'world-clocks-button',
-                                     x_fill: true,
-                                     can_focus: true });
-        this.actor.connect('clicked', () => {
-            if (this._clocksApp)
-                this._clocksApp.activate();
-
-            Main.overview.hide();
-            Main.panel.closeCalendar();
-        });
-
-        let layout = new Clutter.GridLayout({ orientation: Clutter.Orientation.VERTICAL });
-        this._grid = new St.Widget({ style_class: 'world-clocks-grid',
-                                     layout_manager: layout });
-        layout.hookup_style(this._grid);
-
-        this.actor.child = this._grid;
-
-        this._clocksApp = null;
-        this._clocksProxy = new ClocksProxy(
-            Gio.DBus.session,
-            'org.gnome.clocks',
-            '/org/gnome/clocks',
-            this._onProxyReady.bind(this),
-            null /* cancellable */,
-            Gio.DBusProxyFlags.DO_NOT_AUTO_START | Gio.DBusProxyFlags.GET_INVALIDATED_PROPERTIES);
-
-        this._settings = new Gio.Settings({
-            schema_id: 'org.gnome.shell.world-clocks'
-        });
-        this._settings.connect('changed', this._clocksChanged.bind(this));
-        this._clocksChanged();
-
-        this._appSystem = Shell.AppSystem.get_default();
-        this._appSystem.connect('installed-changed',
-            this._sync.bind(this));
-        this._sync();
-    }
-
-    _sync() {
-        this._clocksApp = this._appSystem.lookup_app('org.gnome.clocks.desktop');
-        this.actor.visible = this._clocksApp != null;
-    }
-
-    _clocksChanged() {
-        this._grid.destroy_all_children();
-        this._locations = [];
-
-        this._locations.sort((a, b) => {
-            return a.location.get_timezone().get_offset() -
-                   b.location.get_timezone().get_offset();
-        });
-
-        let layout = this._grid.layout_manager;
-        let title = (this._locations.length == 0) ? _("Add world clocks…")
-                                                  : _("World Clocks");
-        let header = new St.Label({ style_class: 'world-clocks-header',
-                                    x_align: Clutter.ActorAlign.START,
-                                    text: title });
-        layout.attach(header, 0, 0, 2, 1);
-        this.actor.label_actor = header;
-
-        let localOffset = GLib.DateTime.new_now_local().get_utc_offset();
-
-        for (let i = 0; i < this._locations.length; i++) {
-            let l = this._locations[i].location;
-
-            let name = l.get_city_name() || l.get_name();
-            let label = new St.Label({ style_class: 'world-clocks-city',
-                                       text: name,
-                                       x_align: Clutter.ActorAlign.START,
-                                       y_align: Clutter.ActorAlign.CENTER,
-                                       x_expand: true });
-
-            let time = new St.Label({ style_class: 'world-clocks-time' });
-
-            let otherOffset = this._getTimeAtLocation(l).get_utc_offset();
-            let offset = (otherOffset - localOffset) / GLib.TIME_SPAN_HOUR;
-            let fmt = (Math.trunc(offset) == offset) ? '%s%.0f' : '%s%.1f';
-            let prefix = (offset >= 0) ? '+' : '-';
-            let tz = new St.Label({ style_class: 'world-clocks-timezone',
-                                    text: fmt.format(prefix, Math.abs(offset)),
-                                    x_align: Clutter.ActorAlign.END,
-                                    y_align: Clutter.ActorAlign.CENTER });
-
-            if (this._grid.text_direction == Clutter.TextDirection.RTL) {
-                layout.attach(tz, 0, i + 1, 1, 1);
-                layout.attach(time, 1, i + 1, 1, 1);
-                layout.attach(label, 2, i + 1, 1, 1);
-            } else {
-                layout.attach(label, 0, i + 1, 1, 1);
-                layout.attach(time, 1, i + 1, 1, 1);
-                layout.attach(tz, 2, i + 1, 1, 1);
-            }
-
-            this._locations[i].actor = time;
-        }
-
-        if (this._grid.get_n_children() > 1) {
-            if (!this._clockNotifyId)
-                this._clockNotifyId =
-                    this._clock.connect('notify::clock', this._updateLabels.bind(this));
-            this._updateLabels();
-        } else {
-            if (this._clockNotifyId)
-                this._clock.disconnect(this._clockNotifyId);
-            this._clockNotifyId = 0;
-        }
-    }
-
-    _getTimeAtLocation(location) {
-        let tz = GLib.TimeZone.new(location.get_timezone().get_tzid());
-        return GLib.DateTime.new_now(tz);
-    }
-
-    _updateLabels() {
-        for (let i = 0; i < this._locations.length; i++) {
-            let l = this._locations[i];
-            let now = this._getTimeAtLocation(l.location);
-            l.actor.text = Util.formatTime(now, { timeOnly: true });
-        }
-    }
-
-    _onProxyReady(proxy, error) {
-        if (error) {
-            log(`Failed to create GNOME Clocks proxy: ${error}`);
-            return;
-        }
-
-        this._clocksProxy.connect('g-properties-changed',
-            this._onClocksPropertiesChanged.bind(this));
-        this._onClocksPropertiesChanged();
-    }
-
-    _onClocksPropertiesChanged() {
-        if (this._clocksProxy.g_name_owner == null)
-            return;
-
-        this._settings.set_value('locations',
-            new GLib.Variant('av', this._clocksProxy.Locations));
     }
 };
 
@@ -407,13 +252,6 @@ class DateMenuButton extends PanelMenu.Button {
                                                     overlay_scrollbars: true });
         this._displaysSection.set_policy(St.PolicyType.NEVER, St.PolicyType.AUTOMATIC);
         vbox.add_actor(this._displaysSection);
-
-        let displaysBox = new St.BoxLayout({ vertical: true,
-                                             style_class: 'datemenu-displays-box' });
-        this._displaysSection.add_actor(displaysBox);
-
-        this._clocksItem = new WorldClocksSection();
-        displaysBox.add(this._clocksItem.actor, { x_fill: true });
 
         // Done with hbox for calendar and event list
 
