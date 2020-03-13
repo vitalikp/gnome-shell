@@ -6,7 +6,6 @@ jsconf.set('LIBMUTTER_API_VERSION', mutter_api_version)
 jsconf.set10('HAVE_NETWORKMANAGER', have_networkmanager)
 jsconf.set('datadir', datadir)
 jsconf.set('libexecdir', libexecdir)
-jsconf.set('vpndir', vpndir)
 
 config_js = configure_file(
   input: 'config.js.in',
