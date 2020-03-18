@@ -42,6 +42,8 @@
 * Fix regression when adjusting brightness [Florian; #1500]
 * Fix pointer a11y timeout animation [Jonas D.; #1533]
 * Add new extensions CLI tool [Florian; #1234]
+* Animate pointer a11y pie timer [Jonas D.; !688]
+* Fix restarting shell in systemd user session [Benjamin; !690]
 * Misc. bug fixes and cleanups [Florian, Marco, Robert, Georges, Carlos, Jonas D.,
   Veerasamy, Laurent, Niels, Will, Sonny, Mario, Benjamin, Ting-Wei, Daniel, Ray,
   Bastien, Jonas Å.; !487, !441, !502, !503, !504, !512, !524, !331, !540, !517,
@@ -50,7 +52,8 @@
   !604, !495, !608, !611, !614, !612, !615, !618, #369, !620, #774, !621, !616,
   #1065, !626, !491, !631, !632, !633, #1457, !635, !636, !637, #1462, !628, !640,
   !641, !627, !644, !385, #1474, !651, #1144, !646, !653, !652, #1482, !656, !654,
-  !665, !667, !670, #1357, !672, !657, #1507, !674, !677, !678, !682, !686]
+  !665, !667, !670, #1357, !672, !657, #1507, !674, !677, !678, !682, !686, !691,
+  !689, !692, #1552, !698]
 
 Contributors:
   Cosimo Cecchi, Jonas Dreßler, Frederik Feichtmeier, Carlos Garnacho, Robert Mader,
@@ -64,9 +67,12 @@ Contributors:
 Translators:
   Daniel Mustieles [es], Kukuh Syafaat [id], Fabio Tomat [fur], Carmen Bianca BAKKER [eo],
   Dingzhong Chen [zh_CN], Balázs Meskó [hu], Nathan Follens [nl], Goran Vidović [hr],
-  Jordi Mas [ca], Jor Teron [mjw], Asier Sarasua Garmendia [eu], Rafael Fontenelle [pt_BR],
-  Kristjan SCHMIDT [eo], Daniel Șerbănescu [ro], Anders Jonsson [sv], Florentina Mușat [ro],
-  Jiri Grönroos [fi], Aurimas Černius [lt], Piotr Drąg [pl], Danial Behzadi [fa]
+  Jordi Mas [ca], Jor Teron [mjw], Asier Sarasua Garmendia [eu], Kristjan SCHMIDT [eo],
+  Rafael Fontenelle [pt_BR], Daniel Șerbănescu [ro], Anders Jonsson [sv], Piotr Drąg [pl],
+  Florentina Mușat [ro], Aurimas Černius [lt], Jiri Grönroos [fi], Danial Behzadi [fa],
+  Rūdolfs Mazurs [lv], Fran Dieguez [gl], Matej Urbančič [sl], Zander Brown [en_GB],
+  Ryuta Fujii [ja], Tim Sabsch [de], Pawan Chitrakar [ne], A S Alam [pa], Changwoo Ryu [ko],
+  Daniel Rusek [cs], Marek Černocký [cs]
 
 3.32.2
 ======
