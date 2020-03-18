@@ -16,7 +16,7 @@ Before=gnome-session-initialized.target
 #Conflicts=gnome-shell-wayland.service
 
 # Limit startup frequency more than the default
-StartLimitIntervalSec=15s
+StartLimitInterval=15s
 StartLimitBurst=3
 
 [Service]
