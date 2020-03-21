@@ -241,8 +241,11 @@ subdir('js')
 subdir('src')
 subdir('po')
 subdir('data')
-subdir('tests')
 subdir('tools')
+
+if get_option('tests')
+  subdir('tests')
+endif
 
 if get_option('gtk_doc')
   subdir('docs/reference')

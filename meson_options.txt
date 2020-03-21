@@ -33,3 +33,9 @@ option('journal',
   value: false,
   description: 'Enable journal integration'
 )
+
+option('tests',
+  type: 'boolean',
+  value: false,
+  description: 'Enable gnome-shell tests'
+)
