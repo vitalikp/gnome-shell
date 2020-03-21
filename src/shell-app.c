@@ -20,7 +20,7 @@
 #include "gtkactionmuxer.h"
 #include "org-gtk-application.h"
 
-#ifdef HAVE_SYSTEMD
+#ifdef HAVE_JOURNAL
 #include <systemd/sd-journal.h>
 #include <errno.h>
 #include <unistd.h>
@@ -1222,7 +1222,7 @@ shell_app_request_quit (ShellApp   *app)
   return TRUE;
 }
 
-#if !defined(HAVE_GIO_DESKTOP_LAUNCH_URIS_WITH_FDS) && defined(HAVE_SYSTEMD)
+#if !defined(HAVE_GIO_DESKTOP_LAUNCH_URIS_WITH_FDS) && defined(HAVE_JOURNAL)
 /* This sets up the launched application to log to the journal
  * using its own identifier, instead of just "gnome-session".
  */
@@ -1302,9 +1302,9 @@ shell_app_launch (ShellApp     *app,
   {
     int journalfd = -1;
 
-#ifdef HAVE_SYSTEMD
+#ifdef HAVE_JOURNAL
     journalfd = sd_journal_stream_fd (shell_app_get_id (app), LOG_INFO, FALSE);
-#endif /* HAVE_SYSTEMD */
+#endif /* HAVE_JOURNAL */
 
     ret = g_desktop_app_info_launch_uris_as_manager_with_fds (app->info, NULL,
                                                               context,
@@ -1323,7 +1323,7 @@ shell_app_launch (ShellApp     *app,
   ret = g_desktop_app_info_launch_uris_as_manager (app->info, NULL,
                                                    context,
                                                    flags,
-#ifdef HAVE_SYSTEMD
+#ifdef HAVE_JOURNAL
                                                    app_child_setup, (gpointer)shell_app_get_id (app),
 #else
                                                    NULL, NULL,

@@ -124,6 +124,8 @@ else
   have_systemd = false
 endif
 
+have_journal = get_option('journal')
+
 if get_option('extensions_tool')
   autoar_dep = dependency('gnome-autoar-0')
   json_dep = dependency('json-glib-1.0')
@@ -155,6 +157,7 @@ cdata.set_quoted('PACKAGE_VERSION', meson.project_version())
 
 cdata.set('HAVE_NETWORKMANAGER', have_networkmanager)
 cdata.set('HAVE_SYSTEMD', have_systemd)
+cdata.set('HAVE_JOURNAL', have_journal)
 
 # New API added in glib-2.57.2
 cdata.set('HAVE_GIO_DESKTOP_LAUNCH_URIS_WITH_FDS',

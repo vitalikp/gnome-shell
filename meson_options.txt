@@ -27,3 +27,9 @@ option('systemd',
   value: false,
   description: 'Enable systemd integration'
 )
+
+option('journal',
+  type: 'boolean',
+  value: false,
+  description: 'Enable journal integration'
+)

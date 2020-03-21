@@ -22,6 +22,9 @@
 /* Define if we have systemd */
 #mesondefine HAVE_SYSTEMD
 
+/* Define if we have journal support */
+#mesondefine HAVE_JOURNAL
+
 /* Define if _NL_TIME_FIRST_WEEKDATE is available */
 #mesondefine HAVE__NL_TIME_FIRST_WEEKDAY
 
