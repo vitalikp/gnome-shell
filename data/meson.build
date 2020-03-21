@@ -43,7 +43,7 @@ subdir('dbus-interfaces')
 data_resources = [
   ['dbus-interfaces', []],
   ['osk-layouts', []],
-  ['theme', theme_deps]
+  ['theme', []]
 ]
 foreach resource : data_resources
   gnome.compile_resources(
