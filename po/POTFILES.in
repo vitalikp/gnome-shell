@@ -44,7 +44,6 @@ js/ui/screenShield.js
 js/ui/search.js
 js/ui/shellEntry.js
 js/ui/status/accessibility.js
-js/ui/status/bluetooth.js
 js/ui/status/brightness.js
 js/ui/status/dwellClick.js
 js/ui/status/keyboard.js
