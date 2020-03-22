@@ -2094,11 +2094,11 @@ var AppIcon = class AppIcon {
 
         switch (this.app.state)
         {
-            case AppState.STARTING:
+            case Shell.AppState.STARTING:
                 this.actor.add_style_pseudo_class('starting');
                 break;
 
-            case AppState.RUNNING:
+            case Shell.AppState.RUNNING:
                 this.actor.add_style_pseudo_class('running');
                 break;
         }
