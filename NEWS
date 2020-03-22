@@ -1,4 +1,4 @@
-3.34.1-dev
+3.34.1
 ======
 * Fix "Frequent" view icons disappearing on hover [Jonas D.; #1502]
 * Allow editing app folder names [Georges, Marco; !675, !720]
