@@ -560,10 +560,12 @@ StScrollBar {
   border-bottom-width: 1px;
   border-bottom-style: solid; }
 
-.rename-folder-popup-box {
-  spacing: 6px;
-  margin-left: 12px;
-  margin-right: 12px; }
+.rename-folder-popup .rename-folder-popup-item {
+  spacing: 6px; }
+  
+.rename-folder-popup .rename-folder-popup-item:ltr,
+.rename-folder-popup .rename-folder-popup-item:rtl {
+  padding: 0, 12px; }
 
 .background-menu {
   -boxpointer-gap: 4px;
