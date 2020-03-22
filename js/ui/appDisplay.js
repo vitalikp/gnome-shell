@@ -1816,17 +1816,10 @@ var AppIcon = class AppIcon {
                                      x_fill: true,
                                      y_fill: true });
 
-        this._dot = new St.Widget({ style_class: 'app-well-app-running-dot',
-                                    layout_manager: new Clutter.BinLayout(),
-                                    x_expand: true, y_expand: true,
-                                    x_align: Clutter.ActorAlign.CENTER,
-                                    y_align: Clutter.ActorAlign.END });
-
         this._iconContainer = new St.Widget({ layout_manager: new Clutter.BinLayout(),
                                               x_expand: true, y_expand: true });
 
         this.actor.set_child(this._iconContainer);
-        this._iconContainer.add_child(this._dot);
 
         this.actor._delegate = this;
 
@@ -1931,11 +1924,6 @@ var AppIcon = class AppIcon {
                 this.actor.add_style_pseudo_class('running');
                 break;
         }
-
-        if (this.app.state != Shell.AppState.STOPPED)
-            this._dot.show();
-        else
-            this._dot.hide();
     }
 
     _setPopupTimeout() {

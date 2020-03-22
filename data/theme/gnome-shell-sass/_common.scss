@@ -1477,12 +1477,6 @@ StScrollBar {
     }
   }
 
-  .app-well-app-running-dot { //running apps indicator
-    width: 10px; height: 3px;
-    background-color: $selected_bg_color;
-    margin-bottom: 2px;
-  }
-
   .app-well-app {
     &:starting .overview-icon {
       background-color: rgba(204, 103, 102, 0.5);

@@ -1349,12 +1349,6 @@ StScrollBar {
 .grid-search-result:checked .overview-icon {
   background-color: rgba(23, 25, 26, 0.5); }
 
-.app-well-app-running-dot {
-  width: 10px;
-  height: 3px;
-  background-color: #215d9c;
-  margin-bottom: 2px; }
-
 .app-well-app:starting .overview-icon {
   background-color: rgba(204, 103, 102, 0.5);
   box-shadow: inset 0px 0px 1px 1px rgba(255, 255, 255, 0.3);
