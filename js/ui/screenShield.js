@@ -1104,7 +1104,6 @@ var ScreenShield = class {
 
     _completeLockScreenShown() {
         this._setActive(true);
-        this.emit('lock-screen-shown');
     }
 
     // Some of the actors in the lock screen are heavy in
@@ -1305,6 +1304,7 @@ var ScreenShield = class {
         this.activate(animate);
 
         this.emit('locked-changed');
+        this.emit('lock-screen-done');
     }
 
     // If the previous shell crashed, and gnome-session restarted us, then re-lock
