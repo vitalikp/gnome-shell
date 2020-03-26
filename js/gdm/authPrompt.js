@@ -53,7 +53,6 @@ var AuthPrompt = class {
         this._userVerifier.connect('verification-failed', this._onVerificationFailed.bind(this));
         this._userVerifier.connect('verification-complete', this._onVerificationComplete.bind(this));
         this._userVerifier.connect('reset', this._onReset.bind(this));
-        this._userVerifier.connect('ovirt-user-authenticated', this._onOVirtUserAuthenticated.bind(this));
 
         this.connect('next', () => {
             this.updateSensitivity(false);
@@ -201,11 +200,6 @@ var AuthPrompt = class {
 
         this.updateSensitivity(true);
         this.emit('prompted');
-    }
-
-    _onOVirtUserAuthenticated() {
-        if (this.verificationStatus != AuthPromptStatus.VERIFICATION_SUCCEEDED)
-            this.reset();
     }
 
     _onShowMessage(userVerifier, message, type) {
@@ -430,10 +424,6 @@ var AuthPrompt = class {
             // The user is constant at the unlock screen, so it will immediately
             // respond to the request with the username
             beginRequestType = BeginRequestType.PROVIDE_USERNAME;
-        } else if (this._userVerifier.serviceIsForeground(GdmUtil.OVIRT_SERVICE_NAME)) {
-            // We don't need to know the username if the user preempted the login screen
-            // with preauthenticated oVirt credentials
-            beginRequestType = BeginRequestType.DONT_PROVIDE_USERNAME;
         } else {
             // In all other cases, we should get the username up front.
             beginRequestType = BeginRequestType.PROVIDE_USERNAME;

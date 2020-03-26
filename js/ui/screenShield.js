@@ -8,7 +8,6 @@ const Signals = imports.signals;
 const Background = imports.ui.background;
 const GnomeSession = imports.misc.gnomeSession;
 const Layout = imports.ui.layout;
-const OVirt = imports.gdm.oVirt;
 const LoginManager = imports.misc.loginManager;
 const Lightbox = imports.ui.lightbox;
 const Main = imports.ui.main;
@@ -504,13 +503,6 @@ var ScreenShield = class {
         });
 
         this._screenSaverDBus = new ShellDBus.ScreenSaverDBus(this);
-
-        this._oVirtCredentialsManager = OVirt.getOVirtCredentialsManager();
-        this._oVirtCredentialsManager.connect('user-authenticated',
-                                              () => {
-                                                  if (this._isLocked)
-                                                      this._liftShield(true, 0);
-                                              });
 
         this._loginManager = LoginManager.getLoginManager();
         this._loginManager.connect('prepare-for-sleep',
