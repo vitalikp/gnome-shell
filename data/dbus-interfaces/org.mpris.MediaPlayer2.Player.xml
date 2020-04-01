@@ -2,6 +2,7 @@
   <interface name="org.mpris.MediaPlayer2.Player">
     <method name="Pause"/>
     <method name="PlayPause"/>
+    <method name="Stop"/>
     <method name="Next"/>
     <method name="Previous"/>
     <property name="CanGoNext" type="b" access="read"/>
