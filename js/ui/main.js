@@ -17,6 +17,7 @@ const OsdWindow = imports.ui.osdWindow;
 const OsdMonitorLabeler = imports.ui.osdMonitorLabeler;
 const Overview = imports.ui.overview;
 const Panel = imports.ui.panel;
+const Mpris = imports.ui.mpris;
 const Params = imports.misc.params;
 const RunDialog = imports.ui.runDialog;
 const Layout = imports.ui.layout;
@@ -41,6 +42,7 @@ const GNOMESHELL_STARTED_MESSAGE_ID = 'f3ea493c22934e26811cd62abe8e203a';
 
 var componentManager = null;
 var panel = null;
+var media = null;
 var overview = null;
 var runDialog = null;
 var lookingGlass = null;
@@ -162,6 +164,7 @@ function _initializeUI() {
 
     messageTray = new MessageTray.MessageTray();
     panel = new Panel.Panel();
+    media = new Mpris.MediaSection();
     keyboard = new Keyboard.Keyboard();
     notificationDaemon = new NotificationDaemon.NotificationDaemon();
     windowAttentionHandler = new WindowAttentionHandler.WindowAttentionHandler();
