@@ -755,11 +755,6 @@ class AggregateMenu extends PanelMenu.Button {
         } else {
             this._network = null;
         }
-        if (Config.HAVE_BLUETOOTH) {
-            this._bluetooth = new imports.ui.status.bluetooth.Indicator();
-        } else {
-            this._bluetooth = null;
-        }
 
         this._power = new imports.ui.status.power.Indicator();
         this._rfkill = new imports.ui.status.rfkill.Indicator();
@@ -771,9 +766,6 @@ class AggregateMenu extends PanelMenu.Button {
         if (this._network) {
             this._indicators.add_child(this._network.indicators);
         }
-        if (this._bluetooth) {
-            this._indicators.add_child(this._bluetooth.indicators);
-        }
         this._indicators.add_child(this._rfkill.indicators);
         this._indicators.add_child(this._power.indicators);
         this._indicators.add_child(PopupMenu.arrowIcon(St.Side.BOTTOM));
@@ -782,9 +774,6 @@ class AggregateMenu extends PanelMenu.Button {
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         if (this._network) {
             this.menu.addMenuItem(this._network.menu);
-        }
-        if (this._bluetooth) {
-            this.menu.addMenuItem(this._bluetooth.menu);
         }
         this.menu.addMenuItem(this._rfkill.menu);
         this.menu.addMenuItem(this._power.menu);
