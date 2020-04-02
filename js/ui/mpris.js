@@ -42,13 +42,13 @@ class MediaState extends PanelMenu.Button
 
         this._player = player;
 
-        this.addItem('Play', () => this._player.play());
-        this.addItem('Pause', () => this._player.pause());
-        this.addItem('Stop', () => this._player.stop());
-        this.addItem('Previous', () => this._player.previous());
-        this.addItem('Next', () => this._player.next());
+        this.addItem(C_('mpris', 'Play'), () => this._player.play());
+        this.addItem(C_('mpris', 'Pause'), () => this._player.pause());
+        this.addItem(C_('mpris', 'Stop'), () => this._player.stop());
+        this.addItem(C_('mpris', 'Previous'), () => this._player.previous());
+        this.addItem(C_('mpris', 'Next'), () => this._player.next());
         this.addItem('--');
-        this.addItem('Quit', () => this._player.quit());
+        this.addItem(C_('mpris', 'Quit'), () => this._player.quit());
         this.hide();
 
         this._state = false;
