@@ -136,19 +136,6 @@ msgid ""
 "state of the checkbox."
 msgstr ""
 
-#: data/org.gnome.shell.gschema.xml.in:90
-msgid ""
-"Whether the default Bluetooth adapter had set up devices associated to it"
-msgstr ""
-
-#: data/org.gnome.shell.gschema.xml.in:91
-msgid ""
-"The shell will only show a Bluetooth menu item if a Bluetooth adapter is "
-"powered, or if there were devices set up associated with the default "
-"adapter. This will be reset if the default adapter is ever seen not to have "
-"devices associated to it."
-msgstr ""
-
 #: data/org.gnome.shell.gschema.xml.in:95
 msgid "Enable introspection API"
 msgstr ""
@@ -306,15 +293,6 @@ msgstr ""
 msgid "Delay focus changes in mouse mode until the pointer stops moving"
 msgstr ""
 
-#: data/org.gnome.Shell.PortalHelper.desktop.in.in:3
-msgid "Network Login"
-msgstr ""
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.gnome.Shell.PortalHelper.desktop.in.in:9
-msgid "network-workgroup"
-msgstr ""
-
 #: js/extensionPrefs/main.js:116
 msgid "Something’s gone wrong"
 msgstr ""
@@ -408,15 +386,6 @@ msgstr ""
 
 #: js/gdm/util.js:252
 msgid "Authentication error"
-msgstr ""
-
-#. We don't show fingerprint messages directly since it's
-#. not the main auth service. Instead we use the messages
-#. as a cue to display our own message.
-#. Translators: this message is shown below the password entry field
-#. to indicate the user can swipe their finger instead
-#: js/gdm/util.js:433
-msgid "(or swipe finger)"
 msgstr ""
 
 #. Translators: The name of the power-off action in search
@@ -620,27 +589,6 @@ msgstr ""
 msgid "%B %-d %Y, %l∶%M %p"
 msgstr ""
 
-#. TRANSLATORS: this is the title of the wifi captive portal login window
-#: js/portalHelper/main.js:40
-msgid "Hotspot Login"
-msgstr ""
-
-#: js/portalHelper/main.js:86
-msgid ""
-"Your connection to this hotspot login is not secure. Passwords or other "
-"information you enter on this page can be viewed by people nearby."
-msgstr ""
-
-#. No support for non-modal system dialogs, so ignore the option
-#. let modal = options['modal'] || true;
-#: js/ui/accessDialog.js:37
-msgid "Deny Access"
-msgstr ""
-
-#: js/ui/accessDialog.js:38
-msgid "Grant Access"
-msgstr ""
-
 #: js/ui/appDisplay.js:660
 msgid "Frequently used applications will appear here"
 msgstr ""
@@ -838,14 +786,6 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-#: js/ui/components/automountManager.js:86
-msgid "External drive connected"
-msgstr ""
-
-#: js/ui/components/automountManager.js:98
-msgid "External drive disconnected"
-msgstr ""
-
 #: js/ui/components/autorunManager.js:334
 #, javascript-format
 msgid "Open with %s"
@@ -960,13 +900,6 @@ msgstr ""
 #. * for instance.
 #: js/ui/components/polkitAgent.js:241
 msgid "Sorry, that didn’t work. Please try again."
-msgstr ""
-
-#. Translators: this is the other person changing their old IM name to their new
-#. IM name.
-#: js/ui/components/telepathyClient.js:778
-#, javascript-format
-msgid "%s is now known as %s"
 msgstr ""
 
 #: js/ui/ctrlAltTab.js:21 js/ui/viewSelector.js:169
@@ -1429,14 +1362,6 @@ msgstr ""
 msgid "Hide Text"
 msgstr ""
 
-#: js/ui/shellMountOperation.js:296
-msgid "Password"
-msgstr ""
-
-#: js/ui/shellMountOperation.js:317
-msgid "Remember Password"
-msgstr ""
-
 #: js/ui/status/accessibility.js:34
 msgid "Accessibility"
 msgstr ""
@@ -1479,30 +1404,6 @@ msgstr ""
 
 #: js/ui/status/accessibility.js:181
 msgid "Large Text"
-msgstr ""
-
-#: js/ui/status/bluetooth.js:38
-msgid "Bluetooth"
-msgstr ""
-
-#: js/ui/status/bluetooth.js:47 js/ui/status/network.js:585
-msgid "Bluetooth Settings"
-msgstr ""
-
-#. Translators: this is the number of connected bluetooth devices
-#: js/ui/status/bluetooth.js:127
-#, javascript-format
-msgid "%d Connected"
-msgid_plural "%d Connected"
-msgstr[0] ""
-msgstr[1] ""
-
-#: js/ui/status/bluetooth.js:129
-msgid "Off"
-msgstr ""
-
-#: js/ui/status/bluetooth.js:131
-msgid "On"
 msgstr ""
 
 #: js/ui/status/brightness.js:36
@@ -1598,10 +1499,6 @@ msgstr ""
 #: js/ui/status/network.js:547
 #, javascript-format
 msgid "%s Disabled"
-msgstr ""
-
-#: js/ui/status/network.js:597
-msgid "Connect to Internet"
 msgstr ""
 
 #: js/ui/status/network.js:742
@@ -1720,22 +1617,6 @@ msgstr ""
 
 #: js/ui/status/network.js:1658
 msgid "Activation of network connection failed"
-msgstr ""
-
-#: js/ui/status/nightLight.js:60
-msgid "Night Light Disabled"
-msgstr ""
-
-#: js/ui/status/nightLight.js:61
-msgid "Night Light On"
-msgstr ""
-
-#: js/ui/status/nightLight.js:62
-msgid "Resume"
-msgstr ""
-
-#: js/ui/status/nightLight.js:63
-msgid "Disable Until Tomorrow"
 msgstr ""
 
 #: js/ui/status/power.js:45
