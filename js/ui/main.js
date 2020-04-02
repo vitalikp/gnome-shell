@@ -39,6 +39,8 @@ const A11Y_SCHEMA = 'org.gnome.desktop.a11y.keyboard';
 const STICKY_KEYS_ENABLE = 'stickykeys-enable';
 const GNOMESHELL_STARTED_MESSAGE_ID = 'f3ea493c22934e26811cd62abe8e203a';
 
+const USER_THEME = 'user-theme';
+
 var componentManager = null;
 var panel = null;
 var media = null;
@@ -72,6 +74,7 @@ var introspectService = null;
 let _startDate;
 let _defaultCssStylesheet = null;
 let _cssStylesheet = null;
+let _settings = null;
 let _a11ySettings = null;
 let _themeResource = null;
 let _oskResource = null;
@@ -173,6 +176,10 @@ function _initializeUI() {
 
     layoutManager.init();
     overview.init();
+
+    _settings = new Gio.Settings({ schema_id: 'org.gnome.shell' });
+    _settings.connect(`changed::${USER_THEME}`, () => _changeTheme());
+    _changeTheme();
 
     _a11ySettings = new Gio.Settings({ schema_id: A11Y_SCHEMA });
 
@@ -338,6 +345,33 @@ function loadTheme() {
     }
 
     themeContext.set_theme (theme);
+}
+
+function _changeTheme() {
+    let stylesheet = null;
+    let themeName = _settings.get_string(USER_THEME);
+
+    if (themeName) {
+        let stylesheetPaths = [
+            [GLib.get_home_dir(), '.themes'],
+            [GLib.get_user_data_dir(), 'themes'],
+            ...GLib.get_system_data_dirs().map(dir => [dir, 'themes'])
+        ].map(themeDir => GLib.build_filenamev([
+            ...themeDir, themeName, 'gnome-shell', 'gnome-shell.css'
+        ]));
+
+        stylesheet = stylesheetPaths.find(path => {
+            let file = Gio.file_new_for_path(path);
+            return file.query_exists(null);
+        });
+    }
+
+    if (stylesheet)
+        log(`loading user theme: ${stylesheet}`);
+    else
+        log('loading default theme (Adwaita)');
+    setThemeStylesheet(stylesheet);
+    loadTheme();
 }
 
 /**
