@@ -6,8 +6,6 @@ imports.gi.versions.Clutter = Config.LIBMUTTER_API_VERSION;
 imports.gi.versions.Gio = '2.0';
 imports.gi.versions.GdkPixbuf = '2.0';
 imports.gi.versions.Gtk = '3.0';
-imports.gi.versions.TelepathyGLib = '0.12';
-imports.gi.versions.TelepathyLogger = '0.2';
 
 const { Clutter, GLib, Shell, St } = imports.gi;
 const Gettext = imports.gettext;
