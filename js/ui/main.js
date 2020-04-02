@@ -29,7 +29,6 @@ const ScreenShield = imports.ui.screenShield;
 const Scripting = imports.ui.scripting;
 const SessionMode = imports.ui.sessionMode;
 const ShellDBus = imports.ui.shellDBus;
-const ShellMountOperation = imports.ui.shellMountOperation;
 const WindowManager = imports.ui.windowManager;
 const Magnifier = imports.ui.magnifier;
 const XdndHandler = imports.ui.xdndHandler;
@@ -58,7 +57,6 @@ var osdMonitorLabeler = null;
 var sessionMode = null;
 var shellAudioSelectionDBusService = null;
 var shellDBusService = null;
-var shellMountOpDBusService = null;
 var screenSaverDBus = null;
 var screencastService = null;
 var modalCount = 0;
@@ -123,7 +121,6 @@ function start() {
 
     shellAudioSelectionDBusService = new AudioDeviceSelection.AudioDeviceSelectionDBus();
     shellDBusService = new ShellDBus.GnomeShell();
-    shellMountOpDBusService = new ShellMountOperation.GnomeShellMountOpHandler();
 
     _sessionUpdated();
 }
