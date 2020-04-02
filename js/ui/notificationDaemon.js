@@ -160,23 +160,6 @@ var FdoNotificationDaemon = class FdoNotificationDaemon {
 
         hints = Params.parse(hints, { urgency: Urgency.NORMAL }, true);
 
-        // Filter out chat, presence, calls and invitation notifications from
-        // Empathy, since we handle that information from telepathyClient.js
-        //
-        // Note that empathy uses im.received for one to one chats and
-        // x-empathy.im.mentioned for multi-user, so we're good here
-        if (appName == 'Empathy' && hints['category'] == 'im.received') {
-            // Ignore replacesId since we already sent back a
-            // NotificationClosed for that id.
-            id = this._nextNotificationId++;
-            let idle_id = GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
-                this._emitNotificationClosed(id, NotificationClosedReason.DISMISSED);
-                return GLib.SOURCE_REMOVE;
-            });
-            GLib.Source.set_name_by_id(idle_id, '[gnome-shell] this._emitNotificationClosed');
-            return invocation.return_value(GLib.Variant.new('(u)', [id]));
-        }
-
         let rewrites = rewriteRules[appName];
         if (rewrites) {
             for (let i = 0; i < rewrites.length; i++) {
