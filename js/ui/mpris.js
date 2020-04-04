@@ -1,10 +1,9 @@
-/* exported MediaSection */
-const { Gio, Shell, St } = imports.gi;
+const { Clutter, Gio, GObject, Shell, St } = imports.gi;
 const Signals = imports.signals;
 
-const Calendar = imports.ui.calendar;
 const Main = imports.ui.main;
-const MessageList = imports.ui.messageList;
+const PanelMenu = imports.ui.panelMenu;
+const PopupMenu = imports.ui.popupMenu;
 
 const { loadInterfaceXML } = imports.misc.fileUtils;
 
@@ -19,67 +18,137 @@ const MprisPlayerProxy = Gio.DBusProxy.makeProxyWrapper(MprisPlayerIface);
 
 const MPRIS_PLAYER_PREFIX = 'org.mpris.MediaPlayer2.';
 
-var MediaMessage = class MediaMessage extends MessageList.Message {
-    constructor(player) {
-        super('', '');
+const BUTTON_PREV = 8;
+const BUTTON_NEXT = 9;
+
+var MediaState = GObject.registerClass(
+class MediaState extends PanelMenu.Button
+{
+    _init(player)
+    {
+        super._init(0.0, 'MPlayer');
+
+        this._icon = new St.Icon(
+        {
+            style_class: 'system-status-icon',
+            icon_name: 'multimedia-player-symbolic',
+            icon_size: 24
+        });
+        this._icon.style = 'icon-shadow: none';
+
+        this.add_actor(this._icon);
+
+        Main.panel.addToStatusArea('mplayer-indicator', this, 1);
 
         this._player = player;
 
-        this._icon = new St.Icon({ style_class: 'media-message-cover-icon' });
-        this.setIcon(this._icon);
+        this.addItem('Play', () => this._player.play());
+        this.addItem('Pause', () => this._player.pause());
+        this.addItem('Stop', () => this._player.stop());
+        this.addItem('Previous', () => this._player.previous());
+        this.addItem('Next', () => this._player.next());
+        this.addItem('--');
+        this.addItem('Quit', () => this._player.quit());
+        this.hide();
 
-        this._prevButton = this.addMediaControl('media-skip-backward-symbolic',
-            () => {
-                this._player.previous();
-            });
+        this._state = false;
 
-        this._playPauseButton = this.addMediaControl(null,
-            () => {
-                this._player.playPause();
-            });
-
-        this._nextButton = this.addMediaControl('media-skip-forward-symbolic',
-            () => {
-                this._player.next();
-            });
-
-        this._player.connect('changed', this._update.bind(this));
-        this._player.connect('closed', this.close.bind(this));
+        this._updateId = this._player.connect('changed', this._update.bind(this));
+        this._player.connect('closed', this._close.bind(this));
         this._update();
     }
 
-    _onClicked() {
-        this._player.raise();
-        Main.panel.closeCalendar();
+    setIcon(name)
+    {
+        this._icon.icon_name = name + '-symbolic';
     }
 
-    _updateNavButton(button, sensitive) {
-        button.reactive = sensitive;
+    addItem(name, cmd)
+    {
+        let item;
+
+        if (!name)
+            return;
+
+        if (cmd)
+        {
+            item = new PopupMenu.PopupMenuItem(name);
+            item.connect('activate', () => cmd());
+        }
+        else
+            item = new PopupMenu.PopupSeparatorMenuItem();
+
+        this.menu.addMenuItem(item);
     }
 
-    _update() {
-        this.setTitle(this._player.trackArtists.join(', '));
-        this.setBody(this._player.trackTitle);
+    _update()
+    {
+        let icon;
 
-        if (this._player.trackCoverUrl) {
-            let file = Gio.File.new_for_uri(this._player.trackCoverUrl);
-            this._icon.gicon = new Gio.FileIcon({ file: file });
-            this._icon.remove_style_class_name('fallback');
-        } else {
-            this._icon.icon_name = 'audio-x-generic-symbolic';
-            this._icon.add_style_class_name('fallback');
+        if (this._state)
+            return;
+
+        icon = this._player.icon;
+        if (icon)
+            this.setIcon(icon);
+
+        this.show();
+    }
+
+    _onEvent(actor, event)
+    {
+        let type;
+
+        if (!this.menu || !this._player)
+            return Clutter.EVENT_PROPAGATE;
+
+        type = event.type();
+        if (type != Clutter.EventType.BUTTON_PRESS)
+            return;
+
+        switch (event.get_button())
+        {
+            case Clutter.BUTTON_PRIMARY:
+                this._player.raise();
+                break;
+
+            case Clutter.BUTTON_MIDDLE:
+                this._player.playPause();
+                break;
+
+            case Clutter.BUTTON_SECONDARY:
+                this.menu.toggle();
+                break;
+
+            case BUTTON_PREV:
+                this._player.previous();
+                break;
+
+            case BUTTON_NEXT:
+                this._player.next();
+                break;
+        }
+    }
+
+    _close()
+    {
+        if (!this._state)
+            return;
+
+        this.hide();
+    }
+
+    destroy()
+    {
+        if (this._updateId != 0)
+        {
+            this._player.disconnect(this._updateId);
+            this._updateId = 0;
         }
 
-        let isPlaying = this._player.status == 'Playing';
-        let iconName = isPlaying
-            ? 'media-playback-pause-symbolic'
-            : 'media-playback-start-symbolic';
-        this._playPauseButton.child.icon_name = iconName;
-
-        this._updateNavButton(this._prevButton, this._player.canGoPrevious);
-        this._updateNavButton(this._nextButton, this._player.canGoNext);
+        super.destroy();
     }
-};
+});
 
 var MprisPlayer = class MprisPlayer {
     constructor(busName) {
@@ -94,6 +163,7 @@ var MprisPlayer = class MprisPlayer {
         this._trackArtists = [];
         this._trackTitle = '';
         this._trackCoverUrl = '';
+        this._iconName = null;
     }
 
     get status() {
@@ -110,6 +180,28 @@ var MprisPlayer = class MprisPlayer {
 
     get trackCoverUrl() {
         return this._trackCoverUrl;
+    }
+
+    get icon() {
+        if (this._iconName)
+            return this._iconName;
+
+        let app = null;
+        if (!this._mprisProxy.DesktopEntry)
+            return null;
+
+        let desktopId = this._mprisProxy.DesktopEntry + '.desktop';
+        app = Shell.AppSystem.get_default().lookup_app(desktopId);
+        if (!app)
+            return null;
+
+        app = app.get_app_info();
+        if (!app)
+            return null;
+
+        this._iconName = app.get_string('Icon');
+
+        return this._iconName;
     }
 
     pause() {
@@ -144,17 +236,41 @@ var MprisPlayer = class MprisPlayer {
         this._playerProxy.PreviousRemote();
     }
 
+    _toggleWin(app)
+    {
+        let wins, state;
+
+        state = app.get_state();
+        if (state != Shell.AppState.RUNNING)
+        {
+            app.activate();
+            return;
+        }
+
+        wins = app.get_windows();
+        if (!wins || wins.length <= 0)
+        {
+            app.activate();
+            return;
+        }
+
+        if (wins[0].showing_on_its_workspace())
+            wins[0].delete(global.get_current_time());
+        else
+            wins[0].activate(global.get_current_time());
+    }
+
     raise() {
         // The remote Raise() method may run into focus stealing prevention,
         // so prefer activating the app via .desktop file if possible
         let app = null;
         if (this._mprisProxy.DesktopEntry) {
-            let desktopId = `${this._mprisProxy.DesktopEntry}.desktop`;
+            let desktopId = this._mprisProxy.DesktopEntry + '.desktop';
             app = Shell.AppSystem.get_default().lookup_app(desktopId);
         }
 
         if (app)
-            app.activate();
+            this._toggleWin(app);
         else if (this._mprisProxy.CanRaise)
             this._mprisProxy.RaiseRemote();
     }
@@ -211,20 +327,14 @@ var MprisPlayer = class MprisPlayer {
 };
 Signals.addSignalMethods(MprisPlayer.prototype);
 
-var Media = class Media extends MessageList.MessageListSection {
+var Media = class Media {
     constructor() {
-        super();
-
         this._players = new Map();
 
         this._proxy = new DBusProxy(Gio.DBus.session,
                                     'org.freedesktop.DBus',
                                     '/org/freedesktop/DBus',
                                     this._onProxyReady.bind(this));
-    }
-
-    _shouldShow() {
-        return !this.empty && Calendar.isToday(this._date);
     }
 
     _addPlayer(busName) {
@@ -234,14 +344,17 @@ var Media = class Media extends MessageList.MessageListSection {
         let player = new MprisPlayer(busName);
         player.connect('closed',
             () => {
-                this._players.delete(busName);
+                var state;
+
+                state = this._players.get(busName);
+                if (state)
+                {
+                    state.destroy();
+                    state = null;
+                    this._players.delete(busName);
+                }
             });
-        player.connect('show',
-            () => {
-                let message = new MediaMessage(player);
-                this.addMessage(message, true);
-            });
-        this._players.set(busName, player);
+        this._players.set(busName, new MediaState(player));
     }
 
     _onProxyReady() {
@@ -263,5 +376,15 @@ var Media = class Media extends MessageList.MessageListSection {
 
         if (newOwner && !oldOwner)
             this._addPlayer(name);
+    }
+
+    destroy()
+    {
+        this._players.forEach(state =>
+        {
+            state.destroy();
+            state = null;
+        });
+        this._players.clear();
     }
 };
