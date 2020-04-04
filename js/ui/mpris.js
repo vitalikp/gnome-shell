@@ -146,6 +146,11 @@ var MprisPlayer = class MprisPlayer {
         else if (this._mprisProxy.CanRaise)
             this._mprisProxy.RaiseRemote();
     }
+    
+    quit() {
+        if (this._mprisProxy.CanQuit)
+            this._mprisProxy.QuitRemote();
+    }
 
     _close() {
         this._mprisProxy.disconnect(this._ownerNotifyId);
