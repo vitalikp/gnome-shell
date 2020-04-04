@@ -375,15 +375,6 @@ msgstr ""
 msgid "Authentication error"
 msgstr ""
 
-#. We don't show fingerprint messages directly since it's
-#. not the main auth service. Instead we use the messages
-#. as a cue to display our own message.
-#. Translators: this message is shown below the password entry field
-#. to indicate the user can swipe their finger instead
-#: js/gdm/util.js:429
-msgid "(or swipe finger)"
-msgstr ""
-
 #. Translators: The name of the power-off action in search
 #: js/misc/systemActions.js:89
 msgctxt "search-result"
@@ -896,13 +887,6 @@ msgstr ""
 #. * for instance.
 #: js/ui/components/polkitAgent.js:243
 msgid "Sorry, that didn’t work. Please try again."
-msgstr ""
-
-#. Translators: this is the other person changing their old IM name to their new
-#. IM name.
-#: js/ui/components/telepathyClient.js:777
-#, javascript-format
-msgid "%s is now known as %s"
 msgstr ""
 
 #: js/ui/ctrlAltTab.js:21 js/ui/viewSelector.js:169
