@@ -42,6 +42,7 @@ var SUMMARY_ICON_SIZE = 48;
 // - CURTAIN_SLIDE_TIME is used when raising the shield before unlocking
 var STANDARD_FADE_TIME = 10000;
 var FADE_TIME = 3000;
+var WAIT_FADE_TIME = 30000;
 var MANUAL_FADE_TIME = 300;
 var CURTAIN_SLIDE_TIME = 300;
 
@@ -535,6 +536,7 @@ var ScreenShield = class {
         this._activationTime = 0;
         this._becameActiveId = 0;
         this._lockTimeoutId = 0;
+        this._fadeTimeoutId = 0;
 
         // The "long" lightbox is used for the longer (20 seconds) fade from session
         // to idle status, the "short" is used for quickly fading to black when locking
@@ -1082,11 +1084,12 @@ var ScreenShield = class {
         if (params.fadeToBlack && params.animateFade) {
             // Take a beat
 
-            let id = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 10 * FADE_TIME, () => {
+            this._fadeTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, WAIT_FADE_TIME, () => {
+                this._fadeTimeoutId = 0;
                 this._activateFade(this._shortLightbox, FADE_TIME);
                 return GLib.SOURCE_REMOVE;
             });
-            GLib.Source.set_name_by_id(id, '[gnome-shell] this._activateFade');
+            GLib.Source.set_name_by_id(this._fadeTimeoutId, '[gnome-shell] this._activateFade');
         } else {
             if (params.fadeToBlack)
                 this._activateFade(this._shortLightbox, 0);
@@ -1226,6 +1229,11 @@ var ScreenShield = class {
         if (this._lockTimeoutId != 0) {
             GLib.source_remove(this._lockTimeoutId);
             this._lockTimeoutId = 0;
+        }
+
+        if (this._fadeTimeoutId != 0) {
+            GLib.source_remove(this._fadeTimeoutId);
+            this._fadeTimeoutId = 0;
         }
 
         this._activationTime = 0;
