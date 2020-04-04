@@ -1280,6 +1280,22 @@ StScrollBar {
   background-color: #215d9c;
   margin-bottom: 2px; }
 
+.app-well-app:starting .overview-icon {
+  background-color: rgba(204, 103, 102, 0.5);
+  box-shadow: inset 0px 0px 1px 1px rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(1, 0, 0, 0.25); }
+
+.app-well-app:starting:hover .overview-icon {
+  background-color: rgba(204, 103, 102, 0.25); }
+
+.app-well-app:running .overview-icon {
+  background-color: rgba(102, 153, 204, 0.5);
+  box-shadow: inset 0px 0px 1px 1px rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(1, 0, 0, 0.25); }
+
+.app-well-app:running:hover .overview-icon {
+  background-color: rgba(102, 153, 204, 0.25); }
+
 .search-provider-icon,
 .list-search-result, .app-well-app .overview-icon,
 .app-well-app.app-folder .overview-icon,

@@ -1520,6 +1520,20 @@ var AppIcon = class AppIcon {
     }
 
     _updateRunningStyle() {
+        this.actor.remove_style_pseudo_class('starting');
+        this.actor.remove_style_pseudo_class('running');
+
+        switch (this.app.state)
+        {
+            case Shell.AppState.STARTING:
+                this.actor.add_style_pseudo_class('starting');
+                break;
+
+            case Shell.AppState.RUNNING:
+                this.actor.add_style_pseudo_class('running');
+                break;
+        }
+
         if (this.app.state != Shell.AppState.STOPPED)
             this._dot.show();
         else
