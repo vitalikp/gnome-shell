@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-shell master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 20:52+0200\n"
+"POT-Creation-Date: 2020-04-05 01:11+0300\n"
 "PO-Revision-Date: 2017-09-06 18:25+0300\n"
 "Last-Translator: Vitaliy Perevertun <vitalik.perevertun@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -49,6 +49,14 @@ msgid ""
 msgstr ""
 "Дозволяє отримати доступ до внутрішніх інструментів налагодження та "
 "моніторингу використовуючи діалог Alt-F2."
+
+#: data/org.gnome.shell.gschema.xml.in:16
+msgid "Theme name"
+msgstr "Назва теми"
+
+#: data/org.gnome.shell.gschema.xml.in:17
+msgid "The name of the theme."
+msgstr "Назва теми."
 
 #: data/org.gnome.shell.gschema.xml.in:21
 msgid "Enable Volume MVC"
@@ -1267,6 +1275,36 @@ msgstr "Веб-сторінка"
 #: js/ui/messageTray.js:1464
 msgid "System Information"
 msgstr "Інформація про систему"
+
+#: js/ui/mpris.js:45
+msgctxt "mpris"
+msgid "Play"
+msgstr "Відтворити"
+
+#: js/ui/mpris.js:46
+msgctxt "mpris"
+msgid "Pause"
+msgstr "Призупинити"
+
+#: js/ui/mpris.js:47
+msgctxt "mpris"
+msgid "Stop"
+msgstr "Зупинити"
+
+#: js/ui/mpris.js:48
+msgctxt "mpris"
+msgid "Previous"
+msgstr "Попередня"
+
+#: js/ui/mpris.js:49
+msgctxt "mpris"
+msgid "Next"
+msgstr "Наступна"
+
+#: js/ui/mpris.js:51
+msgctxt "mpris"
+msgid "Quit"
+msgstr "Вийти"
 
 #: js/ui/mpris.js:312
 msgid "Unknown artist"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnome-shell\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-18 19:01+0200\n"
+"POT-Creation-Date: 2020-04-05 01:11+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,6 +43,14 @@ msgstr ""
 msgid ""
 "Allows access to internal debugging and monitoring tools using the Alt-F2 "
 "dialog."
+msgstr ""
+
+#: data/org.gnome.shell.gschema.xml.in:16
+msgid "Theme name"
+msgstr ""
+
+#: data/org.gnome.shell.gschema.xml.in:17
+msgid "The name of the theme."
 msgstr ""
 
 #: data/org.gnome.shell.gschema.xml.in:21
@@ -1199,6 +1207,36 @@ msgstr ""
 
 #: js/ui/messageTray.js:1464
 msgid "System Information"
+msgstr ""
+
+#: js/ui/mpris.js:45
+msgctxt "mpris"
+msgid "Play"
+msgstr ""
+
+#: js/ui/mpris.js:46
+msgctxt "mpris"
+msgid "Pause"
+msgstr ""
+
+#: js/ui/mpris.js:47
+msgctxt "mpris"
+msgid "Stop"
+msgstr ""
+
+#: js/ui/mpris.js:48
+msgctxt "mpris"
+msgid "Previous"
+msgstr ""
+
+#: js/ui/mpris.js:49
+msgctxt "mpris"
+msgid "Next"
+msgstr ""
+
+#: js/ui/mpris.js:51
+msgctxt "mpris"
+msgid "Quit"
 msgstr ""
 
 #: js/ui/mpris.js:312
