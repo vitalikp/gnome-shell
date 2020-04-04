@@ -1,5 +1,6 @@
 <node>
   <interface name="org.mpris.MediaPlayer2.Player">
+    <method name="Pause"/>
     <method name="PlayPause"/>
     <method name="Next"/>
     <method name="Previous"/>

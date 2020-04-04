@@ -112,6 +112,10 @@ var MprisPlayer = class MprisPlayer {
         return this._trackCoverUrl;
     }
 
+    pause() {
+        this._playerProxy.PauseRemote();
+    }
+
     playPause() {
         this._playerProxy.PlayPauseRemote();
     }
