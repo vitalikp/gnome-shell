@@ -211,7 +211,7 @@ var MprisPlayer = class MprisPlayer {
 };
 Signals.addSignalMethods(MprisPlayer.prototype);
 
-var MediaSection = class MediaSection extends MessageList.MessageListSection {
+var Media = class Media extends MessageList.MessageListSection {
     constructor() {
         super();
 

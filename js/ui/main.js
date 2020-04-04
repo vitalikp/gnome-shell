@@ -171,7 +171,7 @@ function _initializeUI() {
 
     messageTray = new MessageTray.MessageTray();
     panel = new Panel.Panel();
-    media = new Mpris.MediaSection();
+    media = new Mpris.Media();
     keyboard = new Keyboard.Keyboard();
     notificationDaemon = new NotificationDaemon.NotificationDaemon();
     windowAttentionHandler = new WindowAttentionHandler.WindowAttentionHandler();
