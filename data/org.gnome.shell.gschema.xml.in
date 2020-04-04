@@ -11,6 +11,11 @@
         using the Alt-F2 dialog.
       </description>
     </key>
+    <key name="user-theme" type="s">
+      <default>""</default>
+      <summary>Theme name</summary>
+      <description>The name of the theme.</description>
+    </key>
     <key name="volume-mvc-enable" type="b">
       <default>false</default>
       <summary>Enable Volume MVC</summary>
