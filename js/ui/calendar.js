@@ -7,7 +7,6 @@ const Signals = imports.signals;
 const Main = imports.ui.main;
 const MessageList = imports.ui.messageList;
 const MessageTray = imports.ui.messageTray;
-const Mpris = imports.ui.mpris;
 const Util = imports.misc.util;
 
 var MSECS_IN_DAY = 24 * 60 * 60 * 1000;
@@ -904,9 +903,6 @@ var CalendarMessageList = class CalendarMessageList {
                                                y_align: Clutter.ActorAlign.START });
         this._scrollView.add_actor(this._sectionList);
         this._sections = new Map();
-
-        this._mediaSection = new Mpris.MediaSection();
-        this._addSection(this._mediaSection);
 
         this._notificationSection = new NotificationSection();
         this._addSection(this._notificationSection);
