@@ -3,6 +3,7 @@
     <method name="Pause"/>
     <method name="PlayPause"/>
     <method name="Stop"/>
+    <method name="Play"/>
     <method name="Next"/>
     <method name="Previous"/>
     <property name="CanGoNext" type="b" access="read"/>

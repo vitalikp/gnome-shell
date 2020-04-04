@@ -124,6 +124,10 @@ var MprisPlayer = class MprisPlayer {
         this._playerProxy.StopRemote();
     }
 
+    play() {
+        this._playerProxy.PlayRemote();
+    }
+
     get canGoNext() {
         return this._playerProxy.CanGoNext;
     }
