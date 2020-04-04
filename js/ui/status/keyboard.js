@@ -626,7 +626,6 @@ class InputSourceIndicator extends PanelMenu.Button {
 
         this._hbox = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
         this._hbox.add_child(this._container);
-        this._hbox.add_child(PopupMenu.arrowIcon(St.Side.BOTTOM));
 
         this.add_child(this._hbox);
 
