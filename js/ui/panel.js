@@ -227,8 +227,6 @@ var AppMenuButton = GObject.registerClass({
         this._label = new St.Label({ y_expand: true,
                                      y_align: Clutter.ActorAlign.CENTER });
         this._container.add_actor(this._label);
-        this._arrow = PopupMenu.arrowIcon(St.Side.BOTTOM);
-        this._container.add_actor(this._arrow);
 
         this._visible = !Main.overview.visible;
         if (!this._visible)
