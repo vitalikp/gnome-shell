@@ -53,8 +53,7 @@ var NotificationDestroyedReason = {
 
 // Message tray has its custom Urgency enumeration. LOW, NORMAL and CRITICAL
 // urgency values map to the corresponding values for the notifications received
-// through the notification daemon. HIGH urgency value is used for chats received
-// through the Telepathy client.
+// through the notification daemon.
 var Urgency = {
     LOW: 0,
     NORMAL: 1,
