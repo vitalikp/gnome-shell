@@ -41,6 +41,7 @@ var SUMMARY_ICON_SIZE = 48;
 //   or when cancelling the dialog
 // - CURTAIN_SLIDE_TIME is used when raising the shield before unlocking
 var STANDARD_FADE_TIME = 10000;
+var FADE_TIME = 3000;
 var MANUAL_FADE_TIME = 300;
 var CURTAIN_SLIDE_TIME = 300;
 
@@ -1081,8 +1082,8 @@ var ScreenShield = class {
         if (params.fadeToBlack && params.animateFade) {
             // Take a beat
 
-            let id = GLib.timeout_add(GLib.PRIORITY_DEFAULT, MANUAL_FADE_TIME, () => {
-                this._activateFade(this._shortLightbox, MANUAL_FADE_TIME);
+            let id = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 10 * FADE_TIME, () => {
+                this._activateFade(this._shortLightbox, FADE_TIME);
                 return GLib.SOURCE_REMOVE;
             });
             GLib.Source.set_name_by_id(id, '[gnome-shell] this._activateFade');
