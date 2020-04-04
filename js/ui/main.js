@@ -86,6 +86,7 @@ let _cssStylesheet = null;
 let _settings = null;
 let _a11ySettings = null;
 let _themeResource = null;
+let _themeRes = null;
 let _oskResource = null;
 
 function _sessionUpdated() {
@@ -367,22 +368,57 @@ function loadTheme() {
 }
 
 function _changeTheme() {
-    let stylesheet = null;
-    let themeName = _settings.get_string(USER_THEME);
+    let res = null, stylesheet = null, themeName;
 
-    if (themeName) {
-        let stylesheetPaths = [
+    themeName = _settings.get_string(USER_THEME);
+
+    if (themeName)
+    {
+        let themePaths =
+        [
             [GLib.get_home_dir(), '.themes'],
             [GLib.get_user_data_dir(), 'themes'],
             ...GLib.get_system_data_dirs().map(dir => [dir, 'themes'])
-        ].map(themeDir => GLib.build_filenamev([
-            ...themeDir, themeName, 'gnome-shell', 'gnome-shell.css'
-        ]));
+        ].map(themeDir => GLib.build_filenamev([...themeDir, themeName, 'gnome-shell']));
 
-        stylesheet = stylesheetPaths.find(path => {
-            let file = Gio.file_new_for_path(path);
-            return file.query_exists(null);
-        });
+        let path, file, i;
+
+        i = 0;
+        while (i < themePaths.length)
+        {
+            if (res && stylesheet)
+                break;
+
+            if (!res)
+            {
+                path = GLib.build_filenamev([themePaths[i], 'gnome-shell.gresource']);
+                file = Gio.file_new_for_path(path);
+                if (file.query_exists(null))
+                    res = path;
+                file = null;
+            }
+
+            if (!stylesheet)
+            {
+                path = GLib.build_filenamev([themePaths[i], 'gnome-shell.css']);
+                file = Gio.file_new_for_path(path);
+                if (file.query_exists(null))
+                    stylesheet = path;
+                file = null;
+            }
+
+            i++;
+        }
+    }
+
+    if (res)
+    {
+        if (_themeRes)
+            _themeRes._unregister();
+
+        log(`reloading theme resource: ${res}`);
+        _themeRes = Gio.Resource.load(res);
+        _themeRes._register();
     }
 
     if (stylesheet)
