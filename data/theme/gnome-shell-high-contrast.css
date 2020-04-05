@@ -916,7 +916,8 @@ StScrollBar {
 
 .calendar-today {
   font-weight: bold;
-  border: 1px solid black; }
+  color: white;
+  background-color: black; }
 
 .calendar-day-with-events {
   color: white;
