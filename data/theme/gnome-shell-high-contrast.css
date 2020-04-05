@@ -996,6 +996,15 @@ StScrollBar {
   color: #e6e6e6;
   padding: 10px; }
 
+.message-close-button {
+  color: white; }
+
+.message-close-button:hover {
+  color: #e6e6e6; }
+
+.message-close-button:active {
+  color: #cccccc; }
+
 .message-media-control {
   padding: 12px;
   color: white; }
@@ -1004,7 +1013,9 @@ StScrollBar {
   .message-media-control:last-child:rtl {
     padding-left: 18px; }
   .message-media-control:hover {
-    color: #fff; }
+    color: #e6e6e6; }
+  .message-media-control:active {
+    color: #cccccc; }
   .message-media-control:insensitive {
     color: #999999; }
 
