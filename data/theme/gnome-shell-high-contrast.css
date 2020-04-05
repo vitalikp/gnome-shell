@@ -1000,10 +1000,10 @@ StScrollBar {
   color: white; }
 
 .message-close-button:hover {
-  color: #e6e6e6; }
+  color: white; }
 
 .message-close-button:active {
-  color: #cccccc; }
+  color: white; }
 
 .message-media-control {
   padding: 12px;
@@ -1013,11 +1013,11 @@ StScrollBar {
   .message-media-control:last-child:rtl {
     padding-left: 18px; }
   .message-media-control:hover {
-    color: #e6e6e6; }
+    color: white; }
   .message-media-control:active {
-    color: #cccccc; }
+    color: white; }
   .message-media-control:insensitive {
-    color: #999999; }
+    color: white; }
 
 .media-message-cover-icon {
   icon-size: 48px !important; }
