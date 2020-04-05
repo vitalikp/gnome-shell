@@ -1,6 +1,7 @@
 *.la
 *.lo
 *.o
+*.gresource
 .deps
 .libs
 ABOUT-NLS
@@ -13,7 +14,6 @@ data/org.gnome.Shell.desktop
 data/org.gnome.Shell.desktop.in
 data/gnome-shell-extension-prefs.desktop
 data/gnome-shell-extension-prefs.desktop.in
-data/gnome-shell-theme.gresource
 data/gschemas.compiled
 data/perf-background.xml
 data/org.gnome.shell.gschema.xml
