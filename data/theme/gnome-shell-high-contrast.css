@@ -1048,12 +1048,11 @@ StScrollBar {
   border: 1px solid black; }
   .system-menu-action:hover, .system-menu-action:focus {
     background-color: #0d0d0d;
-    color: #fff;
-    border: none;
-    padding: 14px; }
+    color: #fff; }
   .system-menu-action:active {
     background-color: #215d9c;
-    color: #ffffff; }
+    color: #ffffff;
+    border-color: #0f2b48; }
   .system-menu-action > StIcon {
     icon-size: 16px; }
 
