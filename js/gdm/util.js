@@ -121,8 +121,6 @@ var ShellUserVerifier = class {
                                this._updateDefaultService.bind(this));
         this._updateDefaultService();
 
-        this._fprintManager = Fprint.FprintManager();
-
         this._messageQueue = [];
         this._messageQueueTimeoutId = 0;
         this.hasPendingMessages = false;
