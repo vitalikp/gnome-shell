@@ -70,12 +70,12 @@ var Indicator = class extends PanelMenu.SystemIndicator {
         else
             return _("Estimating…");
 
-        let time = Math.round(seconds / 60);
-        if (time == 0) {
+        if (seconds == 0) {
             // 0 is reported when UPower does not have enough data
             // to estimate battery life
             return _("Estimating…");
         }
+        let time = Math.round(seconds / 60);
 
         let minutes = time % 60;
         let hours = Math.floor(time / 60);
