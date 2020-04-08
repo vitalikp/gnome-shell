@@ -1020,13 +1020,6 @@ var WindowManager = class {
             }
         });
 
-        global.display.connect('x11-display-opened', () => {
-            Shell.util_start_systemd_unit('gnome-session-x11-services.target', 'fail');
-        });
-        global.display.connect('x11-display-closing', () => {
-            Shell.util_stop_systemd_unit('gnome-session-x11-services.target', 'fail');
-        });
-
         Main.overview.connect('showing', () => {
             for (let i = 0; i < this._dimmedWindows.length; i++)
                 this._undimWindow(this._dimmedWindows[i]);
