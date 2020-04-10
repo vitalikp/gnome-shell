@@ -249,12 +249,6 @@ class DateMenuButton extends PanelMenu.Button {
 
         vbox.add_actor(this._calendar.actor);
 
-        this._displaysSection = new St.ScrollView({ style_class: 'datemenu-displays-section vfade',
-                                                    x_expand: true, x_fill: true,
-                                                    overlay_scrollbars: true });
-        this._displaysSection.set_policy(St.PolicyType.NEVER, St.PolicyType.AUTOMATIC);
-        vbox.add_actor(this._displaysSection);
-
         // Done with hbox for calendar and event list
 
         this._clock = new GnomeDesktop.WallClock();
@@ -297,10 +291,5 @@ class DateMenuButton extends PanelMenu.Button {
             eventSource = new Calendar.EmptyEventSource();
         }
         this._setEventSource(eventSource);
-
-        // Displays are not actually expected to launch Settings when activated
-        // but the corresponding app (clocks); however we can consider
-        // that display-specific settings, so re-use "allowSettings" here ...
-        this._displaysSection.visible = Main.sessionMode.allowSettings;
     }
 });
