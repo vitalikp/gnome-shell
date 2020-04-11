@@ -114,7 +114,6 @@ var ShellUserVerifier = class {
         this._client = client;
 
         this._defaultService = null;
-        this._preemptingService = null;
 
         this._settings = new Gio.Settings({ schema_id: LOGIN_SCREEN_SCHEMA });
         this._settings.connect('changed',
@@ -308,9 +307,6 @@ var ShellUserVerifier = class {
     }
 
     _getForegroundService() {
-        if (this._preemptingService)
-            return this._preemptingService;
-
         return this._defaultService;
     }
 
