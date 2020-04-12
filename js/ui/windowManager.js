@@ -1781,6 +1781,10 @@ var WindowManager = class {
         if (Main.actionMode == Shell.ActionMode.NONE)
             return true;
 
+        let key = binding.get_name();
+        if (!Object.prototype.hasOwnProperty.call(this._allowedKeybindings, key))
+            return false;
+
         // There's little sense in implementing a keybinding in mutter and
         // not having it work in NORMAL mode; handle this case generically
         // so we don't have to explicitly allow all builtin keybindings in
@@ -1789,7 +1793,7 @@ var WindowManager = class {
             binding.is_builtin())
             return false;
 
-        return !(this._allowedKeybindings[binding.get_name()] & Main.actionMode);
+        return !(this._allowedKeybindings[key] & Main.actionMode);
     }
 
     _syncStacking() {
