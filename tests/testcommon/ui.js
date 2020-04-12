@@ -10,7 +10,7 @@ const Environment = imports.ui.environment;
 
 function init(stage) {
     Environment.init();
-    let themeResource = Gio.Resource.load(global.datadir + '/gnome-shell-theme.gresource');
+    let themeResource = Gio.Resource.load(global.datadir + '/theme.gresource');
     themeResource._register();
 
     let context = St.ThemeContext.get_for_stage(stage);

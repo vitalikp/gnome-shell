@@ -41,16 +41,15 @@ endforeach
 subdir('dbus-interfaces')
 
 data_resources = [
-  ['dbus-interfaces', []],
-  ['osk-layouts', []],
-  ['theme', []]
+  ['dbus-interfaces'],
+  ['osk-layouts'],
+  ['theme']
 ]
 foreach resource : data_resources
   gnome.compile_resources(
-    'gnome-shell-' + resource[0],
-    'gnome-shell-@0@.gresource.xml'.format(resource[0]),
+    resource[0],
+    resource[0] + '.gresource.xml',
     source_dir: resource[0],
-    dependencies: resource[1],
     gresource_bundle: true,
     install: true,
     install_dir: pkgdatadir

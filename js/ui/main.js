@@ -333,12 +333,12 @@ function reloadThemeResource() {
     if (_themeResource)
         _themeResource._unregister();
 
-    _themeResource = Gio.Resource.load(global.datadir + '/gnome-shell-theme.gresource');
+    _themeResource = Gio.Resource.load(global.datadir + '/theme.gresource');
     _themeResource._register();
 }
 
 function _loadOskLayouts() {
-    _oskResource = Gio.Resource.load(global.datadir + '/gnome-shell-osk-layouts.gresource');
+    _oskResource = Gio.Resource.load(global.datadir + '/osk-layouts.gresource');
     _oskResource._register();
 }
 

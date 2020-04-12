@@ -5,7 +5,7 @@ CLDR_LAYOUTS_TARBALL="http://www.unicode.org/Public/cldr/latest/${ARCHIVE}"
 CLDR2JSON_GIT="git://repo.or.cz/cldr2json.git"
 
 CLDR2JSON="cldr2json/cldr2json.py"
-GRESOURCE_FILE="gnome-shell-osk-layouts.gresource.xml"
+GRESOURCE_FILE="osk-layouts.gresource.xml"
 TMP_GRESOURCE_FILE=".$GRESOURCE_FILE.tmp"
 
 destdir="$(realpath $0|xargs dirname)"

@@ -21,7 +21,7 @@ Updating these involves several steps:
    complete, and similar to our UI and target sizes. And the target
    directory must be data/osk-layouts in this repository.
 
-4) Modify gnome-shell-osk-layouts.gresource.xml to include the files
+4) Modify osk-layouts.gresource.xml to include the files
 
 5) Do git add on the updated/new files, and git commit.
 
