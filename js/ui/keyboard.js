@@ -1071,7 +1071,7 @@ var Keyboard = class Keyboard {
                 let manager = Clutter.DeviceManager.get_default();
                 let device = manager.get_device(deviceId);
 
-                if (!device.get_device_name().includes('XTEST')) {
+                if (device && !device.get_device_name().includes('XTEST')) {
                     this._lastDeviceId = deviceId;
                     this._syncEnabled();
                 }
