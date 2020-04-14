@@ -102,13 +102,15 @@ var LoginManagerSystemd = class {
             return;
         }
 
-        let sessionId = GLib.getenv('XDG_SESSION_ID');
-        if (!sessionId) {
-            log('Unset XDG_SESSION_ID, getCurrentSessionProxy() called outside a user session.');
-            return;
-        }
+        let creds, pid;
 
-        this._proxy.GetSessionRemote(sessionId, (result, error) => {
+        creds = new Gio.Credentials();
+        pid = creds.get_unix_pid();
+        if (pid <= 0)
+            return;
+        creds = null;
+
+        this._proxy.GetSessionByPIDRemote(pid, (result, error) => {
             if (error) {
                 logError(error, 'Could not get a proxy for the current session');
             } else {
@@ -118,6 +120,7 @@ var LoginManagerSystemd = class {
                 callback(this._currentSession);
             }
         });
+        pid = null;
     }
 
     canSuspend(asyncCallback) {
