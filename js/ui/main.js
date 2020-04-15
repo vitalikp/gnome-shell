@@ -2,7 +2,6 @@
 /* exported componentManager, notificationDaemon, windowAttentionHandler,
             ctrlAltTabManager, padOsdService, osdWindowManager,
             osdMonitorLabeler, shellDBusService,
-            shellAudioSelectionDBusService,
             screenSaverDBus, screencastService, uiGroup, magnifier,
             xdndHandler, keyboard, kbdA11yDialog, introspectService,
             start, pushModal, popModal, activateWindow, createLookingGlass,
@@ -10,7 +9,6 @@
 
 const { Clutter, Gio, GLib, GObject, Meta, Shell, St } = imports.gi;
 
-const AudioDeviceSelection = imports.ui.audioDeviceSelection;
 const Components = imports.ui.components;
 const CtrlAltTab = imports.ui.ctrlAltTab;
 const EndSessionDialog = imports.ui.endSessionDialog;
@@ -66,7 +64,6 @@ var ctrlAltTabManager = null;
 var osdWindowManager = null;
 var osdMonitorLabeler = null;
 var sessionMode = null;
-var shellAudioSelectionDBusService = null;
 var shellDBusService = null;
 var screenSaverDBus = null;
 var screencastService = null;
@@ -131,7 +128,6 @@ function start() {
     St.Settings.get().connect('notify::gtk-theme', _loadDefaultStylesheet);
     _initializeUI();
 
-    shellAudioSelectionDBusService = new AudioDeviceSelection.AudioDeviceSelectionDBus();
     shellDBusService = new ShellDBus.GnomeShell();
 
     _sessionUpdated();
