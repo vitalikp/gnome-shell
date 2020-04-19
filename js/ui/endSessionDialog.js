@@ -670,36 +670,38 @@ class EndSessionDialog extends ModalDialog.ModalDialog {
 
     _loadSessions() {
         this._loginManager.listSessions(result => {
-            let n = 0;
-            for (let i = 0; i < result.length; i++) {
-                let [id_, uid_, userName, seat_, sessionPath] = result[i];
-                let proxy = new LogindSession(Gio.DBus.system, 'org.freedesktop.login1', sessionPath);
+            this._loginManager.getCurrentSessionProxy(currentSessionProxy => {
+                let n = 0;
+                for (let i = 0; i < result.length; i++) {
+                    let [id_, uid_, userName, seat_, sessionPath] = result[i];
+                    let proxy = new LogindSession(Gio.DBus.system, 'org.freedesktop.login1', sessionPath);
 
-                if (proxy.Class != 'user')
-                    continue;
+                    if (proxy.Class != 'user')
+                        continue;
 
-                if (proxy.State == 'closing')
-                    continue;
+                    if (proxy.State == 'closing')
+                        continue;
 
-                if (proxy.Id == GLib.getenv('XDG_SESSION_ID'))
-                    continue;
+                    if (proxy.Id == currentSessionProxy.Id)
+                        continue;
 
-                let session = { user: this._userManager.get_user(userName),
-                                username: userName,
-                                type: proxy.Type,
-                                remote: proxy.Remote };
-                this._sessions.push(session);
+                    let session = { user: this._userManager.get_user(userName),
+                                    username: userName,
+                                    type: proxy.Type,
+                                    remote: proxy.Remote };
+                    this._sessions.push(session);
 
-                let actor = this._constructListItemForSession(session);
-                this._sessionList.add(actor);
+                    let actor = this._constructListItemForSession(session);
+                    this._sessionList.add(actor);
 
-                // limit the number of entries
-                n++;
-                if (n == MAX_USERS_IN_SESSION_DIALOG)
-                    break;
-            }
+                    // limit the number of entries
+                    n++;
+                    if (n == MAX_USERS_IN_SESSION_DIALOG)
+                        break;
+                }
 
-            this._sync();
+                this._sync();
+            });
         });
     }
 
